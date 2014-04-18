@@ -320,13 +320,13 @@ module.exports = function (grunt) {
             commit: true,
             push: true,
             message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-        },
-        pages: {
-            options: {
-                remote: 'git@github.com:kymmt/kymmt.github.io.git',
-                branch: 'master'
-            }
         }
+      },
+      pages: {
+          options: {
+              remote: 'git@github.com:kymmt/kymmt.github.io.git',
+              branch: 'master'
+          }
       }
     },
     coffeelint: {
@@ -431,7 +431,7 @@ module.exports = function (grunt) {
       'check',
       'test',
       'build',
-      'buildcontrol'
+      'buildcontrol:pages'
   ]);
 
   grunt.registerTask('default', [
