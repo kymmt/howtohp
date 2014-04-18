@@ -1,0 +1,75 @@
+.pagenation {
+    text-align:center;
+    padding-bottom:45px;
+    a.page-numbers {
+        position:relative;
+        li {
+            text-align:center;
+            span,
+            a {
+                margin:5px 0;
+            }
+            .current {
+                position:absolute;
+                top:45px;
+                right:0;
+                background:none;
+                &:before {
+                    content:'Page:';
+                }
+
+            }
+            a {
+                display:none;
+                &.prev,
+                &.next {
+                    width:35%;
+                    display:block;
+                }
+                &.next {
+                    float:right;
+                }
+            }
+        }
+    }
+}
+
+.pagination {
+    @extend .clearfix;
+    li {
+        display:inline-block;
+    }
+    a,span {
+        padding:8px 10px;
+        @extend .button-style;
+        &.dots {
+            padding:8px 3px;
+            border:none;
+            background:none;
+            &:active {
+                background:none;
+                box-shadow:none;
+            }
+        }
+        &:active,
+        &.current {
+            @include box-shadow(inset 0 1px 4px rgba(0, 0, 0, 0.25),0 1px 0 white);
+            @include background(linear-gradient(color-stops(#EFE9DF,#DED2BD)));
+        }
+    }
+}
+
+.pagenation {
+    width:86%;
+    max-width:48em;
+}
+
+
+//======================================================
+//  PC
+//======================================================
+@media #{$large} {
+    .pagination {
+        text-align:center;
+    }
+}

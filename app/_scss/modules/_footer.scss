@@ -1,0 +1,73 @@
+//===================================================
+// footer
+//===================================================
+.footer-container {
+    clear:both;
+    text-align:center;
+    margin:0 auto;
+    border-top:1px solid lighten($theme-color,15%);
+    @include box-shadow(0 -1px 0 darken($theme-color,15%));
+}
+
+.footer {
+    padding:20px 0;
+    font-weight:bold;
+}
+
+.social-rss {
+    width:181px;
+    margin:10px auto 20px auto;
+    clear:both;
+    .social-rss__list {
+        @extend %clearfix;
+        margin-left:-8px;
+    }
+    .social-rss__item {
+        float:left;
+        //IE8対応するためにlast-child使わない方法
+        margin-left:8px;
+        a {
+            display:block;
+            width:55px;
+            height:50px;
+            text-indent:-9999px;
+            @include transition(all 0.2s ease);
+        }
+        #twitter,
+        #facebook-page,
+        #feed {
+            background-image:inline-image("../img/share/btn-social_feed.png");
+            background-repeat:no-repeat;
+        }
+
+        #twitter {
+            background-position:left bottom;
+            &:hover {
+                background-position:left top;
+            }
+        }
+        #facebook-page {
+            background-position:-55px bottom;
+            &:hover {
+                background-position:-55px top;
+            }
+        }
+        #feed {
+            background-position:-110px bottom;
+            &:hover {
+                background-position:-110px top;
+            }
+        }
+    }
+}
+//===================================================
+//  Tablet
+//===================================================
+@media #{$middle} {
+}
+
+//===================================================
+//  PC
+//===================================================
+@media #{$large} {
+}

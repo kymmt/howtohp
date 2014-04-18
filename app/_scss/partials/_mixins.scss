@@ -1,0 +1,37 @@
+//================================================================
+//  Mixins
+//================================================================
+//Placeholder Color
+@mixin placeholder-color($color) {
+    &:-moz-placeholder {
+        color:$color;
+    }
+    &::-webkit-input-placeholder {
+        color:$color;
+    }
+}
+
+
+// Font Size
+//================================================================
+@mixin font-size($sizeValue: 1.6) {
+    font-size: ($sizeValue * 10) + px;
+    font-size: $sizeValue + rem;
+}
+
+//BEM helper
+//@require Sass 3.3
+//================================================================
+@mixin e($name) {
+    @at-root   &__#{$name} {
+        @content;
+    }
+}
+
+//modifiers get appended with "--" and the $name
+@mixin m($name) {
+    @at-root   &--#{$name} {
+        @content;
+    }
+}
+

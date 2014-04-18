@@ -1,0 +1,102 @@
+---
+layout: post
+title: DreamweaverとApacheを連携して、テスト環境の構築
+categories:
+- Tools
+tags:
+- Apache
+- Dreamweaver
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _thumbnail_id: '134'
+  _wp_old_slug: dreamweaver%e3%81%a8apache%e3%82%92%e9%80%a3%e6%90%ba%e3%81%97%e3%81%a6%e3%80%81%e3%83%86%e3%82%b9%e3%83%88%e7%92%b0%e5%a2%83%e3%81%ae%e6%a7%8b%e7%af%89
+  dsq_thread_id: '547653436'
+  dsq_needs_sync: '1'
+author:
+  login: admin
+  email: info@howtohp.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>サイトの構築をしていると、テスト環境がやっぱりあった方が楽ですよね。<br />
+用意された物があればそれを使えばいいんですが、なければ自分で作るしかありません。<br />
+でも、できれば、出来るだけ本番環境に近い環境でないとテスト環境としてあまり意味がないので、Apacheでバーチャルホストの機能を利用して、サイト毎にちゃんとドキュメントルートを分ける方法を紹介したいと思います。</p>
+<p><!--more--></p>
+<section id="index">
+<h1>手順</h1>
+<nav>
+<ol>
+<li><a href="#section-1">Apacheのインストール</a></li>
+<li><a href="#section-2">Dreamweaverのサイトの定義でテストサーバーの設定</a></li>
+<li><a href="#section-3">Apacheの設定</a></li>
+<li><a href="#section-4">Windosのhostファイルの編集</a></li>
+<li><a href="#section-5">Dreamweaverと同期をとって確認</a></li>
+</ol>
+</nav>
+</section>
+<section id="section-1">
+<h1>1.Apacheのインストール</h1>
+<p><a href="http://httpd.apache.org/download.cgi">Download - The Apache HTTP Server Project</a>←のサイトからWindowsの方は、Win32 Binaryのリンクからダウンロードして、インストールは、基本的にはNextを押していくだけで、OKです。メールアドレスの入力欄があるところだけ、自分のメールアドレスを入れていけばおｋでしょう。</p>
+<p>詳しいインストール方法は<a href="http://howtohp.com/tools/windows-apache.html">WindowsにApacheをインストール</a>のエントリーを参考にしてください。</p>
+</section>
+<section id="section-2">
+<h1>2.Dreamweaverのサイトの定義でテストサーバーの設定</h1>
+<figure><img src="http://howtohp.com/wp/wp-content/uploads/2009/10/site_definition.gif" alt="" title="サイトの定義" width="500" height="416" class="aligncenter size-full wp-image-145" /></figure>
+<p>ここで、テストサーバーの設定で、サーバーモデルをPHP MySQL、アクセスをローカル/ネットワークテストサーバーフォルダを、<strong>C:\Program Files\Apache Software Foundation\Apache2.2\htdocs</strong>の中に、サイト用のフォルダ(半角英数ならなんでもいい)を作成し、作成したフォルダを指定。<br />
+URL接頭辞には、自分がテストに使用したいURLを入力(インターネット上に存在しないURL)。</p>
+</section>
+<section id="section-3">
+<h1>3.Apacheの設定</h1>
+<p>C:\Program Files\Apache Software Foundation\Apache2.2\confの中のhttpd.confをテキストエディタで開きます。</p>
+<pre data-language="shell"><code># Virtual hosts
+#Include conf/extra/httpd-vhosts.conf</code></pre>
+<p>上記のvhostsで検索して、二行目の#コメントをはずします。</p>
+<pre data-language="shell"><code># Virtual hosts
+Include conf/extra/httpd-vhosts.conf</code></pre>
+<p>これで、バーチャルホストの設定が別ファイルとしてインクルードされます。</p>
+<p>インクルードしたvhosts.confがC:\Program Files\Apache Software Foundation\Apache2.2\conf\extraの中にありますので、それをテキストエディタで開きます。</p>
+<p>その中の、下記の部分の設定を変更します。</p>
+<pre data-language="shell"><code>&lt;VirtualHost *:80&gt;
+ServerAdmin webmaster@dummy-host.Windows.home
+DocumentRoot "C:/Program Files/Apache Software Foundation/Apache2.2/docs/dummy-host.Windows.home"
+ServerName dummy-host.Windows.home
+ServerAlias www.dummy-host.Windows.home
+ErrorLog "logs/dummy-host.Windows.home-error.log"
+CustomLog "logs/dummy-host.Windows.home-access.log" common
+&lt;/VirtualHost&gt;</code></pre>
+<p>ServerAdminは、サーバー管理者のメールアドレスに変更。<br />
+DocumentRootは、先ほど、htdocsに作成したサイト用のフォルダのパスに変更。<br />
+ServerNameは、Dreamweaverで設定した、URL接頭辞に変更。<br />
+ServerAliasはとりあえず今回は使いませんので、削除。<br />
+ErrorLogは、エラーログ用のファイルの保存先に変更を入力。存在しなければ自動的に作成します。<br />
+CustomLogには、アクセスログ用のファイルの保存先に変更。存在しなければ自動的に作成します。</p>
+<p>自分の場合、以下のようになります。</p>
+<pre data-language="shell"><code>&lt;VirtualHost *:80&gt;
+ServerAdmin info@howtohp.com
+DocumentRoot "C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\howtohp.com"
+ServerName local.howtohp.com
+ErrorLog "logs/howtohp.error.log"
+CustomLog "logs/howtohp.access.log" common
+&lt;/VirtualHost&gt;</code></pre>
+<p>これで、Apacheの設定は完了ですので、Apacheを再起動します。リスタートは、すべてのプログラム→Apache HTTP Server 2.2→Control Apache Server→Restartで再起動します。<br />
+この時に、コマンドラインの画面が一瞬だけ表示され、そのまま消えれば成功です。<br />
+消えずに、エラーメッセージが出れば、設定ファイルに何かエラーがありますので、エラーメッセージを参考に修正しましょう。</p>
+</section>
+<section id="section-4">
+<h1>4.Windosのhostファイルの編集</h1>
+<p>次に、、<strong>C:\Windows\System32\drivers\etc</strong>の中にある<strong>host</strong>という拡張子のないファイルを開き、下記のコードに1行先ほどURL接頭辞にしたURLを追記します。</p>
+<pre data-language="shell"><code>127.0.0.1       localhost
+127.0.0.1       local.howtohp.com</code></pre>
+</section>
+<section id="section-5">
+<h1>5.Dreamweaverと同期をとって確認</h1>
+<p>最後に、Dreamweaverで、ローカルとテストサーバーを同期をとります。</p>
+<figure>
+<img src="http://howtohp.com/wp/wp-content/uploads/2009/10/dreamweaver-apache_2.gif" alt="" title="DWで同期" width="231" height="216" class="alignleft size-full wp-image-147" /></figure>
+<p>これで、開きたいファイルをDreamweaver上で開いて、<kbd>F12</kbd>、もしくは、URL接頭辞に入力したURLを直接入力し、表示されれば、成功です。</p>
+<p>慣れれば、5分もかからないので、覚えておいた方がいいかと。</p>
+</section>

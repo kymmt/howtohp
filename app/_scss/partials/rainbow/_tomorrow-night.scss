@@ -1,0 +1,56 @@
+/**
+ * Tomorrow Night theme
+ *
+ * @author Chris Kempson
+ * @author skim
+ * @version 1.0.0
+ */
+
+pre {
+  background-color: #1d1f21;
+  word-wrap: break-word;
+  margin: 0px;
+  padding: 0 10px;
+  color: #c5c8c6;
+  font-size: 14px;
+  margin-bottom: 20px;
+  font-family: 'Monaco', courier, monospace; }
+
+code {
+  font-family: 'Monaco', courier, monospace; }
+
+pre {
+  .comment {
+    color: #969896; }
+  .variable {
+    &.global, &.class, &.instance {
+      color: #cc6666;
+      /* red */ } }
+  .constant {
+    &.numeric, &.language, &.hex-color {
+      color: #de935f;
+      /* orange */ } }
+  .keyword.unit {
+    color: #de935f;
+    /* orange */ }
+  .constant {
+    color: #f0c674;
+    /* yellow */ }
+  .entity {
+    color: #f0c674;
+    /* yellow */
+    &.class {
+      color: #f0c674;
+      /* yellow */ } }
+  .support {
+    color: #f0c674;
+    /* yellow */ }
+  .constant.symbol, .string {
+    color: #b5bd68;
+    /* green */ }
+  .entity.function, .support.css-property, .selector {
+    color: #81a2be;
+    /* blue */ }
+  .keyword, .storage {
+    color: #b294bb;
+    /* purple */ } }

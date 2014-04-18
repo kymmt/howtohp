@@ -1,0 +1,348 @@
+//==================================================
+//  Entry
+//==================================================
+.entry {
+    clear:both;
+
+    @include e(header) {
+        margin-bottom:20px;
+    }
+
+    @include e(link) {
+        text-decoration:none;
+    }
+
+    @include e(title) {
+        @include font-size(2.0);
+        font-weight:bold;
+        margin:0;
+        line-height:1.5;
+        color:$grayDark;
+    }
+
+    //Meta Informations
+    //==================================================
+    @include e(meta) {
+        text-align:right;
+        color:$gray;
+    }
+
+    @include e(published) {
+        @include inline-block;
+        font-family:Georgia, "Times New Roman", Times, serif;
+        text-align:right;
+        color:$gray;
+        @include font-size(1.7);
+    }
+
+    @include e(tags) {
+        display:inline-block;
+        margin-left:20px;
+        @include e(list) {
+            display:inline-block;
+        }
+        @include e(item) {
+            display:inline-block;
+            &:after {
+                content:",";
+            }
+            &:last-child:after {
+                content:"";
+            }
+        }
+    }
+
+
+    //============================================
+    // Entry Content
+    //============================================
+    @include e(content) {
+        padding-bottom:15px;
+
+        a {
+            &[href^='http']:not([href *= 'howtohp.com']) {
+                padding-right:20px;
+                background-image:inline-image("share/ico-external_link.png");
+                background-repeat:no-repeat;
+                background-position: right 50%;
+            }
+        }
+
+        section {
+            clear:both;
+            margin-bottom:50px;
+        }
+
+        //======================================
+        // Heading
+        //======================================
+        h1 {
+            position:relative;
+            @include font-size(2.0);
+            padding-bottom:5px;
+            border-bottom:3px solid darken($theme-color,20%);
+            margin:30px 0;
+        }
+        h2 {
+            margin:25px 0;
+            @include font-size(1.8);
+            border-bottom:1px solid darken($theme-color,20%);
+        }
+        h3 {
+            font-size:16px;
+            padding-left:8px;
+            border-left:4px solid darken($theme-color,40%);
+        }
+        h4 {
+            font-size:15px;
+        }
+        p {
+            margin:0 0 1.8em 0;
+
+        }
+
+        //======================================
+        // Lists
+        //======================================
+        ol,ul,dl {
+            margin:15px 0 25px;
+        }
+
+        li {
+            padding:4px;
+        }
+        ul,ol {
+            padding-left:20px;
+            ul,ol {
+                margin:0.5em inherit;
+            }
+        }
+        ul {
+            list-style-type: disc;
+            ul {
+                list-style-type: circle;
+            }
+        }
+        ol {
+            list-style-type: decimal;
+            li {
+            }
+        }
+        dl {
+            dt {
+                font-weight:bold;
+                margin-bottom:0.3em;
+            }
+            dd {
+                margin-left:1.2em;
+                margin-bottom:0.8em;
+            }
+        }
+
+        strong {
+            text-decoration:underline;
+        }
+
+        blockquote {
+            font: 14px/22px normal helvetica, sans-serif;
+            margin:10px 0 10px;
+            padding-left: 15px;
+            border-left: 3px solid darken($theme-color,20%);
+        }
+        cite {
+            display:block;
+            text-align:right;
+            font-family:serif;
+        }
+
+        code {
+            padding:4px;
+            background:rgba(255,255,255,.6);
+            border-radius:3px;
+        }
+
+        //Wordpress default class
+        img {
+            &.aligncenter {
+                clear: both;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top:1.4em;
+            }
+            &.alignleft {
+                display: inline;
+                float: left;
+                margin-right: 1.4em;
+                margin-top:1.4em;
+            }
+            &.alignright {
+                display: inline;
+                float: right;
+                margin-left: 1.4em;
+                margin-top:1.4em;
+            }
+        }
+
+        figure {
+            @extend .clearfix;
+            clear:both;
+            background:#fff;
+            text-align:center;
+            margin-bottom:1.5em;
+            padding:20px 10px 20px 10px;
+            border:1px solid darken($theme-color,20%);
+            img {
+                vertical-align:bottom;
+            }
+            figcaption {
+                text-align:right;
+                font-family:serif;
+                &.center {
+                    text-align:center;
+                }
+            }
+            &.bordered {
+                @include border-radius(10px);
+                border:1px solid darken($theme-color,20%);
+            }
+        }
+
+        table {
+            width: 100%;
+            background:#fff;
+            margin-bottom:2em;
+            padding: 0;
+            border-collapse: separate; // Done so we can round those corners!
+            *border-collapse: collapse; /* IE7, collapse table to remove spacing */
+            font-size: $default-font-size;
+            border: 1px solid #ddd;
+            text-shadow:0 1px 1px #fff;
+            thead {
+                th {
+                    background-color:$accent-color;
+                    text-align:center;
+                    color:#fff;
+                    text-shadow:none;
+                }
+                th + th {
+                    border-left: 1px solid lighten(#ddd, 10%);
+                }
+            }
+            th, td {
+                padding: 10px 10px 9px;
+                line-height: $default-line-height;
+                text-align: left;
+            }
+            th {
+                padding-top: 9px;
+                font-weight: bold;
+                vertical-align: middle;
+                border-bottom: 1px solid #ddd;
+            }
+            td {
+                vertical-align: top;
+            }
+            th + th,
+            td + td {
+                border-left: 1px solid #ddd;
+            }
+            tr + tr td {
+                border-top: 1px solid #ddd;
+            }
+            tbody {
+                tr:nth-child(odd) td {
+                    background-color: lighten(#f5f5f5, 1%);
+                }
+                tr:hover td {
+                    background-color: #f5f5f5;
+                }
+            }
+        }
+
+        .youtube-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            padding-top: 25px;
+            height: 0;
+            margin-bottom:30px;
+
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+.published {
+}
+
+
+
+#social-link {
+    border-top:3px dashed darken($theme-color,20%);
+    padding-top:20px;
+    li {
+        margin-right:10px;
+        float:left;
+    }
+}
+
+.backtotop {
+    font-size:0.9em;
+    text-align:right;
+    a {
+        color:hsla(0,0,0,0.4);
+        padding:4px;
+        text-decoration:none;
+        border-bottom: 1px solid hsla(0, 0%, 0%, 0.2);
+    }
+}
+
+//=================================================
+// Tablet
+//=================================================
+@media #{$middle} {
+    .entry {
+        @include font-size(1.6);
+        @include e(title) {
+            @include font-size(2.6);
+        }
+    }
+}
+
+//=================================================
+// PC
+//=================================================
+@media #{$large} {
+    .entry {
+    }
+
+    // Publish date
+    // ================================================
+    //    .published {
+        //        margin:0;
+        //        position:absolute;
+        //        left:-100px;
+        //        top:10px;
+        //        width:80px;
+        //        text-align:right;
+        //        @include font-size(2.0);
+        //        line-height:1.2;
+    //    }
+    //    .published__day {
+        //        display:block;
+        //        font-size:2em;
+        //        font-weight:bold;
+    //    }
+    //    .published__month {
+        //        display:block;
+    //    }
+    //    .published__year {
+        //        display:block;
+    //    }
+}

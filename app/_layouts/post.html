@@ -1,0 +1,47 @@
+---
+layout: default
+---
+<article class="entry h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="entry__header">
+        <h1 class="entry__title" itemprop="name">{{ page.title }}</h1>
+        <div class="entry__meta">
+            <time class="entry__published" itemprop="datePublished" datetime="{{ page.date | date_to_string }}">
+                <span class="icon-calendar"></span>
+                {{ page.date | date: "%-d %b, %Y" }}
+            </time>
+
+            {% if page.tags.size > 0 %}
+            <div class="entry__tags">
+                <span class="icon-tags"></span>
+                <ul class="entry__tags__list">
+                    {% for tag in page.tags %}
+                    <li class="entry__tags__item" itemprop="keywords">{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div><!-- / .entry__meta -->
+    </header>
+
+    <div class="entry__content" itemprop="articleBody">
+        {{ content }}
+    </div>
+</article>
+
+<div class="pager">
+    <a href="#" class="pager__prev">&lt;&lt; Prev</a></span>
+    <a href="#" class="pager__next">Next &gt;&gt;</a></span>
+</div>
+
+
+{% if site.related_posts.size > 1 %}
+<hr>
+<section class="related-posts">
+    <h1>関連記事</h1>
+    <ul>
+        {% for post in site.related_posts limit:5 %}
+        <li><a rel="bookmark" href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

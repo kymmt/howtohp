@@ -1,0 +1,68 @@
+//===========================================
+// Variables
+//===========================================
+
+//Break point for media queries
+$small: "only screen and (max-width:640px)";
+$middle: "only screen and (min-width:641px)";
+$large: "only screen and (min-width:960px)";
+
+//theme color
+$theme-color-light: lighten(#efe9df,10%);
+$theme-color: #efe9df;
+$theme-color-dark: darken($theme-color,15%);
+//$theme-color: #ebebeb;
+//$theme-color: #eee;
+
+//accent color
+$accent-color: #e5694f;
+//default color
+$default-color: #555;
+
+//link color
+$link-color: #0044cc;
+$visited-color: #551A8B;
+$hover-color: lighten($link-color,10%);
+$active-color: darken($link-color, 20%);
+
+//Fonts
+$default-font-size:16px;
+$default-line-height:1.7;
+$default-font-family: Arial,sans-serif;
+$default-code-font-family: 'Source Code Pro', sans-serif;
+
+//$default-font-family:ff-tisa-web-pro-1, ff-tisa-web-pro-2, Arial, sans-serif;
+
+//Colors
+
+// Grays
+$black:                 #000 !default;
+$grayDarker:            #222 !default;
+$grayDark:              #333 !default;
+$gray:                  #555 !default;
+$grayLight:             #999 !default;
+$grayLighter:           #eee !default;
+$white:                 #fff !default;
+
+// Accent colors
+$blue:                  #049cdb !default;
+$blueDark:              #0064cd !default;
+$green:                 #46a546 !default;
+$red:                   #9d261d !default;
+$yellow:                #ffc40d !default;
+$orange:                #f89406 !default;
+$pink:                  #c3325f !default;
+$purple:                #7a43b6 !default;
+
+
+
+//=================================
+// Width
+//=================================
+$site-width:83%;
+$mobile-container-width:96%;
+$tablet-container-width:92%;
+$pc-container-width:800px;
+$post-width: 580px;
+$side-width: 250px;
+$gap-width:20px;

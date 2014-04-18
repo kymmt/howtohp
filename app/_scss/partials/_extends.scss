@@ -1,0 +1,28 @@
+%clearfix {
+    &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+
+//===================================================
+//  Tablet
+//===================================================
+@media #{$middle} {
+    %container {
+        margin:0 auto;
+        @include clearfix;
+    }
+}
+
+//===================================================
+//  PC
+//===================================================
+@media #{$large} {
+    %container {
+        margin:0 auto;
+        @include clearfix;
+    }
+}

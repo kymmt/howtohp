@@ -1,0 +1,113 @@
+---
+layout: post
+title: MTでカテゴリーナビの所属しているカテゴリのみ条件分岐する
+categories:
+- MovableType
+tags:
+- Movable Type
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  _wp_old_slug: mt%e3%81%a7%e3%82%ab%e3%83%86%e3%82%b4%e3%83%aa%e3%83%bc%e3%83%8a%e3%83%93%e3%81%ae%e6%89%80%e5%b1%9e%e3%81%97%e3%81%a6%e3%81%84%e3%82%8b%e3%82%ab%e3%83%86%e3%82%b4%e3%83%aa%e3%81%ae%e3%81%bf%e6%9d%a1
+  dsq_thread_id: '547652283'
+author:
+  login: admin
+  email: info@howtohp.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>Movable Type(以下MT）でブログなどのウェブサイトを制作していると、ユーザビリティを上げるため、ナビゲーションの現在いるページの部分をハイライトさせて表示させるデザインにすることが多くあると思います。</p>
+<p>しかし、<abbr title="Movable Type">MT</abbr>を使用してカテゴリー一覧を表示させると、その中の一部に対して、特別なidを付けるのは普通の<abbr title="Movable Type">MT</abbr>タグだけでは、難しかったのですが、最近、やっと方法がわかったので、メモしておきます。</p>
+<p><!--more--></p>
+<h1>一階層目までのカテゴリーリストを表示する場合</h1>
+<p>まず、現在の開いているページのカテゴリーを取得するのですが、ここでMTSetVarBlockタグを使い、変数として、用意しておきます。</p>
+<p>このサイトの場合は、変数を用意する場合、すべて一ヶ所にまとめていた方が分かりやすいので、ヘッダーテンプレートのDTDより前にまとめて記述します。</p>
+<p>以下がソースです。</p>
+<pre data-language="html"><code>&lt;mt:IfArchiveType archive_type="Individual"&gt;
+&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
+&lt;/mt:IfArchiveType&gt;
+&lt;mt:IfArchiveType archive_type="Category"&gt;
+&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
+&lt;/mt:IfArchiveType&gt;</code></pre>
+<p>ここでは、mt:IfArchiveType を使用して、個別ページと、カテゴリーアーカイブページで変数を利用するように条件分岐しています。<br />
+ここで、分岐しておかないと、すべてのテンプレートに挿入される場合、カテゴリーが存在しないトップページなどで利用できないので、再構築の際にエラーがでます。</p>
+<p>個別ページとカテゴリーページのテンプレートに挿入すれば、分岐しなくても問題ないような気もしますが、未確認ですので、どなたか確認された方は報告頂ければありがたいです。</p>
+<p>次に、本題のカテゴリーナビの部分ですが、MTTopLevelCategoriesかMTSubCategoriesを使用して一覧を表示していると思うのですが、その中で、もう一度、現在表示しているページのカテゴリーを変数として定義し、カテゴリー一覧を表示している中で現在表示しているカテゴリーと一致するものだけ分岐します。</p>
+<p>以下がulで一覧を括った場合のソースです。</p>
+<pre data-language="html"><code>&lt;ul&gt;
+&lt;MTTopLevelCategories&gt;
+&lt;MTSetVarBlock name="category_label2"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
+&lt;MTIf name="category_label2" eq="$category_label"&gt;
+&lt;li id="current"&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&lt;MTIfNonEmpty tag="MTCategoryDescription"&gt; title="&lt;$MTCategoryDescription$&gt;"&lt;/MTIfNonEmpty&gt;&gt;&lt;$MTCategoryLabel$&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;MTElse&gt;
+&lt;li&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&lt;MTIfNonEmpty tag="MTCategoryDescription"&gt; title="&lt;$MTCategoryDescription$&gt;"&lt;/MTIfNonEmpty&gt;&gt;&lt;$MTCategoryLabel$&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/MTElse&gt;
+&lt;/MTIf&gt;
+&lt;/MTTopLevelCategories&gt;
+&lt;/ul&gt;</code></pre>
+<p>上記では、トップレベルのカテゴリーのみを分岐して、表示しているカテゴリーのliタグにid="current"を付けている例です。</p>
+<h1>二階層目までのカテゴリーリストを表示する場合</h1>
+<p>最近、仕事で、二階層目までのサブカテゴリーをハイライトし、所属している親カテゴリーにも別のidを付けてハイライトする必要があったので、以下にソースを晒しておきます。</p>
+<p>まずは、変数宣言部分のソース</p>
+<pre data-language="html"><code>&lt;mt:IfArchiveType archive_type="Individual"&gt;
+&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
+&lt;MTSetVarBlock name="top_category_label2"&gt;&lt;MTTopLevelParent&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTTopLevelParent&gt;&lt;/MTSetVarBlock&gt;
+&lt;/mt:IfArchiveType&gt;
+&lt;mt:IfArchiveType archive_type="Category"&gt;
+&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
+&lt;/mt:IfArchiveType&gt;</code></pre>
+<p>先ほどのトップレベルカテゴリーのみの場合と違うのは、現在表示しているカテゴリーの親カテゴリーを変数として定義します。以下がソースです。</p>
+<pre data-language="html"><code>&lt;MTSetVarBlock name="top_category_label2"&gt;&lt;MTTopLevelParent&gt;&lt;$MTCategoryLabel$&gt;</code></pre>
+<p>上記の部分で、親カテゴリーを定義しておきます。<br />
+これは、二階層目まで限定です。三階層目までいくと、ひとつ上のカテゴリではなく、一番上のカテゴリーを取得するので、分岐ができません。</p>
+<p>次にカテゴリー一覧部分のソースです。</p>
+<pre data-language="html"><code>&lt;MTTopLevelCategories&gt;
+&lt;MTSetVarBlock name="top_category_label2"&gt;&lt;MTTopLevelParent&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTTopLevelParent&gt;&lt;/MTSetVarBlock&gt;
+&lt;MTSubCatIsFirst&gt;&lt;ul&lt;MTHasNoParentCategory&gt; id="localNavi"&lt;/MTHasNoParentCategory&gt;&gt;&lt;/MTSubCatIsFirst&gt;
+&lt;MTIf name="top_category_label2" eq="$top_category_label"&gt;
+&lt;li id="current"&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&gt;&lt;MTIfCategory&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTIfCategory&gt;&lt;/a&gt;
+&lt;MTSubCategories&gt;
+&lt;MTSetVarBlock name="category_label2"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
+&lt;MTSubCatIsFirst&gt;&lt;ul&gt;&lt;/MTSubCatIsFirst&gt;
+&lt;MTIf name="category_label2" eq="$category_label"&gt;
+&lt;li id="sub_current"&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&gt;&lt;MTIfCategory&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTIfCategory&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;MTElse&gt;
+&lt;li&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&gt;&lt;$MTCategoryLabel$&gt;&lt;/a&gt;&lt;MTSubCatsRecurse&gt;&lt;/li&gt;
+&lt;/MTIf&gt;
+&lt;MTSubCatIsLast&gt;&lt;/ul&gt;&lt;/MTSubCatIsLast&gt;
+&lt;/MTSubCategories&gt;
+&lt;/li&gt;
+&lt;MTElse&gt;
+&lt;li&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&gt;&lt;$MTCategoryLabel$&gt;&lt;/a&gt;&lt;MTSubCatsRecurse&gt;&lt;/li&gt;
+&lt;/MTElse&gt;
+&lt;/MTIf&gt;
+&lt;MTSubCatIsLast&gt;&lt;/ul&gt;&lt;/MTSubCatIsLast&gt;
+&lt;/MTTopLevelCategories&gt;</code></pre>
+<p>上記のソースで構築すると以下のようなhtmlが吐き出されます。</p>
+<pre data-language="html"><code>&lt;ul id="localNavi"&gt;
+&lt;li&gt;&lt;a href="#"&gt;親カテゴリー1&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li id="current"&gt;&lt;a href="#"&gt;所属している親カテゴリー2&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー1&lt;/a&gt;&lt;/li&gt;
+&lt;li id="sub_current"&gt;&lt;a href="#"&gt;所属しているサブカテゴリー2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;親カテゴリー3&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;サブカテゴリー3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>これで、所属しているカテゴリーのみ別のスタイルを効かせることができるので、あとはCSSでハイライトさせる用のスタイルを書けばOKです。</p>

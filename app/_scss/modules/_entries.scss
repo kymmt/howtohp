@@ -1,0 +1,42 @@
+.entries {
+    @include e(title) {
+        @include font-size(2.0);
+        margin:1.5em 0;
+        text-align:center;
+    }
+
+    @include e(item) {
+        position:relative;
+        @include font-size(1.5);
+        margin:10px 0;
+        position:relative;
+    }
+
+    @include e(link) {
+        display:block;
+        padding-right:6em;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    @include e(published) {
+        top:0;
+        right:0;
+        position:absolute;
+        font-family:Georgia, "Times New Roman", Times, serif;
+    }
+}
+
+
+@media #{$middle} {
+    .entries {
+        @include e(item) {
+            @include font-size(2.5);
+        }
+        @include e(title) {
+            @include font-size(4.5);
+            text-align:center;
+        }
+    }
+}

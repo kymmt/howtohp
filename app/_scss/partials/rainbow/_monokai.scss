@@ -1,0 +1,158 @@
+/**
+ * Monokai theme
+ *
+ * @author Kohei Yamamoto 
+ * @version 0.0.1
+ */
+
+$bracket-color:#90fc00;
+
+
+pre[data-language] {
+    overflow-y:hidden;
+    overflow: auto;
+    word-wrap: pre;
+    word-break: normal;
+//    @include box-shadow(inset 8px 0px 15px rgba(darken(#272822, 10%), .9));
+    line-height: 19px;
+    margin-bottom: 20px;
+    font-family: Consolas, Menlo, 'Liberation Mono', Courier, monospace;
+    color: #f3f3f3;
+    background: #272822;
+    background: rgba(#272822, .95);
+    border-radius:4px;
+
+    code {
+        @include inline-block;
+        padding-left:8px;
+        border: 0px;
+        margin: 0px;
+        font-size: 16px;
+        span {
+            @include transition-property(color);
+            @include transition-duration(1s);
+            @include transition-timing-function(ease-in);
+        }
+    }
+
+    //ruby
+    .constant {
+        &.symbol {
+            color: #ce87fb;
+        }
+    }
+
+    .comment {
+        color: #75715e; 
+    }
+
+    .support {
+        color: #0086B3;
+        &.attribute {
+            color: #64eaff;
+        }
+    }
+
+    .bracket {
+        color:$bracket-color;
+    }
+
+    .support {
+        &.tag {
+            color:$bracket-color;
+        }
+        &.close {
+            color:$bracket-color;
+        }
+    }
+
+    .tag {
+        color: #ff5a87;
+    }
+
+    .tag-name {
+        color: #ff5a8e;
+    }
+    .keyword, .css-property, .vendor-prefix,  .class, .id, .pseudo, .css-value, .entity.function, .storage.function {
+//        font-weight: bold;
+    }
+    .css-property, .css-value, .vendor-prefix, .support.namespace {
+        color: #ff9f00;
+    }
+    .constant.numeric, .keyword.unit, .hex-color {
+        font-weight: normal;
+        color: #e6db74;;
+    }
+    .entity {
+        &.class,
+        &.pseudo {
+            color: #64eaff;
+        }
+        &.id, &.function {
+            color: #900;
+        }
+    }
+    .variable {
+        color: teal;
+    }
+    .string, .support.value {
+        font-weight: normal;
+        color: #cacaa0;
+    }
+    .regexp {
+        color: #009926;
+    }
+
+    .sass {
+        color: #cacaa0;
+        &.function {
+            color: #8cd100;
+        }
+    }
+}
+
+pre {
+    margin:0 0 3em 0;
+    padding:8px;
+    width:100%;
+    overflow:auto;
+    vertical-align:bottom;
+    code[data-language] {
+        font-family: $default-code-font-family;
+        display:block;
+        margin:0;
+        padding-left:10px;
+        padding-bottom:0;
+    }
+    &[data-language] {
+        position:relative;
+        &:before {
+            width:10px;
+            height:100%;
+            background:pink;
+        }
+    }
+    &[data-language=shell] {
+        background:#000;
+        color:#fff;
+        padding:5px;
+    }
+    &[data-language=html] {
+        border-left: 6px solid #f06529;
+    }
+    &[data-language=css] {
+        border-left: 6px solid #0092bf;
+    }
+    &[data-language=javascript] {
+        border-left: 6px solid #17f100;
+    }
+    &[data-language=scss] {
+        border-left: 6px solid #ce4dd6;
+    }
+    &[data-language=ruby] {
+        border-left: 6px solid #9f0909;
+    }
+    &[data-language=plain] {
+        border-left: 6px solid #ccc;
+    }
+}

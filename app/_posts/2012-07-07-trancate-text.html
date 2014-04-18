@@ -1,0 +1,26 @@
+---
+layout: post
+title: CSSで文字列を丸める
+categories:
+- CSS
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '2'
+author:
+  login: kohei
+  email: contact@koheiyamamoto.me
+  display_name: kymmt
+  first_name: Kohei
+  last_name: Yamamoto
+---
+<p>このサイトでは横幅539px以下の時に一箇所だけ使ってるんですけど、残念ながらマルチラインには対応してないので、使いどころは難しかもしれないけど、一応メモ。</p>
+<pre data-language="css"><code>.truncate {
+    width: 250px; /* 超えちゃいけない幅 */
+    white-space: nowrap; /* 改行させない */
+    overflow: hidden; /* ellipsis対応してないブラウザ対応 */
+    text-overflow: ellipsis;
+}</code></pre>
+<p><code>text-overflow: ellipsis;</code>に関してはIE6からつかえる</p>

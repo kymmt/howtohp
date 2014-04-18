@@ -1,0 +1,34 @@
+---
+layout: post
+title: Dreamweaverのコードヒントでwidowsプロパティ等を出ないようにする。
+categories:
+- CSS
+- Tools
+tags:
+- Dreamweaver
+status: publish
+type: post
+published: true
+meta:
+  _thumbnail_id: '96'
+  _edit_last: '2'
+  _wp_old_slug: dreamweaver%e3%81%ae%e3%82%b3%e3%83%bc%e3%83%89%e3%83%92%e3%83%b3%e3%83%88%e3%81%a7widows%e3%83%97%e3%83%ad%e3%83%91%e3%83%86%e3%82%a3%e7%ad%89%e3%82%92%e5%87%ba%e3%81%aa%e3%81%84%e3%82%88%e3%81%86
+  dsq_thread_id: '547691519'
+author:
+  login: admin
+  email: info@howtohp.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>たぶん多くのひとがイラっとしていると思うのですが、DreamweaverでCSSを書いていると幅を指定しようとして、widthを入力しようとして、コードヒントに慣れすぎて、&quot;wi&quot;ぐらいまで入力して、確定してしまい、widthを入れようとしてるのに、widowsが出てしまい、&quot;widt&quot;まで入力しないと、widthとしてコード補完してくれません。</p>
+<p><!--more--></p>
+<h1>コードヒントを修正するファイル</h1>
+<p>コードヒントを編集するには、自分の場合(Windows Vista)、<br />C:\Program Files\Adobe\Adobe Dreamweaver CS3\configuration\CodeHints<br />
+の中に、CodeHints.xmlというXMLファイルがあり、CS3の場合、5589行目あたりから、補完に出てくるプロパティがずらずらっとかかれてます。そのうち必要のないものをコメントアウトするだけで、補完に出てこなくなります。</p>
+<p class="btn">
+<h1>Widowsとは</h1>
+<p>ちなみに、widowsプロパティは、印刷用のページで、改ページした後、次のページで最低何行表示させるかというものを指定するためのプロパティで、指定の仕方は以下のようになります。</p>
+<pre data-language="css"><code>p.sample {
+    widows:3;
+}</code></pre>
