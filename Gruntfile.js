@@ -316,17 +316,11 @@ module.exports = function (grunt) {
     buildcontrol: {
       dist: {
         options: {
-            dir: '<%= yeoman.dist %>',
-            commit: true,
-            push: true,
-            message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+          remote: 'https://github.com/kymmt/kymmt.github.io.git',
+          branch: 'master',
+          commit: true,
+          push: true
         }
-      },
-      pages: {
-          options: {
-              remote: 'git@github.com:kymmt/kymmt.github.io.git',
-              branch: 'master'
-          }
       }
     },
     coffeelint: {
@@ -431,7 +425,7 @@ module.exports = function (grunt) {
       'check',
       'test',
       'build',
-      'buildcontrol:pages'
+      'buildcontrol'
   ]);
 
   grunt.registerTask('default', [
