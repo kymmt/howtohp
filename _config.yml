@@ -11,10 +11,9 @@ author:
 
 # Grunt handles images and assets.
 exclude: ['img', 'css', 'js', 'fonts',
-          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico', 'vendor']
 
 include: ['.htaccess']
-exclude: ['vender']
 
 # _config.build.yml sets future and show_drafts to false on `grunt build`
 future: true

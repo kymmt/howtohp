@@ -5,7 +5,7 @@
 
     background: #272822;
     background: rgba(#272822, .90);
-    font-family: "Source Code Pro",monospace;
+    font-family: monospace;
     color:#f8f8f2;
     font-size: 1em;
     text-shadow: none;
@@ -19,7 +19,7 @@
         word-wrap: pre;
         background:transparent;
         color:#f8f8f2;
-        font-family: "Source Code Pro",monospace;
+        font-family: monospace;
     }
     code {
         .entry__content & {

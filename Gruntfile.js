@@ -314,14 +314,18 @@ module.exports = function (grunt) {
       }
     },
     buildcontrol: {
-      dist: {
         options: {
-          remote: 'https://github.com/kymmt/kymmt.github.io.git',
-          branch: 'master',
-          commit: true,
-          push: true
+            dir: 'dist',
+            commit: true,
+            push: true,
+            message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+        },
+        pages: {
+            options: {
+                remote: 'git@github.com:kymmt/howtohp.git',
+                branch: 'gh-pages'
+            }
         }
-      }
     },
     coffeelint: {
         options: {
