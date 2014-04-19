@@ -48,7 +48,7 @@ author:
 
 上記の場所にCustom.cssというファイルを作成し、以下のCSSでフォントサイズなどを変更することができます。
 
-{% highlight css %}
+~~~ css
 body.platform-mac .monospace, body.platform-mac .source-code {
     font-family: Monaco, monospace;
 }
@@ -64,7 +64,7 @@ body.platform-windows .monospace, body.platform-windows .source-code {
     line-height: 1.2;
     font-family: Consolas, Lucida Console, monospace;
 }
-{% endhighlight %}
+~~~
 
 見ての通り、プラットフォーム毎にセレクターが違いますので、環境に合わせて使ってください。
 

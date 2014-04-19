@@ -21,9 +21,9 @@ author:
 
 対応は簡単で、css_color.vimを入れると、`~/.vim/after/syntax/css.vim`ってファイルが出来ると思うのですが、同じ階層にscss.vimってファイルを作って、以下の一行を書くだけです。
 
-{% highlight bash %}
+~~~ bash
 syntax cluster sassCssAttributes add=@cssColors
-{% endhighlight %}
+~~~
 
 RGBとかにも対応してていい感じなんですけど、自分の場合、ターミナル上でVimを動かしてて、ターミナル自体を半透明にさせちゃってたり、SASSの機能で、lightenとかdarkenとか結構使っちゃうので、正直あんまり意味はないっちゃない。
 

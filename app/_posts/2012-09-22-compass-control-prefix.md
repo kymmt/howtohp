@@ -56,7 +56,7 @@ Compassでは元々ブラウザーサポートを制御する設定があり、�
 
 こんな感じのSCSSをサンプルに説明します。
 
-{% highlight scss %}
+~~~ scss
 @import "compass";
 @import "config";
 
@@ -66,7 +66,7 @@ Compassでは元々ブラウザーサポートを制御する設定があり、�
             radial-gradient(#c00, #fff 100px)
         )
 }
-{% endhighlight %}
+~~~
 
 ## iOS4/5用の設定
 
@@ -74,21 +74,21 @@ Compassでは元々ブラウザーサポートを制御する設定があり、�
 
 ### _config.scss
 
-{% highlight scss %}
+~~~ scss
 $experimental-support-for-opera:false;
 $experimental-support-for-microsoft:false;
 $experimental-support-for-mozilla: false;
-{% endhighlight %}
+~~~
 
 ### style.css(出力されるCSS)
 
-{% highlight css %}
+~~~ css
 .sample {
   background: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, rgba(51, 51, 51, 0.8)), color-stop(100%, rgba(0, 204, 0, 0.5))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, #cccccc), color-stop(100%, #ffffff));
   background: -webkit-linear-gradient(top left, rgba(51, 51, 51, 0.8), rgba(0, 204, 0, 0.5)), -webkit-radial-gradient(#cccccc, #ffffff 100px);
   background: linear-gradient(top left, rgba(51, 51, 51, 0.8), rgba(0, 204, 0, 0.5)), radial-gradient(#cccccc, #ffffff 100px);
 }
-{% endhighlight %}
+~~~
 
 ## iOS5のみの場合
 
@@ -99,21 +99,21 @@ iOS5のみの場合は、グラデーションの記法が変わってますの�
 
 ### _config.scss
 
-{% highlight scss %}
+~~~ scss
 $experimental-support-for-opera:false;
 $experimental-support-for-microsoft:false;
 $experimental-support-for-mozilla: false;
 $support-for-original-webkit-gradients: false   //これを追記
-{% endhighlight %}
+~~~
 
 ### style.css(出力されるCSS)
 
-{% highlight css %}
+~~~ css
 .sample {
   background: -webkit-linear-gradient(top left, rgba(51, 51, 51, 0.8), rgba(0, 204, 0, 0.5)), -webkit-radial-gradient(#cccccc, #ffffff 100px);
   background: linear-gradient(top left, rgba(51, 51, 51, 0.8), rgba(0, 204, 0, 0.5)), radial-gradient(#cccccc, #ffffff 100px);
 }
-{% endhighlight %}
+~~~
 
 こんな感じで、簡単にプレフィックスの出力をコントロール出来ます。Mixinを作る際のヘルパーも用意されているので、自作でゴリゴリ書くよりは大分楽できるんじゃないでしょうか。
 
@@ -125,18 +125,18 @@ $support-for-original-webkit-gradients: false   //これを追記
 
 ### _config.scss
 
-{% highlight scss %}
+~~~ scss
 $experimental-support-for-svg: true;
-{% endhighlight %}
+~~~
 
 ### style.css(出力されるCSS)
 
-{% highlight css %}
+~~~ css
 .sample {
   /* SVGの部分だけ抜粋 */
   background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSg1MSwgNTEsIDUxLCAwLjgpIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSJyZ2JhKDAsIDIwNCwgMCwgMC41KSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA=='), url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iMTAwIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjY2NjY2NjIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
 }
-{% endhighlight %}
+~~~
 
 ちなみにこのサンプルのグラデーションはかなり汚い感じなので、ご注意を。
 

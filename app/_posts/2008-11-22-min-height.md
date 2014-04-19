@@ -14,7 +14,7 @@ author:
 
 # CSS Sample
 
-{% highlight css %}
+~~~ css
 /*------------------------------------------------
 500pxの最低の高さ
 -------------------------------------------------*/
@@ -23,13 +23,13 @@ author:
 	height:auto !important;
 	height:500px;
 }
-{% endhighlight %}
+~~~
 
 たった3行で、ほぼ、すべてのブラウザで最低の高さを持たせることができます。
 
 ## SASSでmixinを作った場合
 
-{% highlight scss %}
+~~~ scss
 @mixin min-height($val) {
     min-height:$val;
     height:auto !important;
@@ -45,4 +45,4 @@ author:
 #hoge {
     @include min-height(500px);
 }
-{% endhighlight %}
+~~~

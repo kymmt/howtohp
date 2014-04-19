@@ -5,19 +5,11 @@ categories:
 - Tools
 tags:
 - Homebrew
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
-  _thumbnail_id: '287'
   dsq_thread_id: '547706290'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 Mac OSXにバンドルし忘れているパッケージ管理ソフトをインストールしました。  
 これがあれば、今後MySQL入れたり、node.js入れたりその他もろもろ色々楽になるはず。

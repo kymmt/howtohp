@@ -27,7 +27,7 @@ author:
 
 Firefoxに関してはレンダリングが300倍遅くなるという理由でBANされたようですね。  
 
-{% highlight css %}
+~~~ css
 span.skype_pnh_container {
     display: none !important;
 }
@@ -35,13 +35,13 @@ span.skype_pnh_container {
 span.skype_pnh_print_container {
     display: inline !important;
 }
-{% endhighlight %}
+~~~
 
 クリックコールツールの場合は、以下のメタタグをhead内に記述するだけです。こちらに関しては確認済みです。  
 
-{% highlight html %}
+~~~ html
 <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-{% endhighlight %}
+~~~
 
 ## 参考サイト
 

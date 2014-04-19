@@ -5,18 +5,13 @@ categories:
 - CSS
 tags:
 - Compass
-status: publish
-type: post
-published: true
 meta:
   dsq_thread_id: '547689143'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
+
 何故か、去年の9月に書いた前回のCompassについての記事が最近になって、やたらはてブやらTweetやらされてて焦ってます。このタイミングでなんか書かないとと思ったので、この流れに乗って、Compassの設定について。
 
 <section id="introduction" markdown="block">

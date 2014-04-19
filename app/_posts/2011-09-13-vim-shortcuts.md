@@ -10,14 +10,11 @@ type: post
 published: true
 meta:
   dsq_thread_id: '547705909'
-  _thumbnail_id: '355'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
+
 MacにしてからDreamweaverからVimに乗り換えたので、メモしておく。
 
 いままでDreamweaver以外にも、AptanaとかCodaとかSublime TextとかMacにしてからというもの、色々試した。そらぁもう試した。あ、emacsには手をだしてません。

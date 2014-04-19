@@ -6,22 +6,14 @@ categories:
 tags:
 - Apache
 - Dreamweaver
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
-  _thumbnail_id: '134'
-  _wp_old_slug: dreamweaver%e3%81%a8apache%e3%82%92%e9%80%a3%e6%90%ba%e3%81%97%e3%81%a6%e3%80%81%e3%83%86%e3%82%b9%e3%83%88%e7%92%b0%e5%a2%83%e3%81%ae%e6%a7%8b%e7%af%89
   dsq_thread_id: '547653436'
   dsq_needs_sync: '1'
 author:
-  login: admin
   email: info@howtohp.com
-  display_name: admin
-  first_name: ''
-  last_name: ''
+  display_name: kymmt
 ---
+
 <p>サイトの構築をしていると、テスト環境がやっぱりあった方が楽ですよね。<br />
 用意された物があればそれを使えばいいんですが、なければ自分で作るしかありません。<br />
 でも、できれば、出来るだけ本番環境に近い環境でないとテスト環境としてあまり意味がないので、Apacheでバーチャルホストの機能を利用して、サイト毎にちゃんとドキュメントルートを分ける方法を紹介したいと思います。</p>

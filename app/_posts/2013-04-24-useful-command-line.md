@@ -39,17 +39,17 @@ CompassやらGruntやらでコマンドラインツールを使う機会も増�
 
 ### open
 
-{% highlight bash %}
+~~~ bash
 open .
-{% endhighlight %}
+~~~
 
 現在いるディレクトリをファインダーで開く。  
 openするとファイルに応じて紐付けられているアプリで開いてくれます。  
 URLだったらデフォルトのブラウザ、音楽ファイルならiTunesみたいに
 
-{% highlight bash %}
+~~~ bash
 open -a safari http://google.com
-{% endhighlight %}
+~~~
 
 みたいにアプリを指定することも可能
 </section>
@@ -59,9 +59,9 @@ open -a safari http://google.com
 
 ### qlmanage
 
-{% highlight bash %}
+~~~ bash
 qlmanage -p 画像ファイル名
-{% endhighlight %}
+~~~
 
 openで画像を開こうとするとデフォルトだとPreviewが開くので、結構起動が重いです。   
 これで開くとQuickLookが開いてくれるので軽いです。
@@ -77,9 +77,9 @@ openで画像を開こうとするとデフォルトだとPreviewが開くので
 
 Web関係やってたらステージング環境にベーシック認証かけることもあるので、覚えとくと便利。
 
-{% highlight bash %}
+~~~ bash
 htpasswd -c .htpasswd ユーザー名
-{% endhighlight %}
+~~~
 
 -cでcreateって事なんでファイルを生成するには必須です。コマンド入力後パスワード聞かれるので、入力してエンターでおｋ。
 </section>
@@ -89,9 +89,9 @@ htpasswd -c .htpasswd ユーザー名
 
 ### pbcopy
 
-{% highlight bash %}
+~~~ bash
 pbcopy < ~/.ssh/id_rsa.pub
-{% endhighlight %}
+~~~
 
 こんな感じでSSHキーを求められるgithubなんかでいちいち開いてコピーしなくてもクリップボードに入れてくれます。
 </section>
@@ -101,10 +101,10 @@ pbcopy < ~/.ssh/id_rsa.pub
 
 ### shutdown
 
-{% highlight bash %}
+~~~ bash
 shutdown now #電源切ってくれます。  
 shutdown -r now #再起動
-{% endhighlight %}
+~~~
 
 </section>
 <section id="purge" markdown="block">
@@ -112,9 +112,9 @@ shutdown -r now #再起動
 
 ### purge
 
-{% highlight bash %}
+~~~ bash
 sudo purge
-{% endhighlight %}
+~~~
 
 強制的にディスクキャッシュを追放する。結果メモリを開放してくれる。  
 ※Marvericksからsudoが必要になりました。
@@ -124,9 +124,9 @@ sudo purge
 
 ### !!
 
-{% highlight bash %}
+~~~ bash
 !!
-{% endhighlight %}
+~~~
 
 前回打ったコマンドと同じものを実行。
 </section>
@@ -141,16 +141,16 @@ sudo purge
 
 発音を確認したいときとかによく使ってます。pluralize(複数形にする)コマンドとかも欲しい。
 
-{% highlight bash %}
+~~~ bash
 say 文字列
-{% endhighlight %}
+~~~
 
 英語の発音でなんとなく知りたい時に言わせてみる、ファイル内の文字列を延々と読ませる事も可能  
 声を変える事も可能　自分の環境ではデフォルトはAlexという男性でした。
 
-{% highlight bash %}
+~~~ bash
 say -v Vicki omg
-{% endhighlight %}
+~~~
 
 omgに関しては、ちゃんとoh my Godと言います。  
 他にも対応してるアクロニムあるかもしれませんがomgしかわからなかった。  
@@ -161,22 +161,22 @@ wtfと言わせてみようとしたけど、普通にダブリューティー�
 <section id="dict" markdown="block">
 ## 辞書を開く
 
-{% highlight bash %}
+~~~ bash
 open dict:///検索文字列
-{% endhighlight %}
+~~~
 
 普通にopenコマンドで辞書開くんですが、これだとめんどくさいので.bashrcなり.zshrcに以下の様に書いておきます。
 
-{% highlight text %}
+~~~ text
 ".zshrc  
 dict () { open dict:///"$@" ; }
-{% endhighlight %}
+~~~
 
 こう書いておけばdictコマンドで辞書を開くことができます。
 
-{% highlight bash %}
+~~~ bash
 dict search
-{% endhighlight %}
+~~~
 
 設定で表示される辞書を変更できるんですが、ここに[URBAN DICTIONARY](http://www.urbandictionary.com/)を追加してほしい。  
 誰かなんとかしてくれないかな。

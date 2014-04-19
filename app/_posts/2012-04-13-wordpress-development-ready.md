@@ -114,9 +114,9 @@ license.txt
 このサイトはさくらのサーバーで運用してるので、下記の様なコマンドを.bashrcに記述しておきます。
 
 
-{% highlight bash %}
+~~~ bash
 alias synchowtohp="rsync -avvrh --update --exclude-from ~/work/howtohp/.gitignore  --delete -e ssh ~/work/howtohp/ ユーザー名@サーバー名.sakura.ne.jp:~/www/"
-{% endhighlight %}
+~~~
 
 `~/work/howtohp/`の部分は自分のローカル環境のWordpressのルートディレクトリになります。
 

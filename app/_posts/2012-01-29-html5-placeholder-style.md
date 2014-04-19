@@ -5,18 +5,11 @@ categories:
 - CSS
 tags:
 - HTML5
-status: publish
-type: post
-published: true
 meta:
-  _thumbnail_id: '389'
   dsq_thread_id: '556478748'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 デザインをそろそろ変えようと思って、リニューアル作業をしてたらつまづいてしまったので、メモ。
 

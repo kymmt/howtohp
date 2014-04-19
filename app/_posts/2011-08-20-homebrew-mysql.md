@@ -1,24 +1,16 @@
 ---
 layout: post
-Title: MacにHomebrewでMySQLをインストールしてみた。
+title: MacにHomebrewでMySQLをインストールしてみた。
 categories:
 - Tools
 tags:
 - Homebrew
 - Mac
 - MySQL
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
   dsq_thread_id: '547706110'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 
 WordpressやMTなどのCMS使ったりするには必須なので、インストールしておきました。
