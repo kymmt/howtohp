@@ -322,8 +322,8 @@ module.exports = function (grunt) {
         },
         pages: {
             options: {
-                remote: 'git@github.com:kymmt/howtohp.git',
-                branch: 'gh-pages'
+                remote: 'git@github.com:kymmt/kymmt.github.io.git',
+                branch: 'master'
             }
         }
     },
