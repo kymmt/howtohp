@@ -5,9 +5,6 @@ categories:
 - MovableType
 tags:
 - MovableType
-status: publish
-type: post
-published: true
 meta:
   dsq_thread_id: '547652283'
 author:

@@ -5,19 +5,11 @@ categories:
 - CSS
 tags: 
 - CSS
-status: publish
-type: post
-published: true
 meta:
-  _thumbnail_id: '1005'
-  _edit_last: '2'
   dsq_thread_id: '1218100260'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 ブラウザでSkypeの拡張を入れている人は勝手に電話番号がハイライトされてスカイプアイコンが表示されたりしちゃうので、それを防ぐ方法。
 

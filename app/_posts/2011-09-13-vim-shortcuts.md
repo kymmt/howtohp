@@ -5,9 +5,6 @@ categories:
 - Tools
 tags:
 - Vim
-status: publish
-type: post
-published: true
 meta:
   dsq_thread_id: '547705909'
 author:

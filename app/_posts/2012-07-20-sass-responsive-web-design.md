@@ -6,20 +6,11 @@ categories:
 tags:
 - CSS
 - SASS
-status: publish
-type: post
-published: true
 meta:
   dsq_thread_id: '772710372'
-  _thumbnail_id: '898'
-  _edit_last: '2'
-  _wp_old_slug: sass-responsive-web-desig
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 このサイトをメディアクエリー使ってレスポンシブウェブデザインって奴にしてみたんですけど、Sassを使うにあたって、色々思った事や、引っかかった事があるので、まとめてみます。
 

@@ -5,19 +5,11 @@ categories:
 - CSS
 tags:
 - CSS
-status: publish
-type: post
-published: true
 meta:
-  _wp_old_slug: table-css-selector-level4
-  _edit_last: '2'
   dsq_thread_id: '574151345'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 
 CSS3では、:nth-childなんかが追加されて行を特定してマッチさせる事ができるようになったり、:emptyで空の要素を指定できるようになって、かなり便利になったんですが、Level 4ではさらに列をマッチさせることができるようになるっぽいです。

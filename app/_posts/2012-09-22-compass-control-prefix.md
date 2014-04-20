@@ -6,18 +6,11 @@ categories:
 - Tools
 tags:
 - Compass
-status: publish
-type: post
-published: true
 meta:
   dsq_thread_id: '853706118'
-  _edit_last: '2'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 このブログでCompassを紹介して、もう1年以上たちましたが、なかなか普及しないなぁっと思って、色々みていると、ドキュメントや、サンプルコードが乏しいという理由が多いようで、だったらということで、頑張って色々書いていこうと思う。
 

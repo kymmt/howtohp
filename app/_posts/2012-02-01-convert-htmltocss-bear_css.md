@@ -5,20 +5,11 @@ categories:
 - WebSite
 tags:
 - CSS
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
-  _thumbnail_id: '429'
   dsq_thread_id: '560096954'
-  _wp_old_slug: convert-htmltocss-bear_cs
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 これは、いままでなかった新しいサービスなんじゃないでしょうか。HTMLファイルを送ると、IDやClassを書いたCSSファイルを用意してくれるウェブサービスです。
 

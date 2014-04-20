@@ -5,9 +5,6 @@ categories:
 - Tools
 tags:
 - CSS
-status: publish
-type: post
-published: true
 meta:
   dsq_thread_id: '568731658'
 author:

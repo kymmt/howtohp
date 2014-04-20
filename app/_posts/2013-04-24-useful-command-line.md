@@ -5,17 +5,11 @@ categories:
 - Tools
 tags:
 - Mac
-status: publish
-published: true
 meta:
-  _edit_last: '2'
   dsq_thread_id: '1231581618'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 CompassやらGruntやらでコマンドラインツールを使う機会も増えてきてる今日このごろだと思うのですが、ターミナル上でVim使ってる私は、色々便利すぎてシェルが使えないWindowsでの作業は苦痛になってしまってます。
 

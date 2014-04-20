@@ -5,19 +5,11 @@ categories:
 - Other
 tags:
 - Wordpress
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
-  _thumbnail_id: '750'
   dsq_thread_id: '647476166'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 
 これでデザインを変えたのは4回目になります。  

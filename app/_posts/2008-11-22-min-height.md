@@ -3,9 +3,6 @@ layout: post
 title: CSSで最低の高さを実現する。
 tags:
 - CSS
-status: publish
-type: post
-published: true
 author:
   login: admin
   email: info@howtohp.com
