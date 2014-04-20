@@ -4,18 +4,12 @@ title: 今更ながら、text-shadowを色々試してみる。
 categories:
 - CSS
 tags: []
-status: publish
-type: post
-published: true
 meta:
   _edit_last: '2'
   dsq_thread_id: '547706360'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 もう正直出尽くしてると思いますが、一応メモというか勉強用に試してみた。
 

@@ -5,18 +5,11 @@ categories:
 - CSS
 tags:
 - CSS3
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
   dsq_thread_id: '547706489'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 前からtransition使ってみたかったけど、使う機会がなかったので、ブログをMTからWPに移行した際にリンクを全部ふわっとさせることにした。
 

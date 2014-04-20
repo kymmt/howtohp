@@ -5,7 +5,6 @@ categories:
 - WebSite
 tags:
 - CSS
-type: post
 meta:
   dsq_thread_id: '547705941'
 author:

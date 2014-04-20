@@ -9,16 +9,10 @@ status: publish
 type: post
 published: true
 meta:
-  _edit_last: '2'
-  _thumbnail_id: '532'
   dsq_thread_id: '568731658'
-  _wp_old_slug: chrome%e4%bd%bf%e3%81%84%e3%81%aa%e3%82%89%e8%a6%9a%e3%81%88%e3%81%a8%e3%81%84%e3%81%9f%e6%96%b9%e3%81%8c%e3%81%84%e3%81%84%e3%80%81%e3%83%87%e3%83%99%e3%83%ad%e3%83%83%e3%83%91%e3%83%bc%e3%83%84
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 
 まだまだ、開発環境はFirefox + Firebug最強だろ常識的に考えてって言う人も多いかと思いますが、自分は、Chrome出た頃からのユーザーなんですが、意外とChromeのDeveloper Toolsも使える事を知られてないようなので、ちょっと紹介します。

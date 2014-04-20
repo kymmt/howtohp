@@ -9,12 +9,7 @@ tags:
 - HTML
 - SVG
 - XPath
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
-  _thumbnail_id: '101'
   dsq_thread_id: '547762473'
 author:
   email: info@howtohp.com
@@ -38,4 +33,4 @@ author:
 HTML5やCSS3などは、まだないようです。
 
 W3C Cheatsheet  
-<a href="http://www.w3.org/2009/cheatsheet/" rel="external" class="external">http://www.w3.org/2009/cheatsheet/</a>
+[http://www.w3.org/2009/cheatsheet/](http://www.w3.org/2009/cheatsheet/)

@@ -9,14 +9,10 @@ status: publish
 type: post
 published: true
 meta:
-  _edit_last: '2'
   dsq_thread_id: '547652283'
 author:
-  login: admin
-  email: info@howtohp.com
-  display_name: admin
-  first_name: ''
-  last_name: ''
+  email: info@howtohp.com 
+  display_name: kymmt
 ---
 
 Movable Type(以下MT）でブログなどのウェブサイトを制作していると、ユーザビリティを上げるため、ナビゲーションの現在いるページの部分をハイライトさせて表示させるデザインにすることが多くあると思います。
@@ -34,12 +30,13 @@ Movable Type(以下MT）でブログなどのウェブサイトを制作して�
 以下がソースです。
 
 ~~~ html
-&lt;mt:IfArchiveType archive_type="Individual"&gt;
-&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
-&lt;/mt:IfArchiveType&gt;
-&lt;mt:IfArchiveType archive_type="Category"&gt;
-&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
-&lt;/mt:IfArchiveType&gt;</code></pre>
+<mt:IfArchiveType archive_type="Individual">
+<mt:SetVarBlock name="category_label"><$mt:CategoryLabel$></mt:SetVarBlock>
+</mt:IfArchiveType>
+<mt:IfArchiveType archive_type="Category">
+<mt:SetVarBlock name="category_label"><$mt:CategoryLabel$></mt:SetVarBlock>
+</mt:IfArchiveType>
+~~~
 
 ここでは、mt:IfArchiveType を使用して、個別ページと、カテゴリーアーカイブページで変数を利用するように条件分岐しています。<br />
 ここで、分岐しておかないと、すべてのテンプレートに挿入される場合、カテゴリーが存在しないトップページなどで利用できないので、再構築の際にエラーがでます。
@@ -53,40 +50,45 @@ Movable Type(以下MT）でブログなどのウェブサイトを制作して�
 
 以下がulで一覧を括った場合のソースです。
 
-<pre data-language="html"><code>&lt;ul&gt;
-&lt;MTTopLevelCategories&gt;
-&lt;MTSetVarBlock name="category_label2"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
-&lt;MTIf name="category_label2" eq="$category_label"&gt;
-&lt;li id="current"&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&lt;MTIfNonEmpty tag="MTCategoryDescription"&gt; title="&lt;$MTCategoryDescription$&gt;"&lt;/MTIfNonEmpty&gt;&gt;&lt;$MTCategoryLabel$&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;MTElse&gt;
-&lt;li&gt;&lt;a href="&lt;$MTCategoryArchiveLink$&gt;"&lt;MTIfNonEmpty tag="MTCategoryDescription"&gt; title="&lt;$MTCategoryDescription$&gt;"&lt;/MTIfNonEmpty&gt;&gt;&lt;$MTCategoryLabel$&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/MTElse&gt;
-&lt;/MTIf&gt;
-&lt;/MTTopLevelCategories&gt;
-&lt;/ul&gt;</code></pre>
+~~~ html
+<ul>
+<mt:TopLevelCategories>
+<mt:SetVarBlock name="category_label2"><$MTCategoryLabel$></mt:SetVarBlock>
+<mt:If name="category_label2" eq="$category_label">
+    <li id="current"><a href="<$mt:CategoryArchiveLink$>"<mt:IfNonEmpty tag="MTCategoryDescription"> title="<$mt:CategoryDescription$>"</mt:IfNonEmpty>><$mt:CategoryLabel$></a></li>
+<mt:Else>
+    <li><a href="<$mt:CategoryArchiveLink$>"<mt:IfNonEmpty tag="mt:CategoryDescription"> title="<$mt:CategoryDescription$>"</mt:IfNonEmpty>><$mt:CategoryLabel$></a></li>
+</mt:If>
+</mt:TopLevelCategories>
+</ul>
+~~~
 
 上記では、トップレベルのカテゴリーのみを分岐して、表示しているカテゴリーのliタグにid="current"を付けている例です。
 
-<h1>二階層目までのカテゴリーリストを表示する場合</h1>
+# 二階層目までのカテゴリーリストを表示する場合
 
 最近、仕事で、二階層目までのサブカテゴリーをハイライトし、所属している親カテゴリーにも別のidを付けてハイライトする必要があったので、以下にソースを晒しておきます。
 
 
 まずは、変数宣言部分のソース
 
-<pre data-language="html"><code>&lt;mt:IfArchiveType archive_type="Individual"&gt;
-&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
-&lt;MTSetVarBlock name="top_category_label2"&gt;&lt;MTTopLevelParent&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTTopLevelParent&gt;&lt;/MTSetVarBlock&gt;
-&lt;/mt:IfArchiveType&gt;
-&lt;mt:IfArchiveType archive_type="Category"&gt;
-&lt;MTSetVarBlock name="category_label"&gt;&lt;$MTCategoryLabel$&gt;&lt;/MTSetVarBlock&gt;
-&lt;/mt:IfArchiveType&gt;</code></pre>
+~~~ html
+<mt:IfArchiveType archive_type="Individual">
+<mt:SetVarBlock name="category_label"><$MTCategoryLabel$></mt:SetVarBlock>
+<mt:SetVarBlock name="top_category_label2"><mt:TopLevelParent><$MTCategoryLabel$></mt:TopLevelParent></mt:SetVarBlock>
+</mt:IfArchiveType>
+<mt:IfArchiveType archive_type="Category">
+<mt:SetVarBlock name="category_label"><$MTCategoryLabel$></mt:SetVarBlock>
+</mt:IfArchiveType>
+~~~
 
 先ほどのトップレベルカテゴリーのみの場合と違うのは、現在表示しているカテゴリーの親カテゴリーを変数として定義します。以下がソースです。
 
-<pre data-language="html"><code>&lt;MTSetVarBlock name="top_category_label2"&gt;&lt;MTTopLevelParent&gt;&lt;$MTCategoryLabel$&gt;</code></pre>
+~~~ html
+<mt:SetVarBlock name="top_category_label2"><mt:TopLevelParent><$MTCategoryLabel$>
+~~~
 
-上記の部分で、親カテゴリーを定義しておきます。<br />
+上記の部分で、親カテゴリーを定義しておきます。  
 これは、二階層目まで限定です。三階層目までいくと、ひとつ上のカテゴリではなく、一番上のカテゴリーを取得するので、分岐ができません。
 
 
@@ -118,7 +120,7 @@ Movable Type(以下MT）でブログなどのウェブサイトを制作して�
 
 上記のソースで構築すると以下のようなhtmlが吐き出されます。
 
-~~~
+~~~ html
 <ul id="localNavi">
     <li><a href="#">親カテゴリー1</a>
         <ul>
@@ -143,7 +145,6 @@ Movable Type(以下MT）でブログなどのウェブサイトを制作して�
     </li>
 </ul>
 ~~~
-
 
 これで、所属しているカテゴリーのみ別のスタイルを効かせることができるので、あとはCSSでハイライトさせる用のスタイルを書けばOKです。
 

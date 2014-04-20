@@ -6,18 +6,11 @@ categories:
 tags:
 - Apache
 - Mac
-status: publish
-type: post
-published: true
 meta:
-  _edit_last: '2'
   dsq_thread_id: '547706023'
 author:
-  login: kohei
-  email: contact@koheiyamamoto.me
+  email: info@howtohp.com 
   display_name: kymmt
-  first_name: Kohei
-  last_name: Yamamoto
 ---
 Macには元々Apacheが入ってるので、それの使い方と、自分の使い方の紹介。(MAMPは使いません。)  
 Windowsでの設定は[DreamweaverとApacheを連携して、テスト環境の構築]({% post_url 2009-10-05-dreamweaver-apache %})の記事が参考になるかもしれません。
