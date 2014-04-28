@@ -4,7 +4,7 @@
         float:left;
         margin:0;
         a {
-            @extend .button-style;
+            @extend %button-style;
             .tag-name {
                 position:relative;
                 line-height:1;

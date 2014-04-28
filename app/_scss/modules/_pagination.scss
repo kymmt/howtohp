@@ -35,13 +35,13 @@
 }
 
 .pagination {
-    @extend .clearfix;
+    @extend %clearfix;
     li {
         display:inline-block;
     }
     a,span {
         padding:8px 10px;
-        @extend .button-style;
+        @extend %button-style;
         &.dots {
             padding:8px 3px;
             border:none;

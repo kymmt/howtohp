@@ -1,21 +1,32 @@
 .pager {
+    text-align:center;
+    position:relative;
+    min-height:34px;
+    margin:20px 0;
     @extend %clearfix;
-    @include e(prev) {
-        float:left;
-        @extend .button-style;
+    %pager-style {
+        position:absolute;
+        top:0;
+        @extend %button-style;
         padding:8px 10px;
         &:active {
             @include box-shadow(inset 0 1px 4px rgba(0, 0, 0, 0.25),0 1px 0 white);
             @include background(linear-gradient(color-stops(#EFE9DF,#DED2BD)));
         }
     }
+    @include e(prev) {
+        left:0;
+        @extend %pager-style;
+    }
     @include e(next) {
-        float:right;
-        @extend .button-style;
-        padding:8px 10px;
-        &:active {
-            @include box-shadow(inset 0 1px 4px rgba(0, 0, 0, 0.25),0 1px 0 white);
-            @include background(linear-gradient(color-stops(#EFE9DF,#DED2BD)));
-        }
+        right:0;
+        @extend %pager-style;
+    }
+
+    @include e(number) {
+        display:inline-block;
+        color:$grayLight;
+        padding:8px 0;
+        margin:0 auto;
     }
 }
