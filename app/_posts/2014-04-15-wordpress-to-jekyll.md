@@ -196,5 +196,16 @@ bundle install --path ./vendor/bundle
 
 <section markdown="block">
 # サーバーをさくらからgithubへ
+
+これに関しては正直、最適な方法がわからない。
+
+Githubページに移行するのはいいんだけど、Gruntfile.jsとか.editorconfigとかのドットファイルなんかもリモートリポジトリに入れときたかったんだ。
+
+でも、Githubページのユーザーページはリポジトリのルートに置かなきゃいけないので、そこに出力したHTMLとかとGruntfile.jsを同居できない。
+
+なので現在、Githubユーザーページ用のリポジトリと開発環境用のGruntfile.jsとかをおいているリポジトリを分けて対応。
+これに関してはなんか気持ち悪い感が残ってる。
+
+具体的な方法に関しては、長くなってきたので割愛するが、`git push`で開発環境の方をリポジトリにあげて、`grunt deploy`で生成したHTMLの方をGithubページの方にあげるようにしている。
 </section>
 

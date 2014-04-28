@@ -4,8 +4,8 @@ title: CSSで最低の高さを実現する。
 tags:
 - CSS
 author:
-  login: admin
   email: info@howtohp.com
+  display_name: kymmt
 ---
 最低の高さを持たせるっていうのは、色んなデザインをコーディングしてたら、かなりの確率で出会う場面なんですが、IE6でmin-heightが使えなかったり、IE7ではheightで指定した値を超えても、自動的に広がってくれないので、色んなやり方があると思うんですが、自分のやり方をメモっておきます。
 
