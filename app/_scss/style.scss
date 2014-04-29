@@ -34,9 +34,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.5);
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    background: rgba(0,0,0,0.5);
 }
 
 ::-webkit-scrollbar-track {
@@ -44,28 +44,31 @@
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
+::-webkit-scrollbar-thumb:window-inactive {
+    background: auto;
+}
 
 img {
     max-width: 100%;
     height: auto;
-    //width /***/:auto;　/*IE8のみ適用*/
+    //width /***/:auto;  /*IE8のみ適用*/
 }
 
 
 /* ===================================================
-    Base Style
-   =================================================== */
+Base Style
+=================================================== */
 html {
     font-size:62.5%;
 }
 
 body {
-    font-family: $default-font-family;
-    line-height:$default-line-height;
-    color:$default-color;
     border-top:3px solid $accent-color;
     background-color:$theme-color;
     background-image:  inline-image("../img/share/background.png");
+    color:$default-color;
+    font-family: $default-font-family;
+    line-height:$default-line-height;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -97,20 +100,20 @@ a {
 }
 
 hr {
+    margin:30px auto;
     width:70%;
     height:0;
-    margin:30px auto;
-    border-radius:15px;
     border-top:5px solid darken($theme-color, 5%);
     border-bottom:5px solid darken($theme-color, 5%);
+    border-radius:15px;
 }
 
 //==================================
 //  Common styles for @extend
 //==================================
 .embos-line-bottom {
-    border-bottom:1px solid darken($theme-color,10%);
     @include box-shadow(0 1px 0 lighten($theme-color,15%));
+    border-bottom:1px solid darken($theme-color,10%);
 }
 
 
@@ -123,13 +126,13 @@ hr {
 }
 
 .backtotop {
-    font-size:0.9em;
     text-align:right;
+    font-size:0.9em;
     a {
-        color:rgba(0,0,0,.4);
         padding:4px;
-        text-decoration:none;
         border-bottom:1px solid rgba(0,0,0,.2);
+        color:rgba(0,0,0,.4);
+        text-decoration:none;
     }
 }
 
@@ -138,15 +141,15 @@ hr {
 // layout
 //====================================================================
 .container {
-    margin-left: auto;
-    margin-right: auto;
     @extend %clearfix;
+    margin-right: auto;
+    margin-left: auto;
     max-width:$mobile-container-width;
 }
 
 .container--small {
-    margin:0 auto;
     @extend %clearfix;
+    margin:0 auto;
     max-width:$mobile-container-width - 5%;
 }
 
@@ -161,11 +164,11 @@ hr {
 .home,.archive {
     .entry__content {
         p:first-of-type {
-            line-height:1.4;
+            overflow:hidden;
             min-height:5.6em;
             max-height: 7em;
-            overflow:hidden;
             text-overflow: ellipsis;
+            line-height:1.4;
         }
         p:not(:first-of-type) {
             display:none;
@@ -176,10 +179,10 @@ hr {
 
 @media #{$middle} {
     .container {
-        width:$tablet-container-width;
         @include m(small) {
             width:$tablet-container-width - 5%;
         }
+        width:$tablet-container-width;
     }
 
 

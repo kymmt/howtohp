@@ -185,26 +185,26 @@
         }
 
         figure {
-            @extend %clearfix;
-            clear:both;
-            background:#fff;
-            text-align:center;
-            margin-bottom:1.5em;
-            padding:10px 10px 20px 10px;
-            border:1px solid darken($theme-color,20%);
-            img {
-                vertical-align:bottom;
-            }
-            figcaption {
-                text-align:right;
-                font-family:serif;
-                &.center {
-                    text-align:center;
-                }
-            }
             &.bordered {
                 @include border-radius(10px);
                 border:1px solid darken($theme-color,20%);
+                @extend %clearfix;
+                clear:both;
+                background:#fff;
+                text-align:center;
+                margin-bottom:1.5em;
+                padding:10px 10px 20px 10px;
+                border:1px solid darken($theme-color,20%);
+                img {
+                    vertical-align:bottom;
+                }
+                figcaption {
+                    text-align:right;
+                    font-family:serif;
+                    &.center {
+                        text-align:center;
+                    }
+                }
             }
         }
 

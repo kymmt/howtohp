@@ -25,7 +25,7 @@ author:
 
 # Dreamweaverでサイトの定義をし、同期をとり、クロークの実行
 
-![サイトの定義](http://howtohp.com/wp/wp-content/uploads/2009/07/site_definition_thumb.gif)
+![サイトの定義](/img/posts/mt-develop/site_definition_thumb.gif)
 
 次にDreamweaverでサイトの定義をし、サーバー上のファイルと同期をとっておきます。  
 この時、注意しないといけないのが、MTで吐き出すファイルたちは、記事を投稿する度に更新されるので、その都度ファイルを同期しようとしますが、それらのファイルはローカルで編集することはないので、Dreamweaver上でクロークを実行しておきます。
@@ -38,7 +38,7 @@ author:
 この機能を使うと、テンプレートをファイルとして吐き出し、そのファイルを編集し、FTPでサーバーにアップロードすれば、そのテンプレートを使用して再構築してくれます。  
 つまり、エディターで編集して管理画面で貼り付けするにも一つ一つやらないといけないので、この機能を使えば、一気に複数のテンプレートを編集できます。
 
-<img src="http://howtohp.com/wp/wp-content/uploads/2009/07/file_link.gif" alt="" title="file_link" width="500" height="302" class="aligncenter size-full wp-image-172" />
+![File Link](/img/posts/mt-develop/file_link.gif)
 
 次にファイルへのリンク機能を使用し、全てのテンプレートをファイルへと書き出します。  
 方法は簡単で、テンプレートの設定の中にある、ファイルへのリンクの入力エリアに書き出したいファイルへのパスを記述します。

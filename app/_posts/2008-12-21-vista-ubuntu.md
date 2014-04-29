@@ -18,10 +18,8 @@ author:
 
 まずは、Ubuntuのダウンロード。
 
-まず、下記のサイトから、CDイメージファイルをダウンロードします。
-
+下記のサイトから、CDイメージファイルをダウンロードします。
 [Ubuntu Desktop 日本語 Remix CDのダウンロード](http://www.ubuntulinux.jp/products/JA-Localized/download)
-
 ダウンロードしたファイルをCDに焼きます。
 
 
@@ -32,10 +30,9 @@ author:
 以上でインストールは完了です。
 PCを再起動すると、Windowが立ち上がる前に、Windowsを立ち上げるか、Ubuntuを立ち上げるかの選択画面が出れば成功です。
 
-<figure>
-<figucaption>デスクトップはこんな感じです。
-<img src="http://howtohp.com/wp/wp-content/uploads/2008/12/ubuntu-desktop1.png" alt="" title="ubuntu-desktop" width="480" height="307" class="aligncenter size-full wp-image-181" />
-</figucaption></figure>
+デスクトップはこんな感じです。
+
+![Ubuntu](http://howtohp.com/wp/wp-content/uploads/2008/12/ubuntu-desktop1.png)
 
 ※インストーラーCDをWindows上ではなく、ブート時に起動させるてもインストール出来ますが、デュアルブートの設定や、HDDのパーティションの区切りなども必要になってくるので、勉強用であれば、上記の方法がお勧めです。
 

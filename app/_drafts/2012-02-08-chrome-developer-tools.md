@@ -59,10 +59,7 @@ body.platform-windows .monospace, body.platform-windows .source-code {
 
 見ての通り、プラットフォーム毎にセレクターが違いますので、環境に合わせて使ってください。
 
-<figure class="bordered">
-<img src="http://howtohp.com/wp/wp-content/uploads/2012/02/Screen-Shot-2012-02-07-at-1.48.25-AM.png" />
-<figcaption>Chrome Developer Tools スクリーンショット</figcaption>
-</figure>
+![Chrome Dev Tools](/img/posts/chrome-developer-tools/chrome-dev-tools1.png) 
 
 フォントサイズをある程度大きくすると、こんな感じでコンソール部分のテキストの行間が詰まって重なってしまうので、注意してください。コンソール部分にはline-heightが効かないっぽいです。
 
@@ -78,11 +75,8 @@ body.platform-windows .monospace, body.platform-windows .source-code {
 
 ## 2.CSSを編集する
 
-<figure class="bordered">
-<img src="http://howtohp.com/wp/wp-content/uploads/2012/02/Screen-Shot-2012-02-08-at-9.29.png" alt="" width="560" height="433" class="aligncenter size-large wp-image-568" />
+![Chrome - Edit CSS](/img/posts/chrome-developer-tools/chrome-dev-tools2.png) 
 
-<figcaption>Chrome - Edit CSS</figcaption>
-</figure>
 
 ここではふつーに編集できます。Firebugだとプロパティ毎の編集だったと思うんですが、Chromeでは普通のエディタみたいにスペースや、改行も自由です。
 
@@ -95,11 +89,7 @@ body.platform-windows .monospace, body.platform-windows .source-code {
 
 ## 3.編集したCSSのバージョンを戻す
 
-<figure class="bordered">
-<img src="http://howtohp.com/wp/wp-content/uploads/2012/02/Screen-Shot-2012-02-08-at-10.38.png" width="560" height="384" class="aligncenter size-large wp-image-559" />
-
-<figcaption>Chrome - Revert to selected revision</figcaption>
-</figure>
+![Chrome - Revert to selected revision](/img/posts/chrome-developer-tools/chrome-dev-tools3.png) 
 
 ファイルを保存すると、そのたびに、バージョンファイルが作成されます。
 

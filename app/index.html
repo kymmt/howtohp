@@ -10,9 +10,7 @@ title: howtohp
         <div class="entry__meta">
             <time class="entry__published" itemprop="datePublished" datetime="{{ post.date | date_to_string }}">
                 <span class="icon-calendar"></span>
-                <span class="entry__published__day">{{ post.date | date: "%-d" }}</span>
-                <span class="entry__published__month">{{ post.date | date: "%b" }}</span>
-                <span class="entry__published__year">{{ post.date | date: "%Y" }}</span>
+                {{ post.date | date: "%-d %b, %Y" }}
             </time>
 
             {% if post.tags.size > 0 %}

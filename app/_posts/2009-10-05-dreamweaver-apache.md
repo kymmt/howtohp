@@ -39,7 +39,7 @@ author:
 <section id="section-2" markdown="block">
 # 2.Dreamweaverのサイトの定義でテストサーバーの設定
 
-<figure><img src="http://howtohp.com/wp/wp-content/uploads/2009/10/site_definition.gif" alt="" title="サイトの定義" width="500" height="416" class="aligncenter size-full wp-image-145" /></figure>
+![サイトの定義](/img/posts/dreamweaver-apache/site-definition.gif)
 
 ここで、テストサーバーの設定で、サーバーモデルをPHP MySQL、アクセスをローカル/ネットワークテストサーバーフォルダを、<strong>C:\Program Files\Apache Software Foundation\Apache2.2\htdocs</strong>の中に、サイト用のフォルダ(半角英数ならなんでもいい)を作成し、作成したフォルダを指定。  
 URL接頭辞には、自分がテストに使用したいURLを入力(インターネット上に存在しないURL)。
@@ -49,7 +49,7 @@ URL接頭辞には、自分がテストに使用したいURLを入力(インタ�
 # 3.Apacheの設定
 
 
-C:\Program Files\Apache Software Foundation\Apache2.2\confの中のhttpd.confをテキストエディタで開きます。
+`C:\Program Files\Apache Software Foundation\Apache2.2\conf`の中のhttpd.confをテキストエディタで開きます。
 
 ~~~ apacheconf
 # Virtual hosts
@@ -122,8 +122,7 @@ CustomLog "logs/howtohp.access.log" common
 
 最後に、Dreamweaverで、ローカルとテストサーバーを同期をとります。
 
-<figure>
-<img src="http://howtohp.com/wp/wp-content/uploads/2009/10/dreamweaver-apache_2.gif" alt="" title="DWで同期" width="231" height="216" class="alignleft size-full wp-image-147" /></figure>
+![DWで同期](/img/posts/dreamweaver-apache/dreamweaver-apache.gif)
 
 これで、開きたいファイルをDreamweaver上で開いて、<kbd>F12</kbd>、もしくは、URL接頭辞に入力したURLを直接入力し、表示されれば、成功です。
 
