@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Skypeのブラウザ拡張を入れてる人が番号をスタイリングしちゃうのを防ぐ方法
-categories:
-- CSS
 tags: 
 - CSS
 meta:

@@ -1,8 +1,6 @@
 ---
 layout: post
 title: MTで構築する前に準備する事[まとめ]
-categories:
-- MovableType
 tags:
 - Dreamweaver
 - MovableType

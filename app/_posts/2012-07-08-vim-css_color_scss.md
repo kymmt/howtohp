@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Vimのcss_color.vimをscssファイルにも適用してみた。
-categories:
-- Tools
 tags:
 - Vim
 meta:

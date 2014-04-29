@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ
-categories:
-- CSS
 tags:
 - CSS
 - SASS

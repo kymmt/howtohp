@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Vim道に入門したので、色々メモしておく(初心者)
-categories:
-- Tools
 tags:
 - Vim
 meta:

@@ -1,8 +1,6 @@
 ---
 layout: post
 title: MacのApacheでヴァーチャルホストを使ってテスト環境の構築
-categories:
-- Tools
 tags:
 - Apache
 - Mac

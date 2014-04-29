@@ -1,8 +1,6 @@
 ---
 layout: post
 title: CSSのTransitionでリンクのホバー時のアクションを全部一気にさりげなくふわっとさせる方法
-categories:
-- CSS
 tags:
 - CSS3
 meta:

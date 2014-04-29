@@ -1,8 +1,6 @@
 ---
 layout: post
 title: MacにHomebrewでMySQLをインストールしてみた。
-categories:
-- Tools
 tags:
 - Homebrew
 - Mac

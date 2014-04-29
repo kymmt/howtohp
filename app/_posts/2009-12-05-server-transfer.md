@@ -1,8 +1,6 @@
 ---
 layout: post
 title: ロリポップからさくらサーバーに乗り換えました。
-categories:
-- Other
 tags: []
 meta:
   dsq_thread_id: '549163362'

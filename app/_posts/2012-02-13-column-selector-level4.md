@@ -1,8 +1,6 @@
 ---
 layout: post
 title: CSS4で追加されるかもしれないテーブル周りの擬似セレクタについて
-categories:
-- CSS
 tags:
 - CSS
 meta:

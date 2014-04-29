@@ -1,9 +1,6 @@
 ---
 layout: post
 title: Dreamweaverのコードヒントでwidowsプロパティ等を出ないようにする。
-categories:
-- CSS
-- Tools
 tags:
 - Dreamweaver
 meta:

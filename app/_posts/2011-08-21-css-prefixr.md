@@ -1,8 +1,6 @@
 ---
 layout: post
 title: CSSのベンダープレフィックスをいい感じに追加してくれるPrefixrが便利そう。
-categories:
-- WebSite
 tags:
 - CSS
 meta:

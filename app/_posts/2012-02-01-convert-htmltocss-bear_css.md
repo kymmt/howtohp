@@ -1,8 +1,6 @@
 ---
 layout: post
 title: HTMLを送ると対応したCSSを返してくれるbear CSS
-categories:
-- WebSite
 tags:
 - CSS
 meta:

@@ -1,8 +1,6 @@
 ---
 layout: post
 title: DreamweaverとApacheを連携して、テスト環境の構築
-categories:
-- Tools
 tags:
 - Apache
 - Dreamweaver

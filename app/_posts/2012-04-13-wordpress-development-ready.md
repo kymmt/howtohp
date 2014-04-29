@@ -1,8 +1,6 @@
 ---
 layout: post
 title: リニューアルしてたらなんとなくWordpressの作業の流れが固まってきた。(下準備編)
-categories:
-- Other
 tags:
 - Wordpress
 meta:

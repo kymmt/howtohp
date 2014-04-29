@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Compassで本番用と開発用で設定を振り分けてみる。
-categories:
-- CSS
 tags:
 - Compass
 meta:

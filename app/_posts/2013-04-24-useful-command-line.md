@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Macユーザーなら覚えといた方がいいTerminalの便利なコマンド
-categories:
-- Tools
 tags:
 - Mac
 meta:

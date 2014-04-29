@@ -1,8 +1,6 @@
 ---
 layout: post
 title: MTでカテゴリーナビの所属しているカテゴリのみ条件分岐する
-categories:
-- MovableType
 tags:
 - MovableType
 meta:

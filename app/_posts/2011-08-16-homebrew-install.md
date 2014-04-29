@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Macにパッケージ管理ソフトのhomebrewをインストール
-categories:
-- Tools
 tags:
 - Homebrew
 meta:

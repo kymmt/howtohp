@@ -1,8 +1,6 @@
 ---
 layout: post
 title: HTML5のplaceholder属性で、表示される文字色を変更する方法
-categories:
-- CSS
 tags:
 - HTML5
 meta:

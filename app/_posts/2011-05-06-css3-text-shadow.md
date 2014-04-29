@@ -1,8 +1,6 @@
 ---
 layout: post
 title: 今更ながら、text-shadowを色々試してみる。
-categories:
-- CSS
 tags: []
 meta:
   _edit_last: '2'

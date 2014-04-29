@@ -1,8 +1,6 @@
 ---
 layout: post
 title: iPhoneなどにちょうどいいW3CのHTML,CSS,SVG,XPathのチートシート
-categories:
-- WebSite
 tags:
 - cheatsheat
 - CSS

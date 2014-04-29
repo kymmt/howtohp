@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Thunderbird3がリリース
-categories:
-- Tools
 tags:
 - Thunderbird
 meta:
