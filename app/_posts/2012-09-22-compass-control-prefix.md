@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法
-- Tools
 tags:
 - Compass
 meta:

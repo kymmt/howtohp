@@ -85,7 +85,7 @@ pygmentsはPythonのライブラリなのでPythonが動く必要がある。
 
 ### Compass 1.0.0.alphaを使うための設定
 
-アルファ版を使う必要がなければここは変更する必要がない。
+アルファ版を使う必要がなければここは変更する必要がない。  
 `Gemfile`にgem 'compass', '~> 1.0.0.alpha.19'と書くと`bundle install`した際にlistenのバージョンがJykellと違ってインストール出来ない。  
 CompassはグローバルにインストールされているCompass 1.0.0.19を利用したかったので、`Gruntfile.js`のCompassの設定をちょい変更
 
@@ -161,7 +161,7 @@ brew install gsl
 ### Gemfileにrb-gslを追記
 
 gemには単純にgslというのもあったんだけど、それだとGSLの1.16に対応してなかったっぽい。  
-探したら、rb-gslという1.16に対応したフォーク版を使う。
+探したら、rb-gslという1.16に対応したフォーク版があったのでそっちをを使う。
 
 ~~~ ruby
 gem 'rb-gsl', '~> 1.16.0'

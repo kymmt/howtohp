@@ -1,8 +1,6 @@
 ---
 layout: post
 title: VistaにデュアルブートでUbuntuを簡単インストール
-categories:
-- Tools
 tags:
 - Linux
 - Ubuntu

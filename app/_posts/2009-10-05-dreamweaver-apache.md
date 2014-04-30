@@ -37,7 +37,7 @@ author:
 <section id="section-2" markdown="block">
 # 2.Dreamweaverのサイトの定義でテストサーバーの設定
 
-![サイトの定義](/img/posts/dreamweaver-apache/site-definition.gif)
+![サイトの定義](/assets/img/posts/dreamweaver-apache/site-definition.gif)
 
 ここで、テストサーバーの設定で、サーバーモデルをPHP MySQL、アクセスをローカル/ネットワークテストサーバーフォルダを、<strong>C:\Program Files\Apache Software Foundation\Apache2.2\htdocs</strong>の中に、サイト用のフォルダ(半角英数ならなんでもいい)を作成し、作成したフォルダを指定。  
 URL接頭辞には、自分がテストに使用したいURLを入力(インターネット上に存在しないURL)。
@@ -120,7 +120,7 @@ CustomLog "logs/howtohp.access.log" common
 
 最後に、Dreamweaverで、ローカルとテストサーバーを同期をとります。
 
-![DWで同期](/img/posts/dreamweaver-apache/dreamweaver-apache.gif)
+![DWで同期](/assets/img/posts/dreamweaver-apache/dreamweaver-apache.gif)
 
 これで、開きたいファイルをDreamweaver上で開いて、<kbd>F12</kbd>、もしくは、URL接頭辞に入力したURLを直接入力し、表示されれば、成功です。
 
