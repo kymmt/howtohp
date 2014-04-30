@@ -329,7 +329,7 @@ module.exports = function (grunt) {
                         '<%= path.dist %>/assets/js/**/*.js',
                         '<%= path.dist %>/assets/css/**/*.css',
                         '<%= path.dist %>/assets/img/**/*.{gif,jpg,jpeg,png,svg,webp}',
-                        '<%= path.dist %>/assets/fonts/**/*.{eot*,otf,svg,ttf,woff}'
+                        '!<%= path.dist %>/assets/fonts/**/*.{eot*,otf,svg,ttf,woff}'
                     ]
                 }]
             }
