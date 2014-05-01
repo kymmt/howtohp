@@ -1,0 +1,83 @@
+<!doctype html><html><head><meta charset=utf-8><title>Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ</title><meta name=viewport content="width=device-width"><meta name=description content=""><!-- Twitter --><meta name=twitter:card content=summary><meta name=twitter:author content=@howtohp><meta name=twitter:title content=Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ><meta name=twitter:description content=""><!-- Facebook --><meta property=og:type content=article><meta property=og:title content=Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ><meta property=og:description content=""><meta property=og:url content="http:howtohp.com/2012/07/20/sass-responsive-web-design/"><meta property=og:locale content=ja-JP><meta property=article:published_time content="2012-07-20 00:00:00 +0900"><link rel=stylesheet href=/assets/css/main.1d3b.css></head><body itemscope itemtype=http://schema.org/Blog lang=ja><header class="header container" role=banner><div class=header__title><h1><a href="/">howtohp</a></h1></div><nav class=global-nav role=navigation><ul class=global-nav__list><li class=global-nav__item><a class=global-nav__link href="/">HOME</a></li><li class=global-nav__item><a class=global-nav__link href=/archive>Archive</a></li><li class=global-nav__item><a class=global-nav__link href=/about>About</a></li></ul></nav></header><div class="main container--small" role=main><article class="entry h-entry" itemscope itemtype=http://schema.org/BlogPosting><header class=entry__header><h1 class=entry__title itemprop=name>Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ</h1><div class=entry__meta><time class=entry__published itemprop=datePublished datetime="20 Jul 2012"><span class=icon-calendar></span> 20 Jul, 2012</time><div class=entry__tags><span class=icon-tags></span><ul class=entry__tags__list><li class=entry__tags__item itemprop=keywords>CSS</li><li class=entry__tags__item itemprop=keywords>SASS</li></ul></div></div><!-- / .entry__meta --></header><div class=entry__content itemprop=articleBody><p>このサイトをメディアクエリー使ってレスポンシブウェブデザインって奴にしてみたんですけど、Sassを使うにあたって、色々思った事や、引っかかった事があるので、まとめてみます。</p><p>大きく分けると以下の4つ</p><ul><li><a href=#sass-breakpoint>ブレイクポイントは変数に</a></li><li><a href=#media-nest>@mediaはネストできる</a></li><li><a href=#messy-code>ネストするとコンパイル後のソースが増える</a></li><li><a href=#not-allowed>@extendを使えない</a></li></ul><section id=sass-breakpoint><h1 id=section>ブレイクポイントは変数に</h1><p><code>@media</code>の後に書くブレイクポイントって長いですよね。Sassの<span class=caps>3.1</span>ではできないんですが、最新版の<span class=caps>3.2</span>では変数を使う事ができます。</p><p>まだalpha版なので、ご使用は自己責任でお願いします。インストールするには、バージョンを指定しないといけません。</p><div class=highlight><pre><code class=bash>gem install sass -v 3.2.0.alpha.275</code></pre></div><h2 id=sample>Sample</h2><h3 id=scss><span class=caps>SCSS</span></h3><div class=highlight><pre><code class=scss><span class=nv>$small</span><span class=o>:</span>  <span class=s2>&quot;only screen and (max-width:640px)&quot;</span><span class=p>;</span>
+<span class=nv>$middle</span><span class=o>:</span> <span class=s2>&quot;only screen and (min-width:641px) and (max-width:959px)&quot;</span><span class=p>;</span>
+<span class=nv>$large</span><span class=o>:</span>  <span class=s2>&quot;only screen and (min-width:960px)&quot;</span><span class=p>;</span>
+
+<span class=k>@media</span> <span class=nn>#</span><span class=p>{</span><span class=err>$</span><span class=nt>small</span><span class=p>}</span> <span class=p>{</span>
+    <span class=c1>//640px以下</span>
+<span class=p>}</span>
+
+<span class=k>@media</span> <span class=nn>#</span><span class=p>{</span><span class=nt>middle</span><span class=p>}</span> <span class=p>{</span>
+    <span class=c1>//641px〜959pxまで</span>
+<span class=p>}</span>
+<span class=k>@media</span> <span class=nn>#</span><span class=p>{</span><span class=nt>large</span><span class=p>}</span> <span class=p>{</span>
+    <span class=c1>//960px以上</span>
+<span class=p>}</span></code></pre></div><p>こんな感じで、やっとくとわかりやすいかなと。</p></section><section id=media-nest><h1 id=media>@mediaはネストできる</h1><p><code>@media</code>はSassを使うとネストして書けます。僕がSassを使い始めた頃やってみたら出来なかったので、最近のバージョンで出来るようになったっぽいです。<span class=caps>3.1</span>かな。</p><h2 id=sample-1>Sample</h2><h3 id=scss-1><span class=caps>SCSS</span></h3><div class=highlight><pre><code class=scss><span class=nc>.sample</span> <span class=p>{</span>
+    <span class=na>margin</span><span class=o>:</span><span class=mi>10</span><span class=kt>px</span><span class=p>;</span>
+    <span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:</span> <span class=nt>960px</span><span class=o>)</span> <span class=p>{</span>
+        <span class=na>width</span><span class=o>:</span><span class=mi>300</span><span class=kt>px</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span></code></pre></div><h3 id=css><span class=caps>CSS</span></h3><div class=highlight><pre><code class=css><span class=nc>.sample</span> <span class=p>{</span>
+    <span class=k>margin</span><span class=o>:</span> <span class=m>10px</span><span class=p>;</span>
+<span class=p>}</span>
+<span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:960px</span><span class=o>)</span> <span class=p>{</span>
+    <span class=nc>.sample</span> <span class=p>{</span>
+        <span class=k>width</span><span class=o>:</span> <span class=m>300px</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span></code></pre></div><p>こんな感じで、ネストした場合先祖のセレクターまでたどって出力してくれます。</p></section><section id=messy-code><h1 id=section-1>ネストするとコンパイル後のソースが増える</h1><p>残念ながら<code>@media</code>をネストして記述すると、同じブレイクポイントを設定しても、コンパイル前が分散されているとコンパイル後も分散されたままになっちゃいます。</p><h2 id=sample-2>Sample</h2><h3 id=scss-2><span class=caps>SCSS</span></h3><div class=highlight><pre><code class=scss><span class=nc>.sample</span> <span class=p>{</span>
+    <span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:960px</span><span class=o>)</span> <span class=p>{</span><span class=na>　/*同じブレイクポイント*/</span>
+        <span class=na>width</span><span class=o>:</span><span class=mi>96</span><span class=kt>%</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=nc>.sample2</span> <span class=p>{</span>
+    <span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:960px</span><span class=o>)</span> <span class=p>{</span> <span class=cm>/*同じブレイクポイント*/</span>
+        <span class=na>font-size</span><span class=o>:</span><span class=mi>1</span><span class=mf>.5</span><span class=kt>em</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span></code></pre></div><h3 id=css-1><span class=caps>CSS</span></h3><div class=highlight><pre><code class=css><span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:960px</span><span class=o>)</span> <span class=p>{</span>
+  <span class=nc>.sample</span> <span class=p>{</span>
+    <span class=k>width</span><span class=o>:</span> <span class=m>96</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:960px</span><span class=o>)</span> <span class=p>{</span>
+  <span class=nc>.sample2</span> <span class=p>{</span>
+    <span class=k>font-size</span><span class=o>:</span> <span class=m>1.5em</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div><h3 id=section-2>こうなって欲しいけど、ならない</h3><div class=highlight><pre><code class=css><span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:960px</span><span class=o>)</span> <span class=p>{</span>
+  <span class=nc>.sample</span> <span class=p>{</span>
+    <span class=k>width</span><span class=o>:</span> <span class=m>96</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+  <span class=nc>.sample2</span> <span class=p>{</span>
+    <span class=k>font-size</span><span class=o>:</span> <span class=m>1.5em</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div></section><section id=not-allowed><h1 id=extend>@extendが使えない</h1><p><code>@media</code>でネストされたプロパティに対しては<code>@media</code>の外で定義したクラスを利用した<code>@extend</code>が使えません。これは残念。 <code>@media</code>内に<code>@extend</code>を使うと現時点でははWarningがでて、コンパイルは通りますが、将来的にSass&nbsp;<span class=caps>3.3</span>では完全にエラーになるようです。</p><h2 id=sample-3>Sample</h2><h3 id=scss-3><span class=caps>SCSS</span></h3><div class=highlight><pre><code class=scss><span class=nc>.typo</span> <span class=p>{</span>
+    <span class=na>font-size</span><span class=o>:</span><span class=mi>1</span><span class=kt>em</span><span class=p>;</span>
+    <span class=na>text-shadow</span><span class=o>:</span> <span class=mi>2</span><span class=kt>px</span> <span class=mi>2</span><span class=kt>px</span> <span class=mi>1</span><span class=kt>px</span> <span class=mh>#999</span><span class=p>;</span>
+<span class=p>}</span>
+<span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:320px</span><span class=o>)</span> <span class=p>{</span>
+    <span class=nc>.sample</span> <span class=p>{</span>
+        <span class=na>width</span><span class=o>:</span><span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+        <span class=k>@extend</span> <span class=nc>.typo</span><span class=o>;</span>
+    <span class=p>}</span>
+<span class=p>}</span></code></pre></div></section><h3 id=css-2><span class=caps>CSS</span></h3><div class=highlight><pre><code class=css><span class=nc>.typo</span> <span class=p>{</span>
+    <span class=k>font-size</span><span class=o>:</span> <span class=m>2em</span><span class=p>;</span>
+    <span class=k>text-shadow</span><span class=o>:</span> <span class=m>2px</span> <span class=m>2px</span> <span class=m>1px</span> <span class=m>#999999</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=k>@media</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>min-width</span><span class=nd>:320px</span><span class=o>)</span> <span class=p>{</span>
+    <span class=nc>.sample</span> <span class=p>{</span>
+        <span class=k>width</span><span class=o>:</span> <span class=m>96</span><span class=o>%</span><span class=p>;</span>
+        <span class=c>/* ここに@extendを記述したはずなのに無い */</span>
+    <span class=p>}</span>
+<span class=p>}</span></code></pre></div><p>お分かり頂けるでしょうか。<code>@extend</code>で書いたとこは無視です。なかったことになってます。</p><p><code>@media</code>の中で定義したクラスに対しては<code>@extend</code>は使えるのですが、<code>@extend</code>の旨みが激減ですね。</p><section id=conclusion><h1 id=section-3>まとめ</h1><p>結局自分は、<code>@media</code>をネストして使うような書き方はしませんでした。<br>ブレイクポイントは3箇所用意しているので、<code>@media</code>の記述はその3パターンを一回ずつ書くだけにした方がよさげ。</p><p><code>@extend</code>は多用してたんですが、<code>@media</code>の中ではmixinにして<code>@include</code>を使った箇所が何箇所かありました。<br>結論としては、メディアクエリーをSassで使う場合、シンプルにわかりやすくする記述法は用意されてるけど、出力される<span class=caps>CSS</span>は微妙って事でした。</p></section></div><div class=entry__comments><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'howtohp';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article><div class=pager><a href="/2012/09/22/compass-control-prefix/" class=pager__newer title="Previous Post: Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法">&laquo; Newer</a> <a href="/2012/07/08/vim-css-color-scss/" class=pager__older title="Older Post: Vimのcss_color.vimをscssファイルにも適用してみた。">Older &raquo;</a></div><hr><section class="related-posts entries"><h1>関連記事</h1><ul><li class=entries__item><a class=entries__link href="/2011/09/19/compass/" rel=bookmark title=CSS書くならCompass使った方がいいよ。SASS使ってる人なら特に。>CSS書くならCompass使った方がいいよ。SASS使ってる人なら特に。</a> <time class=entries__published published="" itemprop=datePublished datetime="19 Sep 2011">19 Sep, 2011</time></li><li class=entries__item><a class=entries__link href="/2011/05/06/css3-text-shadow/" rel=bookmark title=今更ながら、text-shadowを色々試してみる。>今更ながら、text-shadowを色々試してみる。</a> <time class=entries__published published="" itemprop=datePublished datetime="06 May 2011">6 May, 2011</time></li><li class=entries__item><a class=entries__link href="/2013/04/24/useful-command-line/" rel=bookmark title=Macユーザーなら覚えといた方がいいTerminalの便利なコマンド>Macユーザーなら覚えといた方がいいTerminalの便利なコマンド</a> <time class=entries__published published="" itemprop=datePublished datetime="24 Apr 2013">24 Apr, 2013</time></li><li class=entries__item><a class=entries__link href="/2012/09/22/compass-control-prefix/" rel=bookmark title=Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法>Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法</a> <time class=entries__published published="" itemprop=datePublished datetime="22 Sep 2012">22 Sep, 2012</time></li><li class=entries__item><a class=entries__link href="/2012/01/29/html5-placeholder-style/" rel=bookmark title=HTML5のplaceholder属性で、表示される文字色を変更する方法>HTML5のplaceholder属性で、表示される文字色を変更する方法</a> <time class=entries__published published="" itemprop=datePublished datetime="29 Jan 2012">29 Jan, 2012</time></li></ul></section></div><!-- / .main --><div class="footer-container container"><footer class=footer role=contentinfo><div class=social-rss><ul class=social-rss__list><li class=social-rss__item><a href=http://twitter.com/#!/howtohp id=twitter title=Twitter>Twitter</a></li><li class=social-rss__item><a href=http://www.facebook.com/howtohp id=facebook-page title="Facebook Page">Facebook Page</a></li><li class=social-rss__item><a href=http://feeds.feedburner.com/howtohp/ZiSA id=feed title=Feed>feed</a></li></ul></div><p><small class=copy>&#9786;&nbsp;howtohp</small><br>Powered by <a href="http://jekyllrb.com/">Jekyll</a></p></footer></div><!-- / #footer-container --><script src=//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js></script><script src=/assets/js/scripts.c909.js></script><script type=text/javascript>var disqus_shortname = 'howtohp';
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());</script></body></html>

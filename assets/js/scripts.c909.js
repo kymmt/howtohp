@@ -1,0 +1,1 @@
+(function(){$(function(){return $("a").each(function(){var a;return a=new RegExp("/"+window.location.host+"/"),a.test(this.href)?void 0:$(this).click(function(a){return a.preventDefault(),a.stopPropagation(),window.open(this.href,"_blank")})})})}).call(this);
