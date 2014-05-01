@@ -37,13 +37,13 @@ title: howtohp
 {% if paginator.total_pages > 1 %}
 <div class="pager">
     {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="pager__prev" title="Previous Post: {{page.previous.title}}">&laquo; Newer Posts</a>
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="pager__newer" title="Previous Post: {{page.previous.title}}">&laquo; Newer Posts</a>
     {% endif %}
 
     <span class="pager__number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
 
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="pager__next" title="next Post: {{page.next.title}}">Older Posts &raquo; </a>
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="pager__older" title="next Post: {{page.next.title}}">Older Posts &raquo; </a>
     {% endif %}
 </div>
 {% endif %}
