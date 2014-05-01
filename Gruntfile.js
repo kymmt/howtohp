@@ -218,7 +218,7 @@ module.exports = function (grunt) {
             },
             check: {
                 options: {
-                    doctor: false
+                    doctor: false,
                     dest: '.jekyll'
                 }
             }
