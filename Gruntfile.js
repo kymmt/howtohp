@@ -341,18 +341,18 @@ module.exports = function (grunt) {
                 push: true,
                 message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
             },
-//            pages: {
-//                options: {
-//                    remote: 'git@github.com:kymmt/howtohp.git',
-//                    branch: 'gh-pages'
-//                }
-//            }
             pages: {
                 options: {
-                    remote: 'git@github.com:kymmt/kymmt.github.io.git',
-                    branch: 'master'
+                    remote: 'git@github.com:kymmt/howtohp.git',
+                    branch: 'gh-pages'
                 }
             }
+//            pages: {
+//                options: {
+//                    remote: 'git@github.com:kymmt/kymmt.github.io.git',
+//                    branch: 'master'
+//                }
+//            }
         },
         coffeelint: {
             options: {
