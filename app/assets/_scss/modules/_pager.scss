@@ -14,11 +14,11 @@
             @include background(linear-gradient(color-stops(#EFE9DF,#DED2BD)));
         }
     }
-    @include e(prev) {
+    @include e(newer) {
         left:0;
         @extend %pager-style;
     }
-    @include e(next) {
+    @include e(older) {
         right:0;
         @extend %pager-style;
     }

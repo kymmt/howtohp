@@ -44,22 +44,27 @@ layout: default
 </article>
 
 <div class="pager">
-    {% if page.previous.url %}
-    <a href="{{page.previous.url}}" class="pager__prev" title="Previous Post: {{page.previous.title}}">&laquo; Prev</a>
-    {% endif %}
     {% if page.next.url %}
-    <a href="{{page.next.url}}" class="pager__next" title="next Post: {{page.next.title}}">Next &raquo; </a>
+    <a href="{{page.next.url}}" class="pager__newer" title="Previous Post: {{page.next.title}}">&laquo; Newer </a>
+    {% endif %}
+    {% if page.previous.url %}
+    <a href="{{page.previous.url}}" class="pager__older" title="Older Post: {{page.previous.title}}">Older &raquo;</a>
     {% endif %}
 </div>
 
 
 {% if site.related_posts.size > 1 %}
 <hr>
-<section class="related-posts">
+<section class="related-posts entries">
     <h1>関連記事</h1>
     <ul>
         {% for post in site.related_posts limit:5 %}
-        <li><a rel="bookmark" href="{{ post.url }}">{{ post.title }}</a></li>
+        <li class="entries__item">
+            <a class="entries__link" href="{{ post.url }}" rel="bookmark" title="{{ post.title }}">{{ post.title }}</a>
+            <time class="entries__published" published itemprop="datePublished" datetime="{{ post.date | date_to_string }}">
+                {{ post.date | date: "%-d %b, %Y" }}
+            </time>
+        </li>
         {% endfor %}
     </ul>
 </section>

@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Chrome使いなら覚えといた方がいい、デベロッパーツールのTips (CSS)
-categories:
-- Tools
 tags:
 - CSS
 meta:

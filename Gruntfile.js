@@ -218,7 +218,7 @@ module.exports = function (grunt) {
             },
             check: {
                 options: {
-                    doctor: true
+                    doctor: false
                 }
             }
         },
@@ -341,6 +341,12 @@ module.exports = function (grunt) {
                 push: true,
                 message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
             },
+//            pages: {
+//                options: {
+//                    remote: 'git@github.com:kymmt/howtohp.git',
+//                    branch: 'gh-pages'
+//                }
+//            }
             pages: {
                 options: {
                     remote: 'git@github.com:kymmt/kymmt.github.io.git',

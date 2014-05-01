@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MTでカテゴリーナビの所属しているカテゴリのみ条件分岐する</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:author" content="@howtohp">
+    <meta name="twitter:title" content="MTでカテゴリーナビの所属しているカテゴリのみ条件分岐する">
+    <meta name="twitter:description" content="">
+
+    <!-- Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MTでカテゴリーナビの所属しているカテゴリのみ条件分岐する">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="http:howtohp.com/2009/07/31/mt-current-category/">
+    <meta property="og:locale" content="ja-JP">
+    <meta property="article:published_time" content="2009-07-31 00:00:00 +0900">
+    <!-- build:css({app,.tmp}) /assets/css/main.css -->
+    <!-- Syntax highlighting CSS -->
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- endbuild -->
+    
+</head>
+<body itemscope itemtype="http://schema.org/Blog" lang="ja">
+    <header class="header container" role="banner">
+    <div class="header__title">
+        <h1><a href="/">howtohp</a></h1>
+    </div>
+
+    <nav class="global-nav" role="navigation">
+        <ul class="global-nav__list">
+            <li class="global-nav__item"><a class="global-nav__link" href="/">HOME</a></li>
+            <li class="global-nav__item"><a class="global-nav__link" href="/archive">Archive</a></li>
+            <li class="global-nav__item"><a class="global-nav__link" href="/about">About</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+    <div class="main container--small" role="main">
+        <article class="entry h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="entry__header">
+        <h1 class="entry__title" itemprop="name">MTでカテゴリーナビの所属しているカテゴリのみ条件分岐する</h1>
+        <div class="entry__meta">
+            <time class="entry__published" itemprop="datePublished" datetime="31 Jul 2009">
+                <span class="icon-calendar"></span>
+                31 Jul, 2009
+            </time>
+
+            
+            <div class="entry__tags">
+                <span class="icon-tags"></span>
+                <ul class="entry__tags__list">
+                    
+                    <li class="entry__tags__item" itemprop="keywords">MovableType</li>
+                    
+                </ul>
+            </div>
+            
+        </div><!-- / .entry__meta -->
+    </header>
+
+    <div class="entry__content" itemprop="articleBody">
+        <p>Movable&nbsp;Type(以下<span class="caps">MT</span>）でブログなどのウェブサイトを制作していると、ユーザビリティを上げるため、ナビゲーションの現在いるページの部分をハイライトさせて表示させるデザインにすることが多くあると思います。</p>
+
+<p>しかし、<abbr title="Movable Type"><span class="caps">MT</span></abbr>を使用してカテゴリー一覧を表示させると、その中の一部に対して、特別なidを付けるのは普通の<abbr title="Movable Type"><span class="caps">MT</span></abbr>タグだけでは、難しかったのですが、最近、やっと方法がわかったので、メモしておきます。</p>
+
+<h1 id="section">一階層目までのカテゴリーリストを表示する場合</h1>
+
+<p>まず、現在の開いているページのカテゴリーを取得するのですが、ここでMTSetVarBlockタグを使い、変数として、用意しておきます。</p>
+
+<p>このサイトの場合は、変数を用意する場合、すべて一ヶ所にまとめていた方が分かりやすいので、ヘッダーテンプレートの<span class="caps">DTD</span>より前にまとめて記述します。</p>
+
+<p>以下がソースです。</p>
+
+<div class='highlight'><pre><code class="html"><span class="nt">&lt;mt:IfArchiveType</span> <span class="na">archive_type=</span><span class="s">&quot;Individual&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;category_label&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$mt:CategoryLabel$&gt;<span class="nt">&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;/mt:IfArchiveType&gt;</span>
+<span class="nt">&lt;mt:IfArchiveType</span> <span class="na">archive_type=</span><span class="s">&quot;Category&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;category_label&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$mt:CategoryLabel$&gt;<span class="nt">&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;/mt:IfArchiveType&gt;</span></code></pre></div>
+
+<p>ここでは、mt:IfArchiveType を使用して、個別ページと、カテゴリーアーカイブページで変数を利用するように条件分岐しています。<br />
+ここで、分岐しておかないと、すべてのテンプレートに挿入される場合、カテゴリーが存在しないトップページなどで利用できないので、再構築の際にエラーがでます。</p>
+
+<p>個別ページとカテゴリーページのテンプレートに挿入すれば、分岐しなくても問題ないような気もしますが、未確認ですので、どなたか確認された方は報告頂ければありがたいです。</p>
+
+<p>次に、本題のカテゴリーナビの部分ですが、MTTopLevelCategoriesかMTSubCategoriesを使用して一覧を表示していると思うのですが、その中で、もう一度、現在表示しているページのカテゴリーを変数として定義し、カテゴリー一覧を表示している中で現在表示しているカテゴリーと一致するものだけ分岐します。</p>
+
+<p>以下がulで一覧を括った場合のソースです。</p>
+
+<div class='highlight'><pre><code class="html"><span class="nt">&lt;ul&gt;</span>
+<span class="nt">&lt;mt:TopLevelCategories&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;category_label2&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;mt:If</span> <span class="na">name=</span><span class="s">&quot;category_label2&quot;</span> <span class="na">eq=</span><span class="s">&quot;$category_label&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">&quot;current&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;$mt:CategoryArchiveLink$&gt;&quot;</span><span class="err">&lt;</span><span class="na">mt:IfNonEmpty</span> <span class="na">tag=</span><span class="s">&quot;MTCategoryDescription&quot;</span><span class="nt">&gt;</span> title=&quot;<span class="err">&lt;</span>$mt:CategoryDescription$&gt;&quot;<span class="nt">&lt;/mt:IfNonEmpty&gt;</span>&gt;<span class="err">&lt;</span>$mt:CategoryLabel$&gt;<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;mt:Else&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;$mt:CategoryArchiveLink$&gt;&quot;</span><span class="err">&lt;</span><span class="na">mt:IfNonEmpty</span> <span class="na">tag=</span><span class="s">&quot;mt:CategoryDescription&quot;</span><span class="nt">&gt;</span> title=&quot;<span class="err">&lt;</span>$mt:CategoryDescription$&gt;&quot;<span class="nt">&lt;/mt:IfNonEmpty&gt;</span>&gt;<span class="err">&lt;</span>$mt:CategoryLabel$&gt;<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/mt:If&gt;</span>
+<span class="nt">&lt;/mt:TopLevelCategories&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+
+<p>上記では、トップレベルのカテゴリーのみを分岐して、表示しているカテゴリーのliタグにid=”current”を付けている例です。</p>
+
+<h1 id="section-1">二階層目までのカテゴリーリストを表示する場合</h1>
+
+<p>最近、仕事で、二階層目までのサブカテゴリーをハイライトし、所属している親カテゴリーにも別のidを付けてハイライトする必要があったので、以下にソースを晒しておきます。</p>
+
+<p>まずは、変数宣言部分のソース</p>
+
+<div class='highlight'><pre><code class="html"><span class="nt">&lt;mt:IfArchiveType</span> <span class="na">archive_type=</span><span class="s">&quot;Individual&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;category_label&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;top_category_label2&quot;</span><span class="nt">&gt;&lt;mt:TopLevelParent&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:TopLevelParent&gt;&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;/mt:IfArchiveType&gt;</span>
+<span class="nt">&lt;mt:IfArchiveType</span> <span class="na">archive_type=</span><span class="s">&quot;Category&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;category_label&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;/mt:IfArchiveType&gt;</span></code></pre></div>
+
+<p>先ほどのトップレベルカテゴリーのみの場合と違うのは、現在表示しているカテゴリーの親カテゴリーを変数として定義します。以下がソースです。</p>
+
+<div class='highlight'><pre><code class="html"><span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;top_category_label2&quot;</span><span class="nt">&gt;&lt;mt:TopLevelParent&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;</code></pre></div>
+
+<p>上記の部分で、親カテゴリーを定義しておきます。<br />
+これは、二階層目まで限定です。三階層目までいくと、ひとつ上のカテゴリではなく、一番上のカテゴリーを取得するので、分岐ができません。</p>
+
+<p>次にカテゴリー一覧部分のソースです。</p>
+
+<div class='highlight'><pre><code class="html"><span class="nt">&lt;mt:TopLevelCategories&gt;</span>
+<span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;top_category_label2&quot;</span><span class="nt">&gt;&lt;mt:TopLevelParent&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/MTTopLevelParent&gt;&lt;/mt:SetVarBlock&gt;</span>
+<span class="nt">&lt;mt:SubCatIsFirst&gt;&lt;ul</span><span class="err">&lt;</span><span class="na">mt:HasNoParentCategory</span><span class="nt">&gt;</span> id=&quot;localNavi&quot;<span class="nt">&lt;/mt:HasNoParentCategory&gt;</span>&gt;<span class="nt">&lt;/mt:SubCatIsFirst&gt;</span>
+<span class="nt">&lt;mt:if</span> <span class="na">name=</span><span class="s">&quot;top_category_label2&quot;</span> <span class="na">eq=</span><span class="s">&quot;$top_category_label&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">&quot;current&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;$MTCategoryArchiveLink$&gt;&quot;</span><span class="nt">&gt;&lt;mt:IfCategory&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:IfCategory&gt;&lt;/a&gt;</span>
+        <span class="nt">&lt;mt:SubCategories&gt;</span>
+        <span class="nt">&lt;mt:SetVarBlock</span> <span class="na">name=</span><span class="s">&quot;category_label2&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:SetVarBlock&gt;</span>
+        <span class="nt">&lt;mt:SubCatIsFirst&gt;&lt;ul&gt;&lt;/mt:SubCatIsFirst&gt;</span>
+        <span class="nt">&lt;mt:If</span> <span class="na">name=</span><span class="s">&quot;category_label2&quot;</span> <span class="na">eq=</span><span class="s">&quot;$category_label&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">&quot;sub_current&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;$MTCategoryArchiveLink$&gt;&quot;</span><span class="nt">&gt;&lt;mt:IfCategory&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/mt:IfCategory&gt;&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;mt:Else&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;$mt:CategoryArchiveLink$&gt;&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/a&gt;&lt;mt:SubCatsRecurse&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/mt:If&gt;</span>
+        <span class="nt">&lt;mt:SubCatIsLast&gt;&lt;/ul&gt;&lt;/mt:SubCatIsLast&gt;</span>
+        <span class="nt">&lt;/mt:SubCategories&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;MTElse&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;&lt;$mt:CategoryArchiveLink$&gt;&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>$MTCategoryLabel$&gt;<span class="nt">&lt;/a&gt;&lt;mt:SubCatsRecurse&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/mt:if&gt;</span>
+<span class="nt">&lt;mt:SubCatIsLast&gt;&lt;/ul&gt;&lt;/mt:SubCatIsLast&gt;</span>
+<span class="nt">&lt;/mt:TopLevelCategories&gt;</span></code></pre></div>
+
+<p>上記のソースで構築すると以下のようなhtmlが吐き出されます。</p>
+
+<div class='highlight'><pre><code class="html"><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;localNavi&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>親カテゴリー1<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー3<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">&quot;current&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>所属している親カテゴリー2<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">id=</span><span class="s">&quot;sub_current&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>所属しているサブカテゴリー2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー3<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>親カテゴリー3<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー1<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー2<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>サブカテゴリー3<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></div>
+
+<p>これで、所属しているカテゴリーのみ別のスタイルを効かせることができるので、あとは<span class="caps">CSS</span>でハイライトさせる用のスタイルを書けば<span class="caps">OK</span>です。</p>
+
+
+    </div>
+
+
+    <div class="entry__comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'howtohp';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</article>
+
+<div class="pager">
+    
+    <a href="/2009/10/04/windows-apache/" class="pager__newer" title="Previous Post: WindowsにApacheをインストール">&laquo; Newer </a>
+    
+    
+    <a href="/2009/07/23/mt-develop/" class="pager__older" title="Older Post: MTで構築する前に準備する事[まとめ]">Older &raquo;</a>
+    
+</div>
+
+
+
+<hr>
+<section class="related-posts entries">
+    <h1>関連記事</h1>
+    <ul>
+        
+        <li class="entries__item">
+            <a class="entries__link" href="/2012/02/13/column-selector-level4/" rel="bookmark" title="CSS4で追加されるかもしれないテーブル周りの擬似セレクタについて">CSS4で追加されるかもしれないテーブル周りの擬似セレクタについて</a>
+            <time class="entries__published" published itemprop="datePublished" datetime="13 Feb 2012">
+                13 Feb, 2012
+            </time>
+        </li>
+        
+        <li class="entries__item">
+            <a class="entries__link" href="/2012/02/01/convert-htmltocss-bear-css/" rel="bookmark" title="HTMLを送ると対応したCSSを返してくれるbear CSS">HTMLを送ると対応したCSSを返してくれるbear CSS</a>
+            <time class="entries__published" published itemprop="datePublished" datetime="01 Feb 2012">
+                1 Feb, 2012
+            </time>
+        </li>
+        
+        <li class="entries__item">
+            <a class="entries__link" href="/2013/04/18/prevent-skype/" rel="bookmark" title="Skypeのブラウザ拡張を入れてる人が番号をスタイリングしちゃうのを防ぐ方法">Skypeのブラウザ拡張を入れてる人が番号をスタイリングしちゃうのを防ぐ方法</a>
+            <time class="entries__published" published itemprop="datePublished" datetime="18 Apr 2013">
+                18 Apr, 2013
+            </time>
+        </li>
+        
+        <li class="entries__item">
+            <a class="entries__link" href="/2012/02/02/hsl-color/" rel="bookmark" title="CSS3で追加されたHSLカラーについて">CSS3で追加されたHSLカラーについて</a>
+            <time class="entries__published" published itemprop="datePublished" datetime="02 Feb 2012">
+                2 Feb, 2012
+            </time>
+        </li>
+        
+        <li class="entries__item">
+            <a class="entries__link" href="/2011/09/13/vim-shortcuts/" rel="bookmark" title="Vim道に入門したので、色々メモしておく(初心者)">Vim道に入門したので、色々メモしておく(初心者)</a>
+            <time class="entries__published" published itemprop="datePublished" datetime="13 Sep 2011">
+                13 Sep, 2011
+            </time>
+        </li>
+        
+    </ul>
+</section>
+
+
+    </div><!-- / .main -->
+
+    <div class="footer-container container">
+    <footer class="footer" role="contentinfo">
+        <div class="social-rss">
+            <ul class="social-rss__list">
+                <li class="social-rss__item"><a href="http://twitter.com/#!/howtohp" id="twitter" title="Twitter">Twitter</a></li>
+                <li class="social-rss__item"><a href="http://www.facebook.com/howtohp" id="facebook-page" title="Facebook Page">Facebook Page</a></li>
+                <li class="social-rss__item"><a href="http://feeds.feedburner.com/howtohp/ZiSA" id="feed" title="Feed">feed</a></li>
+            </ul>
+        </div>
+
+        <p><small class="copy">&#9786;&nbsp;howtohp</small><br>Powered by <a href="http://jekyllrb.com/">Jekyll</a></p>
+    </footer>
+</div><!-- / #footer-container -->
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
+    <script src="/assets/js/main.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript">
+        var disqus_shortname = 'howtohp';
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>

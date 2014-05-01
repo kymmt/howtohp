@@ -1,8 +1,6 @@
 ---
 layout: post
 title: ブログ、ほぼ復活
-categories:
-- Other
 tags: []
 meta:
   dsq_thread_id: '547655554'

@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem 'jekyll', '~>1.4.0'
+gem 'psych', '~> 2.0.5'
 
 #markdown
 gem 'kramdown'
