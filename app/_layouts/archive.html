@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>{{ page.title }}</title>
-        <base href="http://kymmt.github.io/howtohp">
+        <base href="http://kymmt.github.io/howtohp" target="_self">
         <meta name="viewport" content="width=device-width">
         <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.content | strip_html | strip_newlines | truncate: 150 }}{% endif %}">
         <!-- Twitter -->
@@ -37,29 +37,29 @@
             <section class="entries">
                 <h2 class="entries__sub-title">{{ post.date | date: '%Y' }}</h1>
                 <ul class="entries__list">
-            {% else %}
-                {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-                {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-            {% if year != nyear %}
+                    {% else %}
+                    {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+                    {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+                    {% if year != nyear %}
                 </ul>
                 <hr>
                 <h2 class="entries__sub-title">{{ post.date | date: '%Y' }}</h1>
                 <ul class="entries__list">
-                {% endif %}
-                {% endunless %}
+                    {% endif %}
+                    {% endunless %}
                     <li class="entries__item">
                         <a class="entries__link" href="{{ post.url }}" rel="bookmark" title="{{ post.title }}">{{ post.title }}</a>
                         <time class="entries__published" published itemprop="datePublished" datetime="{{ post.date | date_to_string }}">
                             {{ post.date | date: "%-d %b, %Y" }}
                         </time>
                     </li>
-                {% endfor %}
-            </section>
-        </div><!-- / .main -->
-        {% include footer.html %}
+                    {% endfor %}
+                </section>
+            </div><!-- / .main -->
+            {% include footer.html %}
 
-        <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
-        <script src="/js/assets/main.js"></script>
-        <!-- endbuild -->
-    </body>
-</html>
+            <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
+            <script src="/js/assets/main.js"></script>
+            <!-- endbuild -->
+        </body>
+    </html>
