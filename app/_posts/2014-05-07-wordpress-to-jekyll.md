@@ -9,7 +9,6 @@ tags:
 
 <section markdown="block">
 # ブログをWordpressからJykellに
-rcmdnk/vim-markdown
 ブログをWordpressからJykellに変更した。  
 主な理由は下記の通り。
 
