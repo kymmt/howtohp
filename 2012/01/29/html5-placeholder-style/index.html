@@ -12,10 +12,10 @@
 <span class=nd>:-moz-placeholder</span> <span class=p>{</span>
     <span class=k>color</span><span class=o>:</span>    <span class=m>#999</span><span class=p>;</span>
 <span class=p>}</span></code></pre></div><p>今のとこWebkitとFirefoxしかプレイスホルダーのスタイリングに対応していないようです。</p></section><section><h1 id=mixin>Mixin</h1><p>text-shadowとかも効くんですが、とりあえず色だけかえるための<span class=caps>SCSS</span>でmixinにしてみるとこんなかんじになります。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> placeholder-color</span><span class=p>(</span><span class=nv>$color</span><span class=p>)</span> <span class=p>{</span>
-     <span class=k>&amp;</span><span class=nt>amp</span><span class=o>;</span><span class=nd>:-moz-placeholder</span> <span class=p>{</span>
+     <span class=na>&amp;</span><span class=o>:-</span><span class=n>moz-placeholder</span> <span class=p>{</span>
          <span class=na>color</span><span class=o>:</span><span class=nv>$color</span><span class=p>;</span>
      <span class=p>}</span>
-     <span class=k>&amp;</span><span class=nt>amp</span><span class=o>;</span><span class=nd>::-webkit-input-placeholder</span> <span class=p>{</span>
+     <span class=na>&amp;</span><span class=o>::-</span><span class=n>webkit-input-placeholder</span> <span class=p>{</span>
          <span class=na>color</span><span class=o>:</span><span class=nv>$color</span><span class=p>;</span>
      <span class=p>}</span>
  <span class=p>}</span>
@@ -36,6 +36,7 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-3185102-1', 'howtohp.com');
+    ga('require', 'displayfeatures');
     ga('send', 'pageview');</script><script type=text/javascript>var disqus_shortname = 'howtohp';
             (function () {
                 var s = document.createElement('script'); s.async = true;
