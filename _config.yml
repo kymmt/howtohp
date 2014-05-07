@@ -2,27 +2,20 @@
 # 1. Gruntfile task
 # 2. config.build.yml
 # 3. config.yml
-
 name: howtohp
 description:
 author:
   name: kymmt
-  email: contact@koheiyamamoto.me
-
 # Grunt handles images and assets.
 exclude: ['assets',
           '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico', 'vendor']
-
 include: ['.htaccess']
-
 # _config.build.yml sets future and show_drafts to false on `grunt build`
 future: true
 show_drafts: false
-
 permalink: pretty
 paginate: 5
 relative_permalinks: true
-
 # Markdown library
 markdown: kramdown
 #   auto_ids: true
@@ -39,15 +32,37 @@ markdown: kramdown
 #     coderay_css: style
 markdown_ext: .md
 #   extensions: ['fenced_code_blocks', 'smart']
-
 pygments: true
-
 # My CONST
 url: http:howtohp.com
 lsi: true
-
 # Multiple languages
 languages: ['ja', 'en']
 # If not config, the first of languages will be the default
 language_default:   'ja'
 fill_default_content: false
+
+sitemap:
+    exclude:
+         - "/css/column-selector-level4.html"
+         - "/css/compass-control-prefix.html"
+         - "/css/compass-environment_setting.html"
+         - "/css/compass.html"
+         - "/css/css3-text-shadow.html"
+         - "/css/hsl-color.html"
+         - "/css/html5-placeholder-style.html"
+         - "/css/min-height.html"
+         - "/css/prevent_skype.html"
+         - "/css/sass-bem.html"
+         - "/css/sass-responsive-web-design.html"
+         - "/other/wordpress-development-ready.html"
+         - "/tools/homebrew-instal.html"
+         - "/tools/homebrew-mysql.html"
+         - "/tools/mac-apache-virtual-host.html"
+         - "/tools/tools/useful-command-line.html"
+         - "/tools/vim-css_color_scss.html"
+         - "/tools/vim-shortcuts.html"
+         - "/web-site/convert-htmltocss-bear_css.html"
+         - "/web-site/css-prefixr.html"
+         - "/web-site/link_transition.html"
+         - "/web-site/vimgolf.html"
