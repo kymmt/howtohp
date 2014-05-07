@@ -3,9 +3,11 @@
 # 2. config.build.yml
 # 3. config.yml
 name: howtohp
-description:
+description: フリーランスで働くフロントエンドエンジニアのブログです。
 author:
   name: kymmt
+
+source: ./app/
 # Grunt handles images and assets.
 exclude: ['assets',
           '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico', 'vendor']
