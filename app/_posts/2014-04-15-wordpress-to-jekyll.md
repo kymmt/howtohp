@@ -195,17 +195,14 @@ bundle install --path ./vendor/bundle
 </section>
 
 <section markdown="block">
-# サーバーをさくらからgithubへ
+# サーバーをさくらからGithubへ
 
-これに関しては正直、最適な方法がわからない。
+Github Pagesを使うようにした。  
+これでサーバー代が無料になる！
 
-Githubページに移行するのはいいんだけど、Gruntfile.jsとか.editorconfigとかのドットファイルなんかもリモートリポジトリに入れときたかったんだ。
+howtohpというブログ用のリポジトリを作って、gh-pagesブランチにpushするようにした。
+でもこれだと、ルートがhttp://ユーザー名.github.io/howtohp/になるので、元々使ってるドメインを割り当てた。
 
-でも、Githubページのユーザーページはリポジトリのルートに置かなきゃいけないので、そこに出力したHTMLとかとGruntfile.jsを同居できない。
-
-なので現在、Githubユーザーページ用のリポジトリと開発環境用のGruntfile.jsとかをおいているリポジトリを分けて対応。
-これに関してはなんか気持ち悪い感が残ってる。
-
-具体的な方法に関しては、長くなってきたので割愛するが、`git push`で開発環境の方をリポジトリにあげて、`grunt deploy`で生成したHTMLの方をGithubページの方にあげるようにしている。
+具体的な方法に関しては、長くなってきたので割愛するが、`git push`で開発環境の方をリポジトリにあげて、`grunt deploy`で生成したHTMLの方をgh-pagesブランチにあげるようにしている。
 </section>
 
