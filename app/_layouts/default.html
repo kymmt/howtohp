@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>{{ page.title }}</title>
-        <base href="http://kymmt.github.io/howtohp" target="_self">
         <meta name="viewport" content="width=device-width">
         <meta name="description" content="{% if page.description %}{{ page.description }}{% endif %}">
         <!-- Twitter -->
@@ -49,6 +48,7 @@
         <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
         <script src="/assets/js/main.js"></script>
         <!-- endbuild -->
+        {% include google-analytics.html %}
         <script type="text/javascript">
             var disqus_shortname = 'howtohp';
             (function () {

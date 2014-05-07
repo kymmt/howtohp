@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>{{ page.title }}</title>
-        <base href="http://kymmt.github.io/howtohp" target="_self">
         <meta name="viewport" content="width=device-width">
         <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.content | strip_html | strip_newlines | truncate: 150 }}{% endif %}">
         <!-- Twitter -->
@@ -54,12 +53,14 @@
                         </time>
                     </li>
                     {% endfor %}
-                </section>
-            </div><!-- / .main -->
-            {% include footer.html %}
+                </ul>
+            </section>
+        </div><!-- / .main -->
+        {% include footer.html %}
 
-            <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
-            <script src="/js/assets/main.js"></script>
-            <!-- endbuild -->
-        </body>
-    </html>
+        <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
+        <script src="/js/assets/main.js"></script>
+        <!-- endbuild -->
+        {% include google-analytics.html %}
+    </body>
+</html>
