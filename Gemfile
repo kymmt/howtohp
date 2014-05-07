@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'jekyll', '~>1.4.0'
+gem 'jekyll'
 gem 'psych', '~> 2.0.5'
 
 #markdown
