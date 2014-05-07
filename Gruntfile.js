@@ -272,7 +272,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= path.dist %>',
-                    src: '**/*.{jpg,jpeg,png}',
+                    src: '**/*.{jpg,gif,png}',    //temporaly skip jpeg. jpeg
                     dest: '<%= path.dist %>'
                 }]
             }
@@ -448,7 +448,7 @@ module.exports = function (grunt) {
         'autoprefixer:dist',
         'cssmin',
         'uglify',
-        'imagemin',
+        //'imagemin',   //temporaly skip imagemin this cause error
         'svgmin',
         'filerev',
         'usemin',
