@@ -49,10 +49,10 @@ text-shadowとかも効くんですが、とりあえず色だけかえるため
 
 ~~~ scss
 @mixin placeholder-color($color) {
-     &amp;:-moz-placeholder {
+     &:-moz-placeholder {
          color:$color;
      }
-     &amp;::-webkit-input-placeholder {
+     &::-webkit-input-placeholder {
          color:$color;
      }
  }
