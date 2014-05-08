@@ -40,19 +40,19 @@
         {% endif %}
     </head>
     <body itemscope itemtype="http://schema.org/Blog" lang="ja">
-        {% include header.html %}
+        {% include header.liquid %}
 
         <div class="main container--small" role="main">
             {{ content }}
         </div><!-- / .main -->
 
-        {% include footer.html %}
+        {% include footer.liquid %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
         <script src="/assets/js/main.js"></script>
         <!-- endbuild -->
-        {% include google-analytics.html %}
+        {% include google-analytics.liquid %}
         <script type="text/javascript">
             var disqus_shortname = 'howtohp';
             (function () {

@@ -14,7 +14,7 @@
         <!-- endbuild -->
     </head>
     <body>
-        {% include header.html %}
+        {% include header.liquid %}
         <div class="main container--small" role="main">
             <p><strong>{{ page.title }}</strong>のページはサイトリニューアルに伴い移動しました。<br />
                 新しいページは<a href="{{ page.to }}">{{ site.url }}{{ page.to }}</a>になりました。</p>
@@ -23,11 +23,11 @@
 
         </div><!-- / .main -->
 
-        {% include footer.html %}
+        {% include footer.liquid %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
         <script src="/assets/js/main.js"></script>
         <!-- endbuild -->
-        {% include google-analytics.html %}
+        {% include google-analytics.liquid %}
     </body>
 </html>

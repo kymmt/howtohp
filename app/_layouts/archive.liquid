@@ -29,7 +29,7 @@
 
     </head>
     <body>
-        {% include header.html %}
+        {% include header.liquid %}
 
         <div class="main container--small" role="main">
             <h1 class="entries__title" itemprop="name">{{ page.title }}</h1>
@@ -58,11 +58,11 @@
                 </ul>
             </section>
         </div><!-- / .main -->
-        {% include footer.html %}
+        {% include footer.liquid %}
 
         <!-- build:js({app,.tmp}) /assets/js/scripts.js -->
         <script src="/js/assets/main.js"></script>
         <!-- endbuild -->
-        {% include google-analytics.html %}
+        {% include google-analytics.liquid %}
     </body>
 </html>
