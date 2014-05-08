@@ -7,7 +7,6 @@ description: フリーランスで働くフロントエンドエンジニアの�
 author:
   name: kymmt
 
-source: ./app/
 # Grunt handles images and assets.
 exclude: ['assets',
           '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico', 'vendor']
@@ -33,16 +32,11 @@ markdown: kramdown
 #     coderay_bold_every: 10
 #     coderay_css: style
 markdown_ext: .md
-#   extensions: ['fenced_code_blocks', 'smart']
-pygments: true
+highlighter: pygments
+
 # My CONST
 url: http:howtohp.com
 lsi: true
-# Multiple languages
-languages: ['ja', 'en']
-# If not config, the first of languages will be the default
-language_default:   'ja'
-fill_default_content: false
 
 sitemap:
     exclude:
