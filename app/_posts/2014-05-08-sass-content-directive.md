@@ -6,7 +6,8 @@ tags:
 published: true 
 ---
 
-この記事は、2014/04/22に[Christian Reuter](https://twitter.com/jchreu)氏によって、書かれた記事を翻訳したものです。  
+この記事は、2014/04/22に[Christian Reuter](https://twitter.com/jchreu)氏によって、書かれた記事です。  
+本人の許可を頂いて翻訳しています。  
 直訳が難しい所が結構あったので、意訳しています。
 
 [[原文 - http://robots.thoughtbot.com/sasss-content-directive]](http://robots.thoughtbot.com/sasss-content-directive)
