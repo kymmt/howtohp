@@ -128,7 +128,7 @@ Keyframesは重複のよい例です。ベンダー毎に記述するかわり�
 }
 ~~~
 
-## Context Specificity
+## コンテキストによる振り分け 
 
 これも[Burbon](http://bourbon.io/docs/#keyframes)で使用されています。
 
@@ -177,7 +177,7 @@ Keyframesは重複のよい例です。ベンダー毎に記述するかわり�
 }
 ~~~
 
-## Getting BEMy
+## BEMの簡略化
 
 SASS 3.3から`@at-root`が追加され`&`が改善されています。  
 `@at-root`はネストした記述をコンパイル時にCSSのルートに移動します。  
