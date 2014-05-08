@@ -3,8 +3,13 @@ layout: post
 title: (翻訳) Sassの@contentのユースケース 
 tags:
 - Sass 
-published: false
+published: true 
 ---
+
+この記事は、2014/04/22に[Christian Reuter](https://twitter.com/jchreu)氏によって、書かれた記事を翻訳したものです。  
+直訳が難しい所が結構あったので、意訳しています。
+
+[[原文 - http://robots.thoughtbot.com/sasss-content-directive]](http://robots.thoughtbot.com/sasss-content-directive)
 
 Sass 3.2からミックスインにContentブロックを渡せる`@content`が追加されています。
 
@@ -126,9 +131,9 @@ Keyframesは重複のよい例です。ベンダー毎に記述するかわり�
 
 これも[Burbon](http://bourbon.io/docs/#keyframes)で使用されています。
 
-I just picked up a project from [Reda Lemeden](https://twitter.com/kaishin), who wrote a pair of clever mixins to modify components for a given context.
+親のクラスによって、スタイルを振り分けるための賢いMixinを[Reda Lemeden](https://twitter.com/kaishin)さんのプロジェクトから紹介します。
 
-Instead of creating many .component--modifiers or chaining modifying classes, we can better separate our concerns by defining a style’s context specificity.
+状態管理用の`.component--modifiers`やクラスを繋げていく変わりに、親のクラスを定義しておくことで分離する事ができます。
 
 ~~~ scss
 @mixin create-context($classes...) {
@@ -173,9 +178,11 @@ Instead of creating many .component--modifiers or chaining modifying classes, we
 
 ## Getting BEMy
 
-Sass 3.3 adds the @at-root directive and improved &s. The former allows us to nest declarations in Sass, but compile them to the stylesheet’s root. The latter appends any following text directly to the parent’s selector.
+SASS 3.3から`@at-root`が追加され`&`が改善されています。  
+`@at-root`はネストした記述をコンパイル時にCSSのルートに移動します。  
+`&`はそれに文字列を続けて記述できるようになりました。
 
-These can be used with `@content` to simplify writing BEM syntax. Thanks to Scott Kellum for the original implementation.
+これらは`@content`を利用することによってBEM記法を簡略化出来ます。ありがとうScott Kellumさん
 
 ~~~ scss
 @mixin element($name) {
@@ -221,8 +228,6 @@ These can be used with `@content` to simplify writing BEM syntax. Thanks to Scot
 
 # まとめ 
 
-`@content` is just one of many Sass directives that can empower us to remove duplication in our SCSS, and think more creatively about its organization and implementation. Learn more by reading the [Sass directives documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives).
-
-`@content`はSCSSの重複を減らすSassの機能の一つに過ぎません。
-
+`@content`はSCSSの重複を減らすSassの機能の一つに過ぎません。もっとクリエイティブに構成と開発を考えてみましょう。
+詳しくは[Sass directives documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives)
 
