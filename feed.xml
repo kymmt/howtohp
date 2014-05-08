@@ -117,7 +117,7 @@ Contentブロックをメディアクエリーに渡す事でシンプルに出�
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;context-specificity&quot;&gt;Context&amp;nbsp;Specificity&lt;/h2&gt;
+&lt;h2 id=&quot;section&quot;&gt;コンテキストによる振り分け&lt;/h2&gt;
 
 &lt;p&gt;これも&lt;a href=&quot;http://bourbon.io/docs/#keyframes&quot;&gt;Burbon&lt;/a&gt;で使用されています。&lt;/p&gt;
 
@@ -162,7 +162,7 @@ Contentブロックをメディアクエリーに渡す事でシンプルに出�
     &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;getting-bemy&quot;&gt;Getting&amp;nbsp;BEMy&lt;/h2&gt;
+&lt;h2 id=&quot;bem&quot;&gt;&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;の簡略化&lt;/h2&gt;
 
 &lt;p&gt;&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt; &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;から&lt;code&gt;@at-root&lt;/code&gt;が追加され&lt;code&gt;&amp;amp;&lt;/code&gt;が改善されています。&lt;br /&gt;
 &lt;code&gt;@at-root&lt;/code&gt;はネストした記述をコンパイル時に&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;のルートに移動します。&lt;br /&gt;
@@ -208,7 +208,7 @@ Contentブロックをメディアクエリーに渡す事でシンプルに出�
   &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;section&quot;&gt;まとめ&lt;/h1&gt;
+&lt;h1 id=&quot;section-1&quot;&gt;まとめ&lt;/h1&gt;
 
 &lt;p&gt;&lt;code&gt;@content&lt;/code&gt;は&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;の重複を減らすSassの機能の一つに過ぎません。もっとクリエイティブに構成と開発を考えてみましょう。
 詳しくは&lt;a href=&quot;http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives&quot;&gt;Sass directives&amp;nbsp;documentation&lt;/a&gt;&lt;/p&gt;

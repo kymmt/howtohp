@@ -66,7 +66,7 @@
   <span class=nt>to</span> <span class=p>{</span>
     <span class=k>opacity</span><span class=o>:</span> <span class=m>100</span><span class=o>%</span><span class=p>;</span>
   <span class=p>}</span>
-<span class=p>}</span></code></pre></div><h2 id=context-specificity>Context&nbsp;Specificity</h2><p>これも<a href=http://bourbon.io/docs/#keyframes>Burbon</a>で使用されています。</p><p>親のクラスによって、スタイルを振り分けるための賢いMixinを<a href=https://twitter.com/kaishin>Reda Lemeden</a>さんのプロジェクトから紹介します。</p><p>状態管理用の<code>.component--modifiers</code>やクラスを繋げていく変わりに、親のクラスを定義しておくことで分離する事ができます。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> create-context</span><span class=p>(</span><span class=nv>$classes</span><span class=o>...</span><span class=p>)</span> <span class=p>{</span>
+<span class=p>}</span></code></pre></div><h2 id=section>コンテキストによる振り分け</h2><p>これも<a href=http://bourbon.io/docs/#keyframes>Burbon</a>で使用されています。</p><p>親のクラスによって、スタイルを振り分けるための賢いMixinを<a href=https://twitter.com/kaishin>Reda Lemeden</a>さんのプロジェクトから紹介します。</p><p>状態管理用の<code>.component--modifiers</code>やクラスを繋げていく変わりに、親のクラスを定義しておくことで分離する事ができます。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> create-context</span><span class=p>(</span><span class=nv>$classes</span><span class=o>...</span><span class=p>)</span> <span class=p>{</span>
   <span class=k>@each</span> <span class=err>$</span><span class=nt>class</span> <span class=nt>in</span> <span class=err>$</span><span class=nt>classes</span> <span class=p>{</span>
     <span class=nc>.</span><span class=si>#{</span><span class=nv>$class</span><span class=si>}</span> <span class=k>&amp;</span> <span class=p>{</span>
       <span class=k>@content</span><span class=o>;</span>
@@ -97,7 +97,7 @@
 
 <span class=nc>.blog</span> <span class=nc>.header</span> <span class=p>{</span>
     <span class=k>background</span><span class=o>:</span> <span class=nb>green</span><span class=p>;</span>
-<span class=p>}</span></code></pre></div><h2 id=getting-bemy>Getting&nbsp;BEMy</h2><p><span class=caps>SASS</span> <span class=caps>3.3</span>から<code>@at-root</code>が追加され<code>&amp;</code>が改善されています。<br><code>@at-root</code>はネストした記述をコンパイル時に<span class=caps>CSS</span>のルートに移動します。<br><code>&amp;</code>はそれに文字列を続けて記述できるようになりました。</p><p>これらは<code>@content</code>を利用することによって<span class=caps>BEM</span>記法を簡略化出来ます。ありがとうScott&nbsp;Kellumさん</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> element</span><span class=p>(</span><span class=nv>$name</span><span class=p>)</span> <span class=p>{</span>
+<span class=p>}</span></code></pre></div><h2 id=bem><span class=caps>BEM</span>の簡略化</h2><p><span class=caps>SASS</span> <span class=caps>3.3</span>から<code>@at-root</code>が追加され<code>&amp;</code>が改善されています。<br><code>@at-root</code>はネストした記述をコンパイル時に<span class=caps>CSS</span>のルートに移動します。<br><code>&amp;</code>はそれに文字列を続けて記述できるようになりました。</p><p>これらは<code>@content</code>を利用することによって<span class=caps>BEM</span>記法を簡略化出来ます。ありがとうScott&nbsp;Kellumさん</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> element</span><span class=p>(</span><span class=nv>$name</span><span class=p>)</span> <span class=p>{</span>
   <span class=k>@at-root</span> <span class=nn>#</span><span class=p>{</span><span class=na>&amp;}__#{$name}</span><span class=err> </span><span class=na>{</span>
     <span class=k>@content</span><span class=o>;</span>
   <span class=p>}</span>
@@ -129,7 +129,7 @@
 
 <span class=nc>.block__element--modifier</span> <span class=p>{</span>
   <span class=k>color</span><span class=o>:</span> <span class=nb>blue</span><span class=p>;</span>
-<span class=p>}</span></code></pre></div><h1 id=section>まとめ</h1><p><code>@content</code>は<span class=caps>SCSS</span>の重複を減らすSassの機能の一つに過ぎません。もっとクリエイティブに構成と開発を考えてみましょう。 詳しくは<a href=http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives>Sass directives&nbsp;documentation</a></p></div><div class=entry__comments><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'howtohp';
+<span class=p>}</span></code></pre></div><h1 id=section-1>まとめ</h1><p><code>@content</code>は<span class=caps>SCSS</span>の重複を減らすSassの機能の一つに過ぎません。もっとクリエイティブに構成と開発を考えてみましょう。 詳しくは<a href=http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives>Sass directives&nbsp;documentation</a></p></div><div class=entry__comments><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'howtohp';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
