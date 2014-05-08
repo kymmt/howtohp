@@ -1,0 +1,149 @@
+<!doctype html><html><head><meta charset=utf-8><title>(翻訳) Sassの@contentのユースケース</title><meta name=viewport content="width=device-width"><meta name=description content=""><!-- Twitter --><meta name=twitter:card content=summary><meta name=twitter:author content=@howtohp><meta name=twitter:title content="(翻訳) Sassの@contentのユースケース"><meta name=twitter:description content=""><!-- Facebook --><meta property=og:type content=article><meta property=og:title content="(翻訳) Sassの@contentのユースケース"><meta property=og:description content=""><meta property=og:url content="http:howtohp.com/2014/05/08/sass-content-directive/"><meta property=og:locale content=ja-JP><meta property=article:published_time content="2014-05-08 00:00:00 +0900"><link rel=canonical href="http:howtohp.com/2014/05/08/sass-content-directive/"><link rel=alternate type=application/atom+xml href=/feed.xml><link rel=alternate type=application/atom+xml href=/feed.xml><link rel=next href="/2014/05/07/wordpress-to-jekyll/"><link rel=stylesheet href=/assets/css/main.1d3b.css></head><body itemscope itemtype=http://schema.org/Blog lang=ja><header class="header container" role=banner><div class=header__title><h1><a href="/">howtohp</a></h1></div><nav class=global-nav role=navigation><ul class=global-nav__list><li class=global-nav__item><a class=global-nav__link href="/">HOME</a></li><li class=global-nav__item><a class=global-nav__link href=/archive>Archive</a></li><li class=global-nav__item><a class=global-nav__link href=/about>About</a></li></ul></nav></header><div class="main container--small" role=main><article class="entry h-entry" itemscope itemtype=http://schema.org/BlogPosting><header class=entry__header><h1 class=entry__title itemprop=name>(翻訳) Sassの@contentのユースケース</h1><div class=entry__meta><time class=entry__published itemprop=datePublished datetime="08 May 2014"><span class=icon-calendar></span> 8 May, 2014</time><div class=entry__tags><span class=icon-tags></span><ul class=entry__tags__list><li class=entry__tags__item itemprop=keywords>Sass</li></ul></div></div><!-- / .entry__meta --></header><div class=entry__content itemprop=articleBody><p>この記事は、2014/04/22に<a href=https://twitter.com/jchreu>Christian Reuter</a>氏によって、書かれた記事です。<br>本人の許可を頂いて翻訳しています。<br>直訳が難しい所が結構あったので、意訳しています。</p><p><a href=http://robots.thoughtbot.com/sasss-content-directive>[原文 -&nbsp;http://robots.thoughtbot.com/sasss-content-directive]</a></p><p>Sass&nbsp;<span class=caps>3.2</span>からミックスインにContentブロックを渡せる<code>@content</code>が追加されています。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> apply-to-ie6-only</span> <span class=p>{</span>
+  <span class=o>*</span> <span class=nt>html</span> <span class=p>{</span>
+    <span class=k>@content</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@include</span><span class=nd> apply-to-ie6-only</span> <span class=p>{</span>
+  <span class=nn>#logo</span> <span class=p>{</span>
+    <span class=na>background-image</span><span class=o>:</span> <span class=sx>url(/logo.gif)</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div><p>生成後</p><div class=highlight><pre><code class=css><span class=o>*</span> <span class=nt>html</span> <span class=nf>#logo</span> <span class=p>{</span>
+    <span class=k>background-image</span><span class=o>:</span> <span class=sx>url(/logo.gif)</span><span class=p>;</span>
+<span class=p>}</span></code></pre></div><p>外側のスコープのセレクターに対してどこにでも記述できます。</p><h1 id=media-queries>Media&nbsp;Queries</h1><p>デバイス毎にファイルをわけてメンテナンスしなくても、メディアクエリーを書けますが、&nbsp;何度も繰り返し記述するのもやっかいです。 Contentブロックをメディアクエリーに渡す事でシンプルに出来ます。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> media</span><span class=p>(</span><span class=nv>$width</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>@media</span> <span class=nt>only</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>max-width</span><span class=nd>:</span> <span class=err>$</span><span class=nt>width</span><span class=o>)</span> <span class=p>{</span>
+    <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@include</span><span class=nd> media</span><span class=p>(</span><span class=mi>320</span><span class=kt>px</span><span class=p>)</span> <span class=p>{</span>
+  <span class=na>background</span><span class=o>:</span> <span class=nb>red</span><span class=p>;</span>
+<span class=p>}</span></code></pre></div><p>生成後</p><div class=highlight><pre><code class=css><span class=k>@media</span> <span class=nt>only</span> <span class=nt>screen</span> <span class=nt>and</span> <span class=o>(</span><span class=nt>max-width</span><span class=o>:</span> <span class=nt>320px</span><span class=o>)</span> <span class=p>{</span>
+  <span class=nt>background</span><span class=o>:</span> <span class=nt>red</span><span class=o>;</span>
+<span class=p>}</span></code></pre></div><p>これは、Bourbonで使われている<a href=http://bourbon.io/docs/#hidpi-media-query>Hi<span class=caps>DPI</span> mixin</a>の様に長く細かく設定されたメディアクエリーに対して特に効果的です。</p><p>詳しくは、私達の<a href=https://github.com/thoughtbot/neat/blob/master/app/assets/stylesheets/grid/_media.scss>Neat</a>で使っているMixinでご覧頂けます。</p><h1 id=keyframes>Keyframes</h1><p>Keyframesは重複のよい例です。ベンダー毎に記述するかわりにMixinに出来ます。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> keyframes</span><span class=p>(</span><span class=nv>$name</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>@-webkit-keyframes</span> <span class=nn>#</span><span class=p>{</span><span class=err>$</span><span class=nt>name</span><span class=p>}</span> <span class=p>{</span>
+    <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+
+  <span class=k>@-moz-keyframes</span> <span class=nn>#</span><span class=p>{</span><span class=err>$</span><span class=nt>name</span><span class=p>}</span> <span class=p>{</span>
+    <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+
+  <span class=k>@keyframes</span> <span class=nn>#</span><span class=p>{</span><span class=err>$</span><span class=nt>name</span><span class=p>}</span> <span class=p>{</span>
+    <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@include</span><span class=nd> keyframes</span><span class=p>(</span><span class=n>fadeIn</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nt>from</span> <span class=p>{</span>
+    <span class=na>opacity</span><span class=o>:</span> <span class=mi>0</span><span class=kt>%</span><span class=p>;</span>
+  <span class=p>}</span>
+  <span class=nt>to</span> <span class=p>{</span>
+    <span class=na>opacity</span><span class=o>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div><p>生成後</p><div class=highlight><pre><code class=css><span class=k>@-webkit-keyframes</span> <span class=nt>fadeIn</span> <span class=p>{</span>
+  <span class=nt>from</span> <span class=p>{</span>
+    <span class=k>opacity</span><span class=o>:</span> <span class=m>0</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+  <span class=nt>to</span> <span class=p>{</span>
+    <span class=k>opacity</span><span class=o>:</span> <span class=m>100</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@-moz-keyframes</span> <span class=nt>fadeIn</span> <span class=p>{</span>
+  <span class=nt>from</span> <span class=p>{</span>
+    <span class=k>opacity</span><span class=o>:</span> <span class=m>0</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+  <span class=nt>to</span> <span class=p>{</span>
+    <span class=k>opacity</span><span class=o>:</span> <span class=m>100</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@keyframes</span> <span class=nt>fadeIn</span> <span class=p>{</span>
+  <span class=nt>from</span> <span class=p>{</span>
+    <span class=k>opacity</span><span class=o>:</span> <span class=m>0</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+  <span class=nt>to</span> <span class=p>{</span>
+    <span class=k>opacity</span><span class=o>:</span> <span class=m>100</span><span class=o>%</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div><h2 id=context-specificity>Context&nbsp;Specificity</h2><p>これも<a href=http://bourbon.io/docs/#keyframes>Burbon</a>で使用されています。</p><p>親のクラスによって、スタイルを振り分けるための賢いMixinを<a href=https://twitter.com/kaishin>Reda Lemeden</a>さんのプロジェクトから紹介します。</p><p>状態管理用の<code>.component--modifiers</code>やクラスを繋げていく変わりに、親のクラスを定義しておくことで分離する事ができます。</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> create-context</span><span class=p>(</span><span class=nv>$classes</span><span class=o>...</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>@each</span> <span class=err>$</span><span class=nt>class</span> <span class=nt>in</span> <span class=err>$</span><span class=nt>classes</span> <span class=p>{</span>
+    <span class=nc>.</span><span class=si>#{</span><span class=nv>$class</span><span class=si>}</span> <span class=k>&amp;</span> <span class=p>{</span>
+      <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@mixin</span><span class=nf> context--alternate-template</span> <span class=p>{</span>
+  <span class=k>@include</span><span class=nd> create-context</span><span class=p>(</span><span class=n>about</span><span class=o>,</span> <span class=n>blog</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>@content</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=nc>.header</span> <span class=p>{</span>
+  <span class=na>height</span><span class=o>:</span> <span class=mi>12</span><span class=kt>em</span><span class=p>;</span>
+  <span class=na>background</span><span class=o>:</span> <span class=nb>red</span><span class=p>;</span>
+
+  <span class=k>@include</span><span class=nd> context--alternate-template</span> <span class=p>{</span>
+    <span class=na>background</span><span class=o>:</span> <span class=nb>green</span><span class=p>;</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div><p>生成後</p><div class=highlight><pre><code class=css><span class=nc>.header</span> <span class=p>{</span>
+    <span class=k>height</span><span class=o>:</span> <span class=m>12em</span><span class=p>;</span>
+    <span class=k>background</span><span class=o>:</span> <span class=nb>red</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=nc>.about</span> <span class=nc>.header</span> <span class=p>{</span>
+    <span class=k>background</span><span class=o>:</span> <span class=nb>green</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=nc>.blog</span> <span class=nc>.header</span> <span class=p>{</span>
+    <span class=k>background</span><span class=o>:</span> <span class=nb>green</span><span class=p>;</span>
+<span class=p>}</span></code></pre></div><h2 id=getting-bemy>Getting&nbsp;BEMy</h2><p><span class=caps>SASS</span> <span class=caps>3.3</span>から<code>@at-root</code>が追加され<code>&amp;</code>が改善されています。<br><code>@at-root</code>はネストした記述をコンパイル時に<span class=caps>CSS</span>のルートに移動します。<br><code>&amp;</code>はそれに文字列を続けて記述できるようになりました。</p><p>これらは<code>@content</code>を利用することによって<span class=caps>BEM</span>記法を簡略化出来ます。ありがとうScott&nbsp;Kellumさん</p><div class=highlight><pre><code class=scss><span class=k>@mixin</span><span class=nf> element</span><span class=p>(</span><span class=nv>$name</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>@at-root</span> <span class=nn>#</span><span class=p>{</span><span class=na>&amp;}__#{$name}</span><span class=err> </span><span class=na>{</span>
+    <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=k>@mixin</span><span class=nf> modifier</span><span class=p>(</span><span class=nv>$name</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>@at-root</span> <span class=nn>#</span><span class=p>{</span><span class=na>&amp;}--#{$name}</span><span class=err> </span><span class=na>{</span>
+    <span class=k>@content</span><span class=o>;</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=nc>.block</span> <span class=p>{</span>
+  <span class=na>color</span><span class=o>:</span> <span class=nb>red</span><span class=p>;</span>
+
+  <span class=k>@include</span><span class=nd> element</span><span class=p>(</span><span class=n>element</span><span class=p>)</span> <span class=p>{</span>
+    <span class=na>color</span><span class=o>:</span> <span class=nb>green</span><span class=p>;</span>
+
+    <span class=k>@include</span><span class=nd> modifier</span><span class=p>(</span><span class=n>modifier</span><span class=p>)</span> <span class=p>{</span>
+      <span class=na>color</span><span class=o>:</span> <span class=nb>blue</span><span class=p>;</span>
+    <span class=p>}</span>
+  <span class=p>}</span>
+<span class=p>}</span></code></pre></div><p>生成後</p><div class=highlight><pre><code class=css><span class=nc>.block</span> <span class=p>{</span>
+  <span class=k>color</span><span class=o>:</span> <span class=nb>red</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=nc>.block__element</span> <span class=p>{</span>
+  <span class=k>color</span><span class=o>:</span> <span class=nb>green</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=nc>.block__element--modifier</span> <span class=p>{</span>
+  <span class=k>color</span><span class=o>:</span> <span class=nb>blue</span><span class=p>;</span>
+<span class=p>}</span></code></pre></div><h1 id=section>まとめ</h1><p><code>@content</code>は<span class=caps>SCSS</span>の重複を減らすSassの機能の一つに過ぎません。もっとクリエイティブに構成と開発を考えてみましょう。 詳しくは<a href=http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives>Sass directives&nbsp;documentation</a></p></div><div class=entry__comments><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'howtohp';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article><div class=pager><a href="/2014/05/07/wordpress-to-jekyll/" class=pager__older title="Older Post: ブログをWordpressからJykellに、サーバーをさくらからgithubへ">Older &raquo;</a></div><hr><section class="related-posts entries"><h1>関連記事</h1><ul><li class=entries__item><a class=entries__link href="/2013/12/27/sass-bem/" rel=bookmark title=SASSを使ってBEMで記述>SASSを使ってBEMで記述</a> <time class=entries__published published="" itemprop=datePublished datetime="27 Dec 2013">27 Dec, 2013</time></li><li class=entries__item><a class=entries__link href="/2012/07/20/sass-responsive-web-design/" rel=bookmark title=Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ>Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ</a> <time class=entries__published published="" itemprop=datePublished datetime="20 Jul 2012">20 Jul, 2012</time></li><li class=entries__item><a class=entries__link href="/2012/09/22/compass-control-prefix/" rel=bookmark title=Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法>Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法</a> <time class=entries__published published="" itemprop=datePublished datetime="22 Sep 2012">22 Sep, 2012</time></li><li class=entries__item><a class=entries__link href="/2011/09/19/compass/" rel=bookmark title=CSS書くならCompass使った方がいいよ。SASS使ってる人なら特に。>CSS書くならCompass使った方がいいよ。SASS使ってる人なら特に。</a> <time class=entries__published published="" itemprop=datePublished datetime="19 Sep 2011">19 Sep, 2011</time></li><li class=entries__item><a class=entries__link href="/2012/01/29/html5-placeholder-style/" rel=bookmark title=HTML5のplaceholder属性で、表示される文字色を変更する方法>HTML5のplaceholder属性で、表示される文字色を変更する方法</a> <time class=entries__published published="" itemprop=datePublished datetime="29 Jan 2012">29 Jan, 2012</time></li></ul></section></div><!-- / .main --><div class="footer-container container"><footer class=footer role=contentinfo><div class=social-rss><ul class=social-rss__list><li class=social-rss__item><a href=http://twitter.com/#!/howtohp id=twitter title=Twitter>Twitter</a></li><li class=social-rss__item><a href=http://www.facebook.com/howtohp id=facebook-page title="Facebook Page">Facebook Page</a></li><li class=social-rss__item><a href=/feed.xml id=feed title=Feed>feed</a></li></ul></div><p><small class=copy>&#9786;&nbsp;howtohp</small><br>Powered by <a href="http://jekyllrb.com/">Jekyll</a></p></footer></div><!-- / #footer-container --><script src=//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js></script><script src=/assets/js/scripts.c909.js></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-3185102-1', 'howtohp.com');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');</script><script type=text/javascript>var disqus_shortname = 'howtohp';
+            (function () {
+                var s = document.createElement('script'); s.async = true;
+                s.type = 'text/javascript';
+                s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+                (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+            }());</script></body></html>

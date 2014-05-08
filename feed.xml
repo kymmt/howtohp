@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>howtohp</title>
+        <description>フリーランスで働くフロントエンドエンジニアのブログです。</description>
+        <link>http:howtohp.com</link>
+        <atom:link href="http:howtohp.com/feed.xml" rel="self" type="application/rss+xml" />
+        
+            <item>
+                <title>(翻訳) Sassの@contentのユースケース</title>
+                <description>&lt;p&gt;この記事は、2014/04/22に&lt;a href=&quot;https://twitter.com/jchreu&quot;&gt;Christian Reuter&lt;/a&gt;氏によって、書かれた記事です。&lt;br /&gt;
+本人の許可を頂いて翻訳しています。&lt;br /&gt;
+直訳が難しい所が結構あったので、意訳しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://robots.thoughtbot.com/sasss-content-directive&quot;&gt;[原文 -&amp;nbsp;http://robots.thoughtbot.com/sasss-content-directive]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Sass&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;3.2&lt;/span&gt;からミックスインにContentブロックを渡せる&lt;code&gt;@content&lt;/code&gt;が追加されています。&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; apply-to-ie6-only&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; apply-to-ie6-only&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nn&quot;&gt;#logo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(/logo.gif)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;生成後&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#logo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(/logo.gif)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;外側のスコープのセレクターに対してどこにでも記述できます。  &lt;/p&gt;
+
+&lt;h1 id=&quot;media-queries&quot;&gt;Media&amp;nbsp;Queries&lt;/h1&gt;
+
+&lt;p&gt;デバイス毎にファイルをわけてメンテナンスしなくても、メディアクエリーを書けますが、&amp;nbsp;何度も繰り返し記述するのもやっかいです。
+Contentブロックをメディアクエリーに渡す事でシンプルに出来ます。&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;max-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; media&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;320&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;生成後&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;max-width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;320px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これは、Bourbonで使われている&lt;a href=&quot;http://bourbon.io/docs/#hidpi-media-query&quot;&gt;Hi&lt;span class=&quot;caps&quot;&gt;DPI&lt;/span&gt; mixin&lt;/a&gt;の様に長く細かく設定されたメディアクエリーに対して特に効果的です。  &lt;/p&gt;
+
+&lt;p&gt;詳しくは、私達の&lt;a href=&quot;https://github.com/thoughtbot/neat/blob/master/app/assets/stylesheets/grid/_media.scss&quot;&gt;Neat&lt;/a&gt;で使っているMixinでご覧頂けます。&lt;/p&gt;
+
+&lt;h1 id=&quot;keyframes&quot;&gt;Keyframes&lt;/h1&gt;
+
+&lt;p&gt;Keyframesは重複のよい例です。ベンダー毎に記述するかわりにMixinに出来ます。&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; keyframes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@-webkit-keyframes&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;@-moz-keyframes&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;@keyframes&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; keyframes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fadeIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;生成後&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@-webkit-keyframes&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;fadeIn&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@-moz-keyframes&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;fadeIn&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@keyframes&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;fadeIn&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;context-specificity&quot;&gt;Context&amp;nbsp;Specificity&lt;/h2&gt;
+
+&lt;p&gt;これも&lt;a href=&quot;http://bourbon.io/docs/#keyframes&quot;&gt;Burbon&lt;/a&gt;で使用されています。&lt;/p&gt;
+
+&lt;p&gt;親のクラスによって、スタイルを振り分けるための賢いMixinを&lt;a href=&quot;https://twitter.com/kaishin&quot;&gt;Reda Lemeden&lt;/a&gt;さんのプロジェクトから紹介します。&lt;/p&gt;
+
+&lt;p&gt;状態管理用の&lt;code&gt;.component--modifiers&lt;/code&gt;やクラスを繋げていく変わりに、親のクラスを定義しておくことで分離する事ができます。&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; create-context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$classes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@each&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;classes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$class&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; context--alternate-template&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; create-context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;about&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.header&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; context--alternate-template&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;生成後&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.header&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.about&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.header&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.blog&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.header&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;getting-bemy&quot;&gt;Getting&amp;nbsp;BEMy&lt;/h2&gt;
+
+&lt;p&gt;&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt; &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;から&lt;code&gt;@at-root&lt;/code&gt;が追加され&lt;code&gt;&amp;amp;&lt;/code&gt;が改善されています。&lt;br /&gt;
+&lt;code&gt;@at-root&lt;/code&gt;はネストした記述をコンパイル時に&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;のルートに移動します。&lt;br /&gt;
+&lt;code&gt;&amp;amp;&lt;/code&gt;はそれに文字列を続けて記述できるようになりました。&lt;/p&gt;
+
+&lt;p&gt;これらは&lt;code&gt;@content&lt;/code&gt;を利用することによって&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;記法を簡略化出来ます。ありがとうScott&amp;nbsp;Kellumさん&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@at-root&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;&amp;amp;}__#{$name}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; modifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@at-root&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;&amp;amp;}--#{$name}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; modifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;生成後&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.block__element&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.block__element--modifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;まとめ&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;@content&lt;/code&gt;は&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;の重複を減らすSassの機能の一つに過ぎません。もっとクリエイティブに構成と開発を考えてみましょう。
+詳しくは&lt;a href=&quot;http://sass-lang.com/documentation/file.SASS_REFERENCE.html#directives&quot;&gt;Sass directives&amp;nbsp;documentation&lt;/a&gt;&lt;/p&gt;
+
+</description>
+                <pubDate>Thu, 08 May 2014 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2014/05/08/sass-content-directive/</link>
+                <guid isPermaLink="true">http:howtohp.com/2014/05/08/sass-content-directive/</guid>
+            </item>
+        
+            <item>
+                <title>ブログをWordpressからJykellに、サーバーをさくらからgithubへ</title>
+                <description>&lt;section&gt;
+  &lt;h1 id=&quot;wordpressjykell&quot;&gt;ブログをWordpressからJykellに&lt;/h1&gt;
+  &lt;p&gt;ブログをWordpressからJykellに変更した。&lt;br /&gt;
+主な理由は下記の通り。&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;マークダウン記法で記事が書きたかった。&lt;/li&gt;
+    &lt;li&gt;普段使ってるエディタ(Vim)で記事が書きたかった。&lt;/li&gt;
+    &lt;li&gt;現状アクセス頂いているユーザーの動向から、直接記事にアクセスして直帰していく人がメインなので、メインユーザー向けに構成を合わせたかった。(Jykellあんま関係ない)&lt;/li&gt;
+    &lt;li&gt;サーバーをgithubに移行して、サーバー代を浮かせたかった。(ここ重要)&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;最初は&lt;a href=&quot;http://middlemanapp.com/&quot;&gt;middleman&lt;/a&gt;を使おうと思ってたんだけど、Compassのアルファ版が使えなかったのでやめた。&lt;br /&gt;
+middlemanにはCompassが組み込まれていて、色々読んでいるとアルファ版はサポートしないポリシーらしい。そらそうですよね。&lt;/p&gt;
+
+  &lt;p&gt;Prefix周りに関しては、Gruntを使ってるので&lt;a href=&quot;https://github.com/nDmitry/grunt-autoprefixer&quot;&gt;grunt-autoprefixer&lt;/a&gt;に任せて、Compassの機能として画像のData&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;URI&lt;/span&gt;化、スプライト化に関してのみなんとかできればCompassもういいかなと思いはじめてる。&lt;/p&gt;
+
+  &lt;h2 id=&quot;section&quot;&gt;用意するもの&lt;/h2&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Ruby&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;1.9&lt;/span&gt;+
+      &lt;ul&gt;
+        &lt;li&gt;Bundler&lt;/li&gt;
+        &lt;li&gt;jekyll-import&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;node.js
+      &lt;ul&gt;
+        &lt;li&gt;yeoman&lt;/li&gt;
+        &lt;li&gt;Grunt &lt;/li&gt;
+        &lt;li&gt;generator-jekyllrb&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;h2 id=&quot;yeomanjykellrbgrunt&quot;&gt;YeomanのjykellrbジェネレーターでさくっとGruntの準備&lt;/h2&gt;
+
+  &lt;p&gt;jykell-importとgenerator-jekyllrb以外は元々入っていたので、足りない2つをインストール。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;gem install jekyll-import
+sudo npm install -g generator-jekyllrb&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;必要なものが揃ったら、Yeomanのジェネレーターで初期ファイルの生成&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;yo jekyllrb&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;生成したファイル内にBundler用の&lt;code&gt;Gemfile&lt;/code&gt;があるので、そこに使いたいGemを書いておく。&amp;nbsp;とりあえずマークダウンのGemがデフォルトでMarukuが使われているのでkramdownにした。&lt;/p&gt;
+
+  &lt;h3 id=&quot;gemfilekramdown&quot;&gt;Gemfileにkramdownを追記&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;kramdown&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;configyml&quot;&gt;_config.ymlの設定&lt;/h3&gt;
+
+  &lt;p&gt;マークダウンライブラリの指定と、SyntaxHighlightも使いたいのでpygmentsもtrueに&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;markdown&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;kramdown&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;pygments&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;pygmentsはPythonのライブラリなのでPythonが動く必要がある。&lt;/p&gt;
+
+  &lt;p&gt;またkramdownのマークダウンライブラリが残念ながらPygmentsに対応していなかったので、プラグインで対応。&lt;br /&gt;
+次のバージョンのJekyllはデフォルトでKramdownになるらしいがPygmentsの対応はどうなるんだろう。Pygmentsやめるのかな。&lt;/p&gt;
+
+  &lt;h3 id=&quot;krampygs&quot;&gt;Krampygsプラグインの導入&lt;/h3&gt;
+
+  &lt;p&gt;こまかい導入方法はここの&lt;a href=&quot;http://jekyllrb.com/docs/plugins/&quot;&gt;Jekyll Plugins&lt;/a&gt;のページと、&lt;a href=&quot;https://github.com/navarroj/krampygs&quot;&gt;krampygs&lt;/a&gt;のプラグインのページを参考にするとして、krampygsがTypogrubyというGemに依存しているので、Gemfileに&lt;code&gt;gem 'typogruby'&lt;/code&gt;とかいておく。&lt;/p&gt;
+
+  &lt;p&gt;これでシンタックスハイライトの際に、そこだけLiquidタグで&lt;code&gt;{% highlight 言語名 %}&lt;/code&gt;とか書かなくても、&lt;code&gt;~~~&lt;/code&gt;でくくればコードブロックとして変換してくれるようになる。&lt;/p&gt;
+
+  &lt;h4 id=&quot;vim&quot;&gt;Vimのマークダウンプラグインを変更&lt;/h4&gt;
+
+  &lt;p&gt;こちらの、&lt;a href=&quot;http://rcmdnk.github.io/blog/2013/11/17/computer-vim/&quot;&gt;VimでのMarkdown環境を整える&lt;/a&gt;を参考に、&lt;a href=&quot;https://github.com/rcmdnk/vim-markdown&quot;&gt;rcmdnk/vim-markdown&lt;/a&gt;導入させてもらった。&lt;br /&gt;
+元々は、&lt;a href=&quot;tpope/vim-markdown&quot;&gt;tpope/vim-markdown&lt;/a&gt;を使ってたのだけど、最近のVimだと元々入ってるみたい。&lt;/p&gt;
+
+  &lt;h3 id=&quot;compass-100alpha&quot;&gt;Compass&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;1.0.0&lt;/span&gt;.alphaを使うための設定&lt;/h3&gt;
+
+  &lt;p&gt;アルファ版を使う必要がなければここは変更する必要がない。&lt;br /&gt;
+&lt;code&gt;Gemfile&lt;/code&gt;にgem ‘compass’, ‘~&amp;gt; &lt;span class=&quot;caps&quot;&gt;1.0.0&lt;/span&gt;.alpha.19’と書くと&lt;code&gt;bundle install&lt;/code&gt;した際にlistenのバージョンがJykellと違ってインストール出来ない。&lt;br /&gt;
+CompassはグローバルにインストールされているCompass&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;1.0.0.19&lt;/span&gt;を利用したかったので、&lt;code&gt;Gruntfile.js&lt;/code&gt;のCompassの設定をちょい変更&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;compass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// If you&amp;#39;re using global Sass gems, require them here.&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;singularity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;jacket&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//コメントアウトをはずす&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//bundleExec: true,                  //コメントアウト&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;sassDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;%= yeoman.app %&amp;gt;/_scss&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;cssDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;.tmp/css&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;imagesDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;%= yeoman.app %&amp;gt;/img&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;javascriptsDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;%= yeoman.app %&amp;gt;/js&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;relativeAssets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;httpImagesPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/img&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;httpGeneratedImagesPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/img/generated&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;outputStyle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;expanded&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;extensions_dir = &amp;quot;&amp;lt;%= yeoman.app %&amp;gt;/_bower_components&amp;quot;\n&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;コメントでsingularityとjacketが必要って書いてあるので、それらをインストールしておく。&lt;br /&gt;
+これらのgemはグローバルでインストールしておくので、&lt;code&gt;Gemfile&lt;/code&gt;にはかかない。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;gem install singularity
+gem install jacket&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;wordpressjykell-1&quot;&gt;WordpressからJykellへデータ移行&lt;/h2&gt;
+
+  &lt;p&gt;Wordpressのデータを移行するのは、jekyll-importを使った。  &lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;ruby -rubygems -e &lt;span class=&quot;s1&quot;&gt;&amp;#39;require &amp;quot;jekyll-import&amp;quot;;&lt;/span&gt;
+&lt;span class=&quot;s1&quot;&gt;JekyllImport::Importers::WordpressDotCom.run({&lt;/span&gt;
+&lt;span class=&quot;s1&quot;&gt;    &amp;quot;source&amp;quot; =&amp;gt; &amp;quot;wordpress.xml&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;s1&quot;&gt;})&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;&lt;code&gt;&quot;wordpress.xml&quot;&lt;/code&gt;の所をエクスポートしたファイル名にすればいい。&lt;br /&gt;
+Wordpressのアイキャッチ画像は上手く移行できなかったので、そこはレイアウトを変えたのでサイズ的にもバランスが悪くなったので、一旦やめた。&lt;/p&gt;
+
+  &lt;p&gt;はてブとか、Feedlyとかそういうのでアイキャッチ画像出してくれるので、あった方がいいとは思っているがこれは後で考える。&lt;/p&gt;
+
+  &lt;h2 id=&quot;jykellrelatedpost&quot;&gt;Jykellの関連記事(related_post)について&lt;/h2&gt;
+
+  &lt;p&gt;Jykellには&lt;code&gt;site.related_posts&lt;/code&gt;というのが使えて、関連リンクを表示できるのかと思いきや、最新の記事が入っていただけだった。&lt;br /&gt;
+公式ドキュメントにはこうかかれている。&lt;/p&gt;
+
+  &lt;blockquote&gt;
+    &lt;p&gt;If the page being processed is a Post, this contains a list of up to ten related&amp;nbsp;Posts. 
+By default, these are low quality but fast to&amp;nbsp;compute. 
+For high quality but slow to compute results, run the  jekyll command with the –lsi (latent semantic indexing)&amp;nbsp;option.&lt;/p&gt;
+  &lt;/blockquote&gt;
+
+  &lt;p&gt;low&amp;nbsp;qualityじゃなくてちゃんと、最新の記事が10件入ってるって書いて欲しい所。&lt;/p&gt;
+
+  &lt;p&gt;ちゃんとした関連記事を表示させるには、jekyllコマンドを実行する際に–lsiオプションを付けるか、&lt;code&gt;_config.yml&lt;/code&gt;にlsi:&amp;nbsp;trueとする必要がある。&lt;/p&gt;
+
+  &lt;p&gt;ただ、単純に、このオプションを有効にしてビルドすると、激重になる。&lt;br /&gt;
+自分の場合10分たっても終わらなかった。&lt;/p&gt;
+
+  &lt;p&gt;これを改善するには、&lt;span class=&quot;caps&quot;&gt;GSL&lt;/span&gt;（&lt;span class=&quot;caps&quot;&gt;GNU&lt;/span&gt; Scientific&amp;nbsp;Library）とそれをrubyで使うためのrb-gslが必要です。&lt;/p&gt;
+
+  &lt;h3 id=&quot;homebrewgsl&quot;&gt;Homebrewで&lt;span class=&quot;caps&quot;&gt;GSL&lt;/span&gt;をインストール&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;brew install gsl&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;インストールすると、gsl&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;1.16&lt;/span&gt;がインストールされた。&lt;/p&gt;
+
+  &lt;h3 id=&quot;gemfilerb-gsl&quot;&gt;Gemfileにrb-gslを追記&lt;/h3&gt;
+
+  &lt;p&gt;gemには単純にgslというのもあったんだけど、それだと&lt;span class=&quot;caps&quot;&gt;GSL&lt;/span&gt;の&lt;span class=&quot;caps&quot;&gt;1.16&lt;/span&gt;に対応してなかったっぽい。&lt;br /&gt;
+探したら、rb-gslという&lt;span class=&quot;caps&quot;&gt;1.16&lt;/span&gt;に対応したフォーク版があったのでそっちをを使う。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rb-gsl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;~&amp;gt; 1.16.0&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;gem&quot;&gt;Gemをインストールしておく。&lt;/h2&gt;
+
+  &lt;p&gt;最終的には&lt;code&gt;Gemfile&lt;/code&gt;はこんな感じ&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://rubygems.org&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;jekyll&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;~&amp;gt;1.4.0&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#markdown&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;kramdown&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;typogruby&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#for related post&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rb-gsl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;~&amp;gt; 1.16.0&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;&lt;code&gt;bundle&lt;/code&gt;のコマンドでインストール&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;bundle install --path ./vendor/bundle&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;これで、&lt;code&gt;vendor/bundle&lt;/code&gt;にインストールされ、.bundle/configにオプションの設定ファイルが作成される。&lt;/p&gt;
+
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h1 id=&quot;github&quot;&gt;サーバーをさくらからGithubへ&lt;/h1&gt;
+
+  &lt;p&gt;Github Pagesを使うようにした。&lt;br /&gt;
+これでサーバー代が無料になる！&lt;/p&gt;
+
+  &lt;p&gt;howtohpというブログ用のリポジトリを作って、gh-pagesブランチにpushするようにした。&amp;nbsp;でもこれだと、ルートがhttp://ユーザー名.github.io/howtohp/になるので、元々使ってるドメインを割り当てた。&lt;/p&gt;
+
+  &lt;p&gt;具体的な方法に関しては、長くなってきたので割愛するが、&lt;code&gt;git push&lt;/code&gt;で開発環境の方をリポジトリにあげて、&lt;code&gt;grunt deploy&lt;/code&gt;で生成した&lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt;の方をgh-pagesブランチにあげるようにしている。&lt;/p&gt;
+&lt;/section&gt;
+
+</description>
+                <pubDate>Wed, 07 May 2014 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2014/05/07/wordpress-to-jekyll/</link>
+                <guid isPermaLink="true">http:howtohp.com/2014/05/07/wordpress-to-jekyll/</guid>
+            </item>
+        
+            <item>
+                <title>SASSを使ってBEMで記述</title>
+                <description>&lt;section&gt;
+  &lt;p&gt;&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;については他のサイトでもかなり詳しく解説しているサイトがあるので、簡単にだけ説明すると、&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;というのは命名ルールの概念で、要素、子要素、状態に切り分けて命名するというのが基本です。&lt;/p&gt;
+
+  &lt;p&gt;&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;を利用するメリットというか、&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;が出来た経緯として以下の３つがポイントとして挙げられています。&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Fast-to-develop, long-lived projects&lt;br /&gt;
+(素早い開発と、長期間に渡るプロジェクトのメンテナンス)&lt;/li&gt;
+    &lt;li&gt;Team scalability&lt;br /&gt;
+(チームのスケーラビリティ)&lt;/li&gt;
+    &lt;li&gt;Code reuse&lt;br /&gt;
+(コードの再利用性)&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;皆が同じ命名規則をもってれば、メンテナンス性、スケーラビリティが上がるよねって事ですね。&amp;nbsp;会社や個人の中で各々命名規則はあると思うのですが、Web業界全体で共有できれば素敵やん。&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://bem.info/&quot;&gt;&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;公式サイト&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;で、&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt;でいい感じに&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;が記述できるミックスインがあったので、紹介します。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;h1 id=&quot;bemmixin&quot;&gt;&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;用のMixin&lt;/h1&gt;
+  &lt;p&gt;まずは&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt;の&lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;の機能を利用するために、現状アルファ版の&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt;をインストールする必要があるので、インストールします。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;gem install sass --pre&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;Compassを利用する場合は、現状のCompassがSass&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;に対応していないので、これもアルファ版をインストールします。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;gem install compass --pre&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;※現時点ではCompass&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;1.0.0&lt;/span&gt;.alpha.17がインストールされます&lt;/p&gt;
+
+  &lt;p&gt;デザイナーのScott Kellumさんが考えた&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt;の&lt;a href=&quot;http://sassmeister.com/gist/6994632&quot;&gt;ミックスインがGistで公開されていた&lt;/a&gt;ので、これを利用させてもらいます。&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong style=&quot;color:red&quot;&gt;Sass &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt; rc.3から#{&amp;amp;}での参照が出来なくなったようです。&lt;br /&gt;
+Sass &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;&amp;nbsp;rc3からは以下の記法なりました。&lt;/strong&gt;&lt;/p&gt;
+  &lt;p style=&quot;color:red&quot;&gt;また、この変更に伴って、&amp;amp;の展開が@extendの参照前に行われなくなったため、&amp;amp;を使ってクラス名を生成したものを@extendで継承することができなくなりましたので、ご注意ください。&lt;/p&gt;
+
+  &lt;h2 id=&quot;sass-33-rc3&quot;&gt;sass &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;&amp;nbsp;rc3以降の場合&lt;/h2&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//Element用のミックスイン  親要素のクラス名を継承してデリミターとして&amp;quot;__&amp;quot;を付与&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@at-root&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//Modifier用のミックスイン  親要素のクラス名を継承してデリミターとして&amp;quot;--&amp;quot;を付与&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@at-root&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;sass-33-rc2&quot;&gt;Sass &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;&amp;nbsp;rc2以前の場合&lt;/h2&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//Element用のミックスイン  親要素のクラス名を継承してデリミターとして&amp;quot;__&amp;quot;を付与&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@at-root&lt;/span&gt;   &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;&amp;amp;}__#{$name}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//Modifier用のミックスイン  親要素のクラス名を継承してデリミターとして&amp;quot;--&amp;quot;を付与&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@at-root&lt;/span&gt;   &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;&amp;amp;}--#{$name}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;&lt;span class=&quot;caps&quot;&gt;BEM&lt;/span&gt;の概念としては区切り文字は–や__じゃなく、なんでも自分の好きなの使えばいいのですが、これが基本ですね。&lt;/p&gt;
+
+  &lt;h2 id=&quot;mixin&quot;&gt;Mixinの使用例&lt;/h2&gt;
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:red&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:gray&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:green&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:white&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;section&quot;&gt;出力結果&lt;/h2&gt;
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.block__element&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;gray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.block__element--modifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.block--modifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;white&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;p&gt;便利ですね。ありがとうスコットさん。&lt;/p&gt;
+&lt;/section&gt;
+</description>
+                <pubDate>Fri, 27 Dec 2013 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2013/12/27/sass-bem/</link>
+                <guid isPermaLink="true">http:howtohp.com/2013/12/27/sass-bem/</guid>
+            </item>
+        
+            <item>
+                <title>Macユーザーなら覚えといた方がいいTerminalの便利なコマンド</title>
+                <description>&lt;p&gt;CompassやらGruntやらでコマンドラインツールを使う機会も増えてきてる今日このごろだと思うのですが、ターミナル上でVim使ってる私は、色々便利すぎてシェルが使えないWindowsでの作業は苦痛になってしまってます。&lt;/p&gt;
+
+&lt;p&gt;その中でもよく使うもの、かつインストール不要で使えるものを紹介します。&lt;/p&gt;
+
+&lt;section id=&quot;index&quot;&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;#open&quot;&gt;開く&lt;/a&gt; &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#qlmanage&quot;&gt;クイックルック&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#htpasswd&quot;&gt;htpasswdの作成&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#pbcopy&quot;&gt;クリップボードへコピー&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#shutdown&quot;&gt;シャットダウン&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#purge&quot;&gt;メモリを解放&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#ex&quot;&gt;前回のコマンドを実行&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#say&quot;&gt;発音させる&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#dict&quot;&gt;辞書を開く&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;open&quot;&gt;
+  &lt;h2 id=&quot;section&quot;&gt;開く&lt;/h2&gt;
+
+  &lt;h3 id=&quot;open&quot;&gt;open&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;open .&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;現在いるディレクトリをファインダーで開く。&lt;br /&gt;
+openするとファイルに応じて紐付けられているアプリで開いてくれます。&lt;br /&gt;
+&lt;span class=&quot;caps&quot;&gt;URL&lt;/span&gt;だったらデフォルトのブラウザ、音楽ファイルならiTunesみたいに&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;open -a safari http://google.com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;みたいにアプリを指定することも可能&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;qlmanage&quot;&gt;
+  &lt;h2 id=&quot;section-1&quot;&gt;クイックルック&lt;/h2&gt;
+
+  &lt;h3 id=&quot;qlmanage&quot;&gt;qlmanage&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;qlmanage -p 画像ファイル名&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;openで画像を開こうとするとデフォルトだとPreviewが開くので、結構起動が重いです。 &lt;br /&gt;
+これで開くとQuickLookが開いてくれるので軽いです。&lt;/p&gt;
+
+&lt;/section&gt;
+
+&lt;section id=&quot;htpasswd&quot;&gt;
+  &lt;h2 id=&quot;htpasswd&quot;&gt;htpasswdの作成&lt;/h2&gt;
+
+  &lt;h3 id=&quot;htpasswd-1&quot;&gt;htpasswd&lt;/h3&gt;
+
+  &lt;p&gt;.htpasswdを作成する&lt;/p&gt;
+
+  &lt;p&gt;Web関係やってたらステージング環境にベーシック認証かけることもあるので、覚えとくと便利。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;htpasswd -c .htpasswd ユーザー名&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;-cでcreateって事なんでファイルを生成するには必須です。コマンド入力後パスワード聞かれるので、入力してエンターでおｋ。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;pbcopy&quot;&gt;
+  &lt;h2 id=&quot;section-2&quot;&gt;クリップボードにコピー&lt;/h2&gt;
+
+  &lt;h3 id=&quot;pbcopy&quot;&gt;pbcopy&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pbcopy &amp;lt; ~/.ssh/id_rsa.pub&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;こんな感じで&lt;span class=&quot;caps&quot;&gt;SSH&lt;/span&gt;キーを求められるgithubなんかでいちいち開いてコピーしなくてもクリップボードに入れてくれます。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;shutdown&quot;&gt;
+  &lt;h2 id=&quot;section-3&quot;&gt;シャットダウン&lt;/h2&gt;
+
+  &lt;h3 id=&quot;shutdown&quot;&gt;shutdown&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;shutdown now &lt;span class=&quot;c&quot;&gt;#電源切ってくれます。  &lt;/span&gt;
+shutdown -r now &lt;span class=&quot;c&quot;&gt;#再起動&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/section&gt;
+&lt;section id=&quot;purge&quot;&gt;
+  &lt;h2 id=&quot;section-4&quot;&gt;メモリを解放&lt;/h2&gt;
+
+  &lt;h3 id=&quot;purge&quot;&gt;purge&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo purge&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;強制的にディスクキャッシュを追放する。結果メモリを開放してくれる。&lt;br /&gt;
+※Marvericksからsudoが必要になりました。&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;ex&quot;&gt;
+  &lt;h2 id=&quot;section-5&quot;&gt;前回のコマンドを実行&lt;/h2&gt;
+
+  &lt;h3 id=&quot;section-6&quot;&gt;!!&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;!!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;前回打ったコマンドと同じものを実行。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;say&quot;&gt;
+  &lt;h2 id=&quot;section-7&quot;&gt;発音させる&lt;/h2&gt;
+
+  &lt;h3 id=&quot;say&quot;&gt;Say&lt;/h3&gt;
+
+  &lt;p&gt;入力した文字列をしゃべってくれます。&lt;br /&gt;
+日本語は無理っぽい&lt;/p&gt;
+
+  &lt;p&gt;発音を確認したいときとかによく使ってます。pluralize(複数形にする)コマンドとかも欲しい。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;say 文字列&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;英語の発音でなんとなく知りたい時に言わせてみる、ファイル内の文字列を延々と読ませる事も可能&lt;br /&gt;
+声を変える事も可能　自分の環境ではデフォルトはAlexという男性でした。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;say -v Vicki omg&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;omgに関しては、ちゃんとoh my Godと言います。&lt;br /&gt;
+他にも対応してるアクロニムあるかもしれませんがomgしかわからなかった。&lt;br /&gt;
+wtfと言わせてみようとしたけど、普通にダブリューティーエフって言いました。そらそーか。&lt;br /&gt;
+(個人的にはVickiの声が一番セクスィーかなと。)&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;dict&quot;&gt;
+  &lt;h2 id=&quot;section-8&quot;&gt;辞書を開く&lt;/h2&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;open dict:///検索文字列&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;普通にopenコマンドで辞書開くんですが、これだとめんどくさいので.bashrcなり.zshrcに以下の様に書いておきます。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;text&quot;&gt;&amp;quot;.zshrc  
+dict () { open dict:///&amp;quot;$@&amp;quot; ; }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;こう書いておけばdictコマンドで辞書を開くことができます。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;dict search&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;設定で表示される辞書を変更できるんですが、ここに&lt;a href=&quot;http://www.urbandictionary.com/&quot;&gt;&lt;span class=&quot;caps&quot;&gt;URBAN&lt;/span&gt; &lt;span class=&quot;caps&quot;&gt;DICTIONARY&lt;/span&gt;&lt;/a&gt;を追加してほしい。&lt;br /&gt;
+誰かなんとかしてくれないかな。&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;outro&quot;&gt;
+  &lt;p&gt;以上、いくつか挙げてみましたがどうでしょう。今回は最初から入ってる奴だけを紹介してみましたが、zsh使ってるなら&lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;oh-my-szh&lt;/a&gt;なんかもオススメです。&lt;/p&gt;
+&lt;/section&gt;
+</description>
+                <pubDate>Wed, 24 Apr 2013 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2013/04/24/useful-command-line/</link>
+                <guid isPermaLink="true">http:howtohp.com/2013/04/24/useful-command-line/</guid>
+            </item>
+        
+            <item>
+                <title>Skypeのブラウザ拡張を入れてる人が番号をスタイリングしちゃうのを防ぐ方法</title>
+                <description>&lt;p&gt;ブラウザでSkypeの拡張を入れている人は勝手に電話番号がハイライトされてスカイプアイコンが表示されたりしちゃうので、それを防ぐ方法。&lt;/p&gt;
+
+&lt;p&gt;今はたぶんスカイプツールバーなるものがなくなって&lt;a href=&quot;http://www.skype.com/ja/download-skype/click-to-call&quot;&gt;クリックコール&lt;/a&gt;というツールに変わってると思うのですが、下記の&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;で対応できるようです。  &lt;/p&gt;
+
+&lt;p&gt;※ブラウザ拡張が手に入らなくて確認できませんでした。&lt;/p&gt;
+
+&lt;p&gt;Firefoxに関してはレンダリングが300倍遅くなるという理由で&lt;span class=&quot;caps&quot;&gt;BAN&lt;/span&gt;されたようですね。  &lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.skype_pnh_container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;none&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.skype_pnh_print_container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;inline&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;クリックコールツールの場合は、以下のメタタグをhead内に記述するだけです。こちらに関しては確認済みです。  &lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;SKYPE_TOOLBAR&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;SKYPE_TOOLBAR_PARSER_COMPATIBLE&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;参考サイト&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/h5bp/html5-boilerplate/blob/master/doc/faq.md&quot;&gt;&lt;span class=&quot;caps&quot;&gt;H5BP&lt;/span&gt;&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;FAQ&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                <pubDate>Thu, 18 Apr 2013 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2013/04/18/prevent-skype/</link>
+                <guid isPermaLink="true">http:howtohp.com/2013/04/18/prevent-skype/</guid>
+            </item>
+        
+            <item>
+                <title>Compassでベンダープレフィックスなどのブラウザーサポートを制御する方法</title>
+                <description>&lt;p&gt;このブログでCompassを紹介して、もう1年以上たちましたが、なかなか普及しないなぁっと思って、色々みていると、ドキュメントや、サンプルコードが乏しいという理由が多いようで、だったらということで、頑張って色々書いていこうと思う。&lt;/p&gt;
+
+&lt;p&gt;とりあえず、今回はいらないベンダープレフィックスとかを出力しない設定をする方法を紹介します。&lt;/p&gt;
+
+&lt;section&gt;
+  &lt;h1 id=&quot;compass&quot;&gt;Compassのクロスブラウザサポート設定&lt;/h1&gt;
+
+  &lt;p&gt;Compassでは元々ブラウザーサポートを制御する設定があり、設定ファイル(config.rb)ではなくコンフィグレーション変数で設定します。&lt;br /&gt;
+環境変数って言った方がいいのかな。&lt;/p&gt;
+
+  &lt;p&gt;ブラウザーサポートの変数一覧&lt;/p&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;変数&lt;/th&gt;
+        &lt;th&gt;初期値&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$legacy-support-for-ie&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$legacy-support-for-ie6&lt;/td&gt;
+        &lt;td&gt;$legacy-support-for-ie&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$legacy-support-for-ie7&lt;/td&gt;
+        &lt;td&gt;$legacy-support-for-ie&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$legacy-support-for-ie8&lt;/td&gt;
+        &lt;td&gt;$legacy-support-for-ie&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$experimental-support-for-mozilla&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$experimental-support-for-webkit&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$support-for-original-webkit-gradients&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$experimental-support-for-opera&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$experimental-support-for-microsoft&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$experimental-support-for-khtml&lt;/td&gt;
+        &lt;td&gt;false&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$experimental-support-for-svg&lt;/td&gt;
+        &lt;td&gt;false&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;$legacy-support-for-mozilla&lt;/td&gt;
+        &lt;td&gt;true&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+  &lt;p&gt;一つ一つどれに影響するかというのは長くなっちゃうので、省略させてもらいますが、変数名はわかりやすいので、大体の想像はつくかと思います。基本的に&lt;span class=&quot;caps&quot;&gt;IE8&lt;/span&gt;以下はハックで、ベンダー名の物は&lt;span class=&quot;caps&quot;&gt;CSS3&lt;/span&gt;でのベンダープレフィックスの設定という認識でいいかと思います。&lt;/p&gt;
+
+  &lt;p&gt;例えばi&lt;span class=&quot;caps&quot;&gt;OS4&lt;/span&gt;/5用のコーディングをする場合、&lt;code&gt;-moz-&lt;/code&gt;や&lt;code&gt;-ms-&lt;/code&gt;、&lt;code&gt;-o-&lt;/code&gt;はいらないので、これらはデフォルトで出力される設定(true)をfalseに変更します。&lt;/p&gt;
+
+  &lt;p&gt;自分の場合は、&lt;code&gt;_config.scss&lt;/code&gt;のというインポート用にパーシャルのファイルを用意して、そこに記述しています。&lt;/p&gt;
+
+  &lt;h3 id=&quot;stylescss&quot;&gt;style.scss(サンプル)&lt;/h3&gt;
+
+  &lt;p&gt;こんな感じの&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;をサンプルに説明します。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;k&quot;&gt;@import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;compass&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;config&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt; background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;nf&quot;&gt;linear-gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;#333&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;#0c0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nf&quot;&gt;radial-gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;#c00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#fff&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;ios45&quot;&gt;i&lt;span class=&quot;caps&quot;&gt;OS4&lt;/span&gt;/5用の設定&lt;/h2&gt;
+
+  &lt;p&gt;例えばi&lt;span class=&quot;caps&quot;&gt;OS4&lt;/span&gt;/5向けの場合は、-webkit-系のプレフィックス以外はいらないので、色々falseにしていきます。&lt;/p&gt;
+
+  &lt;h3 id=&quot;configscss&quot;&gt;_config.scss&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-opera&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-microsoft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-mozilla&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;stylecsscss&quot;&gt;style.css(出力される&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;)&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;204&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;radial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#cccccc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ffffff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;204&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;radial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;#cccccc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ffffff&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;204&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;radial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;#cccccc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ffffff&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;ios5&quot;&gt;i&lt;span class=&quot;caps&quot;&gt;OS5&lt;/span&gt;のみの場合&lt;/h2&gt;
+
+  &lt;p&gt;i&lt;span class=&quot;caps&quot;&gt;OS5&lt;/span&gt;のみの場合は、グラデーションの記法が変わってますので、古い記法を出力する必要はありません。&lt;br /&gt;
+その場合は、_config.scssに古い記法を出力しない設定に変更します。&lt;/p&gt;
+
+  &lt;h3 id=&quot;configscss-1&quot;&gt;_config.scss&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-opera&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-microsoft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-mozilla&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$support-for-original-webkit-gradients&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n-Pseudo&quot;&gt;false&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//これを追記&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;stylecsscss-1&quot;&gt;style.css(出力される&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;)&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;204&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;radial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;#cccccc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ffffff&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;204&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;radial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;#cccccc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ffffff&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;こんな感じで、簡単にプレフィックスの出力をコントロール出来ます。Mixinを作る際のヘルパーも用意されているので、自作でゴリゴリ書くよりは大分楽できるんじゃないでしょうか。&lt;/p&gt;
+
+  &lt;h2 id=&quot;operaie9svg&quot;&gt;Operaと&lt;span class=&quot;caps&quot;&gt;IE9&lt;/span&gt;にグラデーションを&lt;span class=&quot;caps&quot;&gt;SVG&lt;/span&gt;で対応&lt;/h2&gt;
+
+  &lt;p&gt;これはグラデーションをOperaと&lt;span class=&quot;caps&quot;&gt;IE9&lt;/span&gt;に対応させるため、&lt;span class=&quot;caps&quot;&gt;SVG&lt;/span&gt;をbase64エンコードしたものを&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;に書きこんでくれるというCompassの便利機能の一つ。&lt;br /&gt;
+ただ、ファイルサイズが肥大化してしまうので、要注意です。&lt;/p&gt;
+
+  &lt;h3 id=&quot;configscss-2&quot;&gt;_config.scss&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$experimental-support-for-svg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n-Pseudo&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;stylecsscss-2&quot;&gt;style.css(出力される&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;)&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;/* SVGの部分だけ抜粋 */&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(&amp;#39;data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSg1MSwgNTEsIDUxLCAwLjgpIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSJyZ2JhKDAsIDIwNCwgMCwgMC41KSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==&amp;#39;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(&amp;#39;data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iMTAwIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjY2NjY2NjIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g&amp;#39;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;ちなみにこのサンプルのグラデーションはかなり汚い感じなので、ご注意を。&lt;/p&gt;
+
+  &lt;h2 id=&quot;section&quot;&gt;余談&lt;/h2&gt;
+
+  &lt;p&gt;記事を書くついでに、コード表示部分のカラーリングをMonokaiっぽくしてみました。あと、長い行は無理やり改行させるんじゃなく、横スクロールするように変更しました。自分的にはスクロールしたほうが見やすいんじゃないかなと思うんですが、normalize.css使うと、無理やり改行するように書かれてました。&lt;/p&gt;
+
+  &lt;p&gt;※&lt;span class=&quot;caps&quot;&gt;IE9&lt;/span&gt;は横スクロールバーがでると変な余白がでちゃったので、改行のままにしています。&lt;span class=&quot;caps&quot;&gt;IE8&lt;/span&gt;以下は無視。&lt;span class=&quot;caps&quot;&gt;JS&lt;/span&gt;でpreの中身をinner&lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt;とかで書き換えると改行が消えちゃうっぽいですが今のところ対応しない予定。暇があればやります。&lt;/p&gt;
+
+&lt;/section&gt;
+</description>
+                <pubDate>Sat, 22 Sep 2012 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2012/09/22/compass-control-prefix/</link>
+                <guid isPermaLink="true">http:howtohp.com/2012/09/22/compass-control-prefix/</guid>
+            </item>
+        
+            <item>
+                <title>Sassを使ってレスポンシブウェブデザインにする時に覚えておいた方がいいこと4つ</title>
+                <description>&lt;p&gt;このサイトをメディアクエリー使ってレスポンシブウェブデザインって奴にしてみたんですけど、Sassを使うにあたって、色々思った事や、引っかかった事があるので、まとめてみます。&lt;/p&gt;
+
+&lt;p&gt;大きく分けると以下の4つ&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#sass-breakpoint&quot;&gt;ブレイクポイントは変数に&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#media-nest&quot;&gt;@mediaはネストできる&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#messy-code&quot;&gt;ネストするとコンパイル後のソースが増える&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#not-allowed&quot;&gt;@extendを使えない&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;section id=&quot;sass-breakpoint&quot;&gt;
+  &lt;h1 id=&quot;section&quot;&gt;ブレイクポイントは変数に&lt;/h1&gt;
+
+  &lt;p&gt;&lt;code&gt;@media&lt;/code&gt;の後に書くブレイクポイントって長いですよね。Sassの&lt;span class=&quot;caps&quot;&gt;3.1&lt;/span&gt;ではできないんですが、最新版の&lt;span class=&quot;caps&quot;&gt;3.2&lt;/span&gt;では変数を使う事ができます。&lt;/p&gt;
+
+  &lt;p&gt;まだalpha版なので、ご使用は自己責任でお願いします。インストールするには、バージョンを指定しないといけません。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;gem install sass -v 3.2.0.alpha.275&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h2 id=&quot;sample&quot;&gt;Sample&lt;/h2&gt;
+
+  &lt;h3 id=&quot;scss&quot;&gt;&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$small&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;only screen and (max-width:640px)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$middle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;only screen and (min-width:641px) and (max-width:959px)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$large&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;only screen and (min-width:960px)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;small&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//640px以下&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;middle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//641px〜959pxまで&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;large&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//960px以上&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;こんな感じで、やっとくとわかりやすいかなと。&lt;/p&gt;
+
+&lt;/section&gt;
+&lt;section id=&quot;media-nest&quot;&gt;
+
+  &lt;h1 id=&quot;media&quot;&gt;@mediaはネストできる&lt;/h1&gt;
+
+  &lt;p&gt;&lt;code&gt;@media&lt;/code&gt;はSassを使うとネストして書けます。僕がSassを使い始めた頃やってみたら出来なかったので、最近のバージョンで出来るようになったっぽいです。&lt;span class=&quot;caps&quot;&gt;3.1&lt;/span&gt;かな。&lt;/p&gt;
+
+  &lt;h2 id=&quot;sample-1&quot;&gt;Sample&lt;/h2&gt;
+
+  &lt;h3 id=&quot;scss-1&quot;&gt;&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;css&quot;&gt;&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;300px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;こんな感じで、ネストした場合先祖のセレクターまでたどって出力してくれます。&lt;/p&gt;
+
+&lt;/section&gt;
+
+&lt;section id=&quot;messy-code&quot;&gt;
+
+  &lt;h1 id=&quot;section-1&quot;&gt;ネストするとコンパイル後のソースが増える&lt;/h1&gt;
+
+  &lt;p&gt;残念ながら&lt;code&gt;@media&lt;/code&gt;をネストして記述すると、同じブレイクポイントを設定しても、コンパイル前が分散されているとコンパイル後も分散されたままになっちゃいます。&lt;/p&gt;
+
+  &lt;h2 id=&quot;sample-2&quot;&gt;Sample&lt;/h2&gt;
+
+  &lt;h3 id=&quot;scss-2&quot;&gt;&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;　/*同じブレイクポイント*/&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.sample2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/*同じブレイクポイント*/&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.5&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;css-1&quot;&gt;&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;.sample2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.5em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;section-2&quot;&gt;こうなって欲しいけど、ならない&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:960px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;.sample2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.5em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/section&gt;
+&lt;section id=&quot;not-allowed&quot;&gt;
+
+  &lt;h1 id=&quot;extend&quot;&gt;@extendが使えない&lt;/h1&gt;
+
+  &lt;p&gt;&lt;code&gt;@media&lt;/code&gt;でネストされたプロパティに対しては&lt;code&gt;@media&lt;/code&gt;の外で定義したクラスを利用した&lt;code&gt;@extend&lt;/code&gt;が使えません。これは残念。  &lt;code&gt;@media&lt;/code&gt;内に&lt;code&gt;@extend&lt;/code&gt;を使うと現時点でははWarningがでて、コンパイルは通りますが、将来的にSass&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;では完全にエラーになるようです。&lt;/p&gt;
+
+  &lt;h2 id=&quot;sample-3&quot;&gt;Sample&lt;/h2&gt;
+
+  &lt;h3 id=&quot;scss-3&quot;&gt;&lt;span class=&quot;caps&quot;&gt;SCSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;scss&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.typo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;text-shadow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;px&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:320px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;@extend&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.typo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/section&gt;
+
+&lt;h3 id=&quot;css-2&quot;&gt;&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&lt;/h3&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.typo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;text-shadow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#999999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:320px&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.sample&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;96&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;/* ここに@extendを記述したはずなのに無い */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;お分かり頂けるでしょうか。&lt;code&gt;@extend&lt;/code&gt;で書いたとこは無視です。なかったことになってます。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;@media&lt;/code&gt;の中で定義したクラスに対しては&lt;code&gt;@extend&lt;/code&gt;は使えるのですが、&lt;code&gt;@extend&lt;/code&gt;の旨みが激減ですね。&lt;/p&gt;
+
+&lt;section id=&quot;conclusion&quot;&gt;
+
+  &lt;h1 id=&quot;section-3&quot;&gt;まとめ&lt;/h1&gt;
+
+  &lt;p&gt;結局自分は、&lt;code&gt;@media&lt;/code&gt;をネストして使うような書き方はしませんでした。&lt;br /&gt;
+ブレイクポイントは3箇所用意しているので、&lt;code&gt;@media&lt;/code&gt;の記述はその3パターンを一回ずつ書くだけにした方がよさげ。&lt;/p&gt;
+
+  &lt;p&gt;&lt;code&gt;@extend&lt;/code&gt;は多用してたんですが、&lt;code&gt;@media&lt;/code&gt;の中ではmixinにして&lt;code&gt;@include&lt;/code&gt;を使った箇所が何箇所かありました。&lt;br /&gt;
+結論としては、メディアクエリーをSassで使う場合、シンプルにわかりやすくする記述法は用意されてるけど、出力される&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;は微妙って事でした。&lt;/p&gt;
+
+&lt;/section&gt;
+</description>
+                <pubDate>Fri, 20 Jul 2012 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2012/07/20/sass-responsive-web-design/</link>
+                <guid isPermaLink="true">http:howtohp.com/2012/07/20/sass-responsive-web-design/</guid>
+            </item>
+        
+            <item>
+                <title>Vimのcss_color.vimをscssファイルにも適用してみた。</title>
+                <description>&lt;p&gt;むかーしインストールして、&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;ファイルで試して動いた！って思ってそのまま放置してたのですが、実は、うまく動いてたのは、最初に試した&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&amp;gt;ファイルだけで、その後一度も純粋な&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;ファイルを触ってなくて、css_color.vimが効いて無いことすら気づいてない状態だったのですが、.vimrc久々にいじってたら、アレってなったので、一応対応してみた。&lt;/p&gt;
+
+&lt;p&gt;対応は簡単で、css_color.vimを入れると、&lt;code&gt;~/.vim/after/syntax/css.vim&lt;/code&gt;ってファイルが出来ると思うのですが、同じ階層にscss.vimってファイルを作って、以下の一行を書くだけです。&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;syntax cluster sassCssAttributes &lt;span class=&quot;nv&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;@cssColors&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;span class=&quot;caps&quot;&gt;RGB&lt;/span&gt;とかにも対応してていい感じなんですけど、自分の場合、ターミナル上でVimを動かしてて、ターミナル自体を半透明にさせちゃってたり、&lt;span class=&quot;caps&quot;&gt;SASS&lt;/span&gt;の機能で、lightenとかdarkenとか結構使っちゃうので、正直あんまり意味はないっちゃない。&lt;/p&gt;
+
+&lt;p&gt;※追記&amp;nbsp;2012/08/04
+css_color.vimを使うとめちゃめちゃ重くなる事が判明したので、はずしました。不自由な事はなにもなかった。&lt;/p&gt;
+</description>
+                <pubDate>Sun, 08 Jul 2012 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2012/07/08/vim-css-color-scss/</link>
+                <guid isPermaLink="true">http:howtohp.com/2012/07/08/vim-css-color-scss/</guid>
+            </item>
+        
+            <item>
+                <title>リニューアルしてたらなんとなくWordpressの作業の流れが固まってきた。(下準備編)</title>
+                <description>&lt;p&gt;これでデザインを変えたのは4回目になります。&lt;br /&gt;
+このブログは2007年にはじめて5年目になるのに、記事数が30にも満たないという、えげつないペースでの更新頻度ですが、裏側は結構いじってます。&lt;/p&gt;
+
+&lt;p&gt;リニューアルするにあたって、Jykellを使おうかと思ったんですが、サーバー乗り換えなきゃいけないっぽかったので、今回もWordpressでいきました。&lt;/p&gt;
+
+&lt;p&gt;今回の作業で、自分のやり方が固まってきたので、こんな感じで作業してますってのを書いてみます。&lt;br /&gt;
+もっとこうすればいいのにってのがあれば、突っ込んでもらえると助かります。&lt;/p&gt;
+
+&lt;section&gt;
+  &lt;h1 id=&quot;section&quot;&gt;まずは下準備&lt;/h1&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href=&quot;#server&quot;&gt;ローカルサーバーの設定&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#git&quot;&gt;Gitでバージョン管理&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#rsync&quot;&gt;ファイル転送様コマンドのエイリアスの作成&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+
+&lt;/section&gt;
+&lt;section id=&quot;server&quot;&gt;
+  &lt;h2 id=&quot;section-1&quot;&gt;1.ローカルサーバーの設定&lt;/h2&gt;
+
+  &lt;p&gt;この辺は前にも書いたことあるので、省略しますが、ローカルのサーバーでWordpressが動くようにしときます。&lt;br /&gt;
+自分の環境はApache+My&lt;span class=&quot;caps&quot;&gt;SQL&lt;/span&gt;の組み合わせです。メールの設定なんかはスルーしてます。&lt;/p&gt;
+
+&lt;/section&gt;
+&lt;section id=&quot;git&quot;&gt;
+  &lt;h2 id=&quot;git&quot;&gt;2.Gitでバージョン管理&lt;/h2&gt;
+
+  &lt;p&gt;とりあえず、コーディング前の準備としてGitで管理するようにします。&lt;br /&gt;
+なんかあったとき用ですね。これもローカルだけの管理なので、&lt;span class=&quot;caps&quot;&gt;HDD&lt;/span&gt;が死んだらアウトです。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;git init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;次に.gitignoreファイルを作成します。githubにWordpress用の.gitignoreファイルが公開されてるので、それを参考にいらないものを記述します。&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://github.com/github/gitignore/blob/master/Wordpress.gitignore&quot;&gt;github /&amp;nbsp;Wordpress.gitignore&lt;/a&gt;&lt;/p&gt;
+
+  &lt;h3 id=&quot;gitignore&quot;&gt;.gitignore&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#sass&lt;/span&gt;
+.sass-cache/
+
+&lt;span class=&quot;c&quot;&gt;#mac&lt;/span&gt;
+.DS_Store
+
+&lt;span class=&quot;c&quot;&gt;#win&lt;/span&gt;
+Thumbs.db
+
+&lt;span class=&quot;c&quot;&gt;#dreamweaver&lt;/span&gt;
+
+_notes/
+dwsync.xml
+
+wp-*.php
+xmlrpc.php
+wp-admin/
+wp-includes/
+wp-content/plugins/　#追記
+wp-content/uploads/
+wp-content/blogs.dir/
+wp-content/upgrade/*
+wp-content/backup-db/*
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/cache/*
+wp-content/cache/supercache/*
+sitemap.xml
+sitemap.xml.gz
+readme.html
+license.txt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;ここで、wp-content/plugins/を追記したのは、プラグイン内のファイルでwp-*.phpにマッチしちゃうファイルが結構あって、コンフリクトしちゃうので、めんどくさいからプラグインも無視するようにしました。&lt;br /&gt;
+本番とテストでプラグインは別々になっちゃいますけど、どうせ設定なんかはそれぞれ管理画面からやらなきゃいけないので、まいっかってことで分けるようにしました。&lt;/p&gt;
+
+  &lt;p&gt;これを使えば、基本的にはテーマディレクトリ以下のみが無視されないようになります。&lt;/p&gt;
+
+&lt;/section&gt;
+
+&lt;section id=&quot;rsync&quot;&gt;
+  &lt;h2 id=&quot;section-2&quot;&gt;3.ファイル転送用コマンドのエイリアス作成&lt;/h2&gt;
+
+  &lt;p&gt;ファイルの転送もコマンドでできるようにします。&lt;span class=&quot;caps&quot;&gt;GUI&lt;/span&gt;の&lt;span class=&quot;caps&quot;&gt;FTP&lt;/span&gt;クライアントは使いません。&lt;br /&gt;
+いくつか方法はあると思いますが、自分はRsyncコマンドを使います。オプションやら色々設定すると長すぎて毎回入力するのはキツイのでエイリアスを作って簡単に覚えれるようにしときます。&lt;/p&gt;
+
+  &lt;p&gt;このサイトはさくらのサーバーで運用してるので、下記の様なコマンドを.bashrcに記述しておきます。&lt;/p&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;synchowtohp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;rsync -avvrh --update --exclude-from ~/work/howtohp/.gitignore  --delete -e ssh ~/work/howtohp/ ユーザー名@サーバー名.sakura.ne.jp:~/www/&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;&lt;code&gt;~/work/howtohp/&lt;/code&gt;の部分は自分のローカル環境のWordpressのルートディレクトリになります。&lt;/p&gt;
+
+  &lt;p&gt;&lt;code&gt;--exclude-from&lt;/code&gt;オプションで、先ほど記述した.gitignoreを利用してるので、.gitignoreに記述してるファイルは無視されます。.gitigrenoreとrsyncでexcludeするファイルの記述ルールは少し違いますが、ここでは、共通して利用できる形で.gitignoreを記述してます。&lt;/p&gt;
+
+  &lt;p&gt;これで、synchowtohpと打つだけで同期がとれます。&lt;/p&gt;
+
+  &lt;h3 id=&quot;rsync&quot;&gt;Rsyncコマンドの参考サイト&lt;/h3&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;http://www.itmedia.co.jp/enterprise/articles/0804/21/news013.html&quot;&gt; はじめてrsyncを使う方が知っておきたい6つのルール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://x68000.q-e-d.net/~68user/unix/pickup?rsync&quot;&gt;&lt;span class=&quot;caps&quot;&gt;UNIX&lt;/span&gt;の部屋 コマンド検索:&amp;nbsp;rsync&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;
+
+&lt;p&gt;最後の流れまで全部一気に書こうと思ってたけど、長くなりすぎるので、とりあえず下準備編として今回はこのへんで。&lt;/p&gt;
+
+</description>
+                <pubDate>Fri, 13 Apr 2012 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2012/04/13/wordpress-development-ready/</link>
+                <guid isPermaLink="true">http:howtohp.com/2012/04/13/wordpress-development-ready/</guid>
+            </item>
+        
+            <item>
+                <title>CSS4で追加されるかもしれないテーブル周りの擬似セレクタについて</title>
+                <description>&lt;p&gt;&lt;span class=&quot;caps&quot;&gt;CSS3&lt;/span&gt;では、:nth-childなんかが追加されて行を特定してマッチさせる事ができるようになったり、:emptyで空の要素を指定できるようになって、かなり便利になったんですが、Level&amp;nbsp;4ではさらに列をマッチさせることができるようになるっぽいです。&lt;/p&gt;
+
+&lt;p&gt;追加されるのはGrid-Structural&amp;nbsp;Selectors(表構造セレクターと訳せばいいのかな？)で以下の三つ。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#column&quot;&gt;:column(selector-list)&lt;/a&gt; &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nth-column&quot;&gt;:nth-column(an+b)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nth-last-column&quot;&gt;:nth-last-column(an+b)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;section id=&quot;column&quot;&gt;
+
+  &lt;h1 id=&quot;columnselector-list&quot;&gt;:column(selector-list)&lt;/h1&gt;
+
+  &lt;p&gt;これは引数で指定されたセルエレメントにマッチします。&lt;/p&gt;
+
+  &lt;h2 id=&quot;section&quot;&gt;サンプル&lt;/h2&gt;
+
+  &lt;h3 id=&quot;html&quot;&gt;&lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;table&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;col&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;span=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;col&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;selected&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&lt;/span&gt;A&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&lt;/span&gt;B&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&lt;/span&gt;C&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;span=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;D&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&lt;/span&gt;E&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&amp;gt;&lt;/span&gt;F&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;span=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;G&lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;h3 id=&quot;css&quot;&gt;&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nd&quot;&gt;:column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.selected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#bada55&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;この場合、CとEとGにスタイルが適用されます。&lt;/p&gt;
+
+  &lt;p&gt;ここで、&lt;code&gt;display:table;&lt;/code&gt;とされてるものや、まだWorking Draftの段階のgrid-layoutでの列はマッチするのかという疑問がでてきたので、Working&amp;nbsp;Draftを見てみると下記のように書いてました。&lt;/p&gt;
+
+  &lt;blockquote&gt;
+    &lt;p&gt;The :column(selector-list) pseudo-class notation represents a cell element belonging to a column that is represented by the element selected by its&amp;nbsp;argument. &lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;Column membership is determined based on the semantics of the document language only: whether and how the elements are presented is not considered.&lt;/strong&gt; If a cell element belongs to more than one column, it is represented by a selector indicating any of those&amp;nbsp;columns.&lt;/p&gt;
+
+    &lt;p&gt;&lt;cite&gt;引用:&lt;a href=&quot;http://www.w3.org/TR/selectors4/#column-pseudo&quot;&gt;Selector Level 4 - ‘:column()’ pseudo-class&lt;/a&gt;&lt;/cite&gt;&lt;/p&gt;
+  &lt;/blockquote&gt;
+
+  &lt;p&gt;ざっくり下線部分を訳してみると、&lt;strong&gt;列の集合は、ドキュメント言語のセマンティックスのみに基づいて決定されます。要素がどのように表示されているかは考慮されません。&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻訳は得意ではないけど、大体こんな感じの意味になるかと思います。&lt;/p&gt;
+
+  &lt;p&gt;つまりgrid-layoutや、display:tableとかで表っぽく見せても、見た目だけの話だから考慮しませんと捉えれるんじゃないでしょーか。間違ってたらごめんなさい。&lt;/p&gt;
+
+  &lt;p&gt;実際、&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;で指定されたカラムとマッチさせるにはブラウザー側で、２回&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;を処理しないといけなくなるので、現実的にはなさそうですよね。たぶんそんなのはダメ的なのが&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;2.1&lt;/span&gt;で言われてたきがします。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;nth-column&quot;&gt;
+
+  &lt;h1 id=&quot;nth-columnanb&quot;&gt;:nth-column(an+b)&lt;/h1&gt;
+
+  &lt;p&gt;これは、&lt;code&gt;:nth-child()&lt;/code&gt;と同じ引数を受けつけます。evenやoddも使えます。縦ストライプとか、１列目から4列目までとかそういうのが簡単にできます。&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id=&quot;nth-last-column&quot;&gt;
+
+  &lt;h1 id=&quot;nth-last-columnanb&quot;&gt;:nth-last-column(an+b)&lt;/h1&gt;
+
+  &lt;p&gt;これも、&lt;code&gt;:nth-last-child&lt;/code&gt;と同じ引数を受けつけます。これを使えばカレンダーの週末の列だけとか、インボイスの小計の列などがサクっと選択できます。&lt;/p&gt;
+
+  &lt;h2 id=&quot;section-1&quot;&gt;サンプル&lt;/h2&gt;
+
+  &lt;p&gt;めんどくさいので&lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt;は省略します。&lt;/p&gt;
+
+  &lt;h3 id=&quot;css-1&quot;&gt;&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&lt;/h3&gt;
+
+  &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class=&quot;css&quot;&gt;&lt;span class=&quot;nd&quot;&gt;:nth-last-column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;white&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;こんな感じで後ろから２列が簡単に選択できます。子要素を選択する:nth-childなどと違って列を選択するので、少し毛色は違いますけど、使い方はほぼ同じなので、導入しやすい方じゃないでしょうか。&lt;/p&gt;
+
+&lt;/section&gt;
+&lt;section&gt;
+
+  &lt;h1 id=&quot;section-2&quot;&gt;最後に&lt;/h1&gt;
+
+  &lt;p&gt;まだWorkingDraftの段階なので、将来的に名称が変わったり、削除される可能性もありますけど、これに関しては結構そのままいきそうな気がします。&lt;/p&gt;
+
+  &lt;p&gt;メーリングリストなんか読んでみると正規表現でのセレクターの話題が出てたり、Chromeの開発者の一人であり、&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt; &lt;span class=&quot;caps&quot;&gt;WG&lt;/span&gt;のメンバーのTab Atkins&amp;nbsp;Jrさんなんかは、自身のブログで&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;での変数や、Mixinの仕様を個人的なドラフトとしてブログに書いてたり、&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;はどんどん進化してますね。&lt;/p&gt;
+
+  &lt;p&gt;実は昔、一度だけ&lt;span class=&quot;caps&quot;&gt;W3C&lt;/span&gt;の&lt;span class=&quot;caps&quot;&gt;TPAC&lt;/span&gt;という年に一度の会議に出たことがあるんですが、&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;&amp;nbsp;&lt;span class=&quot;caps&quot;&gt;WG&lt;/span&gt;の席で、&lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt;を良くする事とは、出来る事を増やすという意見で満場一致だったので、今後どんどんプロパティや、機能が増えて複雑化していくことは間違いないようです。&lt;/p&gt;
+
+  &lt;p&gt;その時、あんまり複雑化するとパフォーマンスはどうするんだ？というような話が出たのですが、誰が言ったのかは覚えてないですが、”そんなもん、開発者の言い訳だ”みたいな一言でバッサリ斬られてたのが印象的でした。&lt;/p&gt;
+
+  &lt;h3 id=&quot;section-3&quot;&gt;参考サイト&lt;/h3&gt;
+
+  &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.w3.org/TR/selectors4/#table-pseudos&quot; class=&quot;external&quot;&gt;&lt;span class=&quot;caps&quot;&gt;W3C&lt;/span&gt; - Selector Level&amp;nbsp;4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lists.w3.org/Archives/Public/www-style/2011Jul/0264.html&quot; class=&quot;external&quot;&gt;メーリングリストでの正規表現でのセレクターのスレ&lt;/a&gt;(おまけ)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.xanthir.com/blog/b4AD0&quot; class=&quot;external&quot;&gt;Tab Atkins Jrさんの個人的な変数のドラフト&lt;/a&gt;(おまけ)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+</description>
+                <pubDate>Mon, 13 Feb 2012 00:00:00 +0900</pubDate>
+                <link>http:howtohp.com/2012/02/13/column-selector-level4/</link>
+                <guid isPermaLink="true">http:howtohp.com/2012/02/13/column-selector-level4/</guid>
+            </item>
+        
+    </channel>
+</rss>
