@@ -3,8 +3,8 @@
     <channel>
         <title>howtohp</title>
         <description>フリーランスで働くフロントエンドエンジニアのブログです。</description>
-        <link>http:howtohp.com</link>
-        <atom:link href="http:howtohp.com/feed.xml" rel="self" type="application/rss+xml" />
+        <link>http://howtohp.com</link>
+        <atom:link href="http://howtohp.com/feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
                 <title>(翻訳) Sassの@contentのユースケース</title>
@@ -215,8 +215,8 @@ Contentブロックをメディアクエリーに渡す事でシンプルに出�
 
 </description>
                 <pubDate>Thu, 08 May 2014 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2014/05/08/sass-content-directive/</link>
-                <guid isPermaLink="true">http:howtohp.com/2014/05/08/sass-content-directive/</guid>
+                <link>http://howtohp.com/2014/05/08/sass-content-directive/</link>
+                <guid isPermaLink="true">http://howtohp.com/2014/05/08/sass-content-directive/</guid>
             </item>
         
             <item>
@@ -408,8 +408,8 @@ For high quality but slow to compute results, run the  jekyll command with the �
 
 </description>
                 <pubDate>Wed, 07 May 2014 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2014/05/07/wordpress-to-jekyll/</link>
-                <guid isPermaLink="true">http:howtohp.com/2014/05/07/wordpress-to-jekyll/</guid>
+                <link>http://howtohp.com/2014/05/07/wordpress-to-jekyll/</link>
+                <guid isPermaLink="true">http://howtohp.com/2014/05/07/wordpress-to-jekyll/</guid>
             </item>
         
             <item>
@@ -518,8 +518,8 @@ Sass &lt;span class=&quot;caps&quot;&gt;3.3&lt;/span&gt;&amp;nbsp;rc3からは�
 &lt;/section&gt;
 </description>
                 <pubDate>Fri, 27 Dec 2013 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2013/12/27/sass-bem/</link>
-                <guid isPermaLink="true">http:howtohp.com/2013/12/27/sass-bem/</guid>
+                <link>http://howtohp.com/2013/12/27/sass-bem/</link>
+                <guid isPermaLink="true">http://howtohp.com/2013/12/27/sass-bem/</guid>
             </item>
         
             <item>
@@ -669,8 +669,8 @@ dict () { open dict:///&amp;quot;$@&amp;quot; ; }&lt;/code&gt;&lt;/pre&gt;&lt;/d
 &lt;/section&gt;
 </description>
                 <pubDate>Wed, 24 Apr 2013 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2013/04/24/useful-command-line/</link>
-                <guid isPermaLink="true">http:howtohp.com/2013/04/24/useful-command-line/</guid>
+                <link>http://howtohp.com/2013/04/24/useful-command-line/</link>
+                <guid isPermaLink="true">http://howtohp.com/2013/04/24/useful-command-line/</guid>
             </item>
         
             <item>
@@ -702,8 +702,8 @@ dict () { open dict:///&amp;quot;$@&amp;quot; ; }&lt;/code&gt;&lt;/pre&gt;&lt;/d
 &lt;/ul&gt;
 </description>
                 <pubDate>Thu, 18 Apr 2013 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2013/04/18/prevent-skype/</link>
-                <guid isPermaLink="true">http:howtohp.com/2013/04/18/prevent-skype/</guid>
+                <link>http://howtohp.com/2013/04/18/prevent-skype/</link>
+                <guid isPermaLink="true">http://howtohp.com/2013/04/18/prevent-skype/</guid>
             </item>
         
             <item>
@@ -865,8 +865,8 @@ dict () { open dict:///&amp;quot;$@&amp;quot; ; }&lt;/code&gt;&lt;/pre&gt;&lt;/d
 &lt;/section&gt;
 </description>
                 <pubDate>Sat, 22 Sep 2012 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2012/09/22/compass-control-prefix/</link>
-                <guid isPermaLink="true">http:howtohp.com/2012/09/22/compass-control-prefix/</guid>
+                <link>http://howtohp.com/2012/09/22/compass-control-prefix/</link>
+                <guid isPermaLink="true">http://howtohp.com/2012/09/22/compass-control-prefix/</guid>
             </item>
         
             <item>
@@ -1047,8 +1047,8 @@ dict () { open dict:///&amp;quot;$@&amp;quot; ; }&lt;/code&gt;&lt;/pre&gt;&lt;/d
 &lt;/section&gt;
 </description>
                 <pubDate>Fri, 20 Jul 2012 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2012/07/20/sass-responsive-web-design/</link>
-                <guid isPermaLink="true">http:howtohp.com/2012/07/20/sass-responsive-web-design/</guid>
+                <link>http://howtohp.com/2012/07/20/sass-responsive-web-design/</link>
+                <guid isPermaLink="true">http://howtohp.com/2012/07/20/sass-responsive-web-design/</guid>
             </item>
         
             <item>
@@ -1065,8 +1065,8 @@ dict () { open dict:///&amp;quot;$@&amp;quot; ; }&lt;/code&gt;&lt;/pre&gt;&lt;/d
 css_color.vimを使うとめちゃめちゃ重くなる事が判明したので、はずしました。不自由な事はなにもなかった。&lt;/p&gt;
 </description>
                 <pubDate>Sun, 08 Jul 2012 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2012/07/08/vim-css-color-scss/</link>
-                <guid isPermaLink="true">http:howtohp.com/2012/07/08/vim-css-color-scss/</guid>
+                <link>http://howtohp.com/2012/07/08/vim-css-color-scss/</link>
+                <guid isPermaLink="true">http://howtohp.com/2012/07/08/vim-css-color-scss/</guid>
             </item>
         
             <item>
@@ -1177,8 +1177,8 @@ license.txt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 </description>
                 <pubDate>Fri, 13 Apr 2012 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2012/04/13/wordpress-development-ready/</link>
-                <guid isPermaLink="true">http:howtohp.com/2012/04/13/wordpress-development-ready/</guid>
+                <link>http://howtohp.com/2012/04/13/wordpress-development-ready/</link>
+                <guid isPermaLink="true">http://howtohp.com/2012/04/13/wordpress-development-ready/</guid>
             </item>
         
             <item>
@@ -1297,8 +1297,8 @@ license.txt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/section&gt;
 </description>
                 <pubDate>Mon, 13 Feb 2012 00:00:00 +0900</pubDate>
-                <link>http:howtohp.com/2012/02/13/column-selector-level4/</link>
-                <guid isPermaLink="true">http:howtohp.com/2012/02/13/column-selector-level4/</guid>
+                <link>http://howtohp.com/2012/02/13/column-selector-level4/</link>
+                <guid isPermaLink="true">http://howtohp.com/2012/02/13/column-selector-level4/</guid>
             </item>
         
     </channel>
