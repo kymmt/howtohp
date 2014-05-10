@@ -8,7 +8,7 @@ title: howtohp
     <header class="entry__header">
         <h1 class="entry__title"><a class="entry__title__link" href="{{ post.url }}" rel="bookmark">{{ post.title }}</a></h1>
         <div class="entry__meta">
-            <time class="entry__published" itemprop="datePublished" datetime="{{ post.date | date_to_string }}">
+            <time class="entry__published" itemprop="datePublished" datetime="{{ post.date | "%Y-%m-%d" }}">
                 <span class="icon-calendar"></span>
                 {{ post.date | date: "%-d %b, %Y" }}
             </time>
