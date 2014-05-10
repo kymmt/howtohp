@@ -43,7 +43,7 @@ module.exports = function (grunt) {
             },
             jekyll: {
                 files: [
-                    '<%= path.app %>/**/*.{html,yml,md,mkd,markdown}',
+                    '<%= path.app %>/**/*.{html,liquid,yml,md,mkd,markdown}',
                     '!<%= path.app %>/doc/**/*',
                     '!<%= path.app %>/assets/_bower_components/**/*'
                 ],
