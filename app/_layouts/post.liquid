@@ -5,7 +5,7 @@ layout: default
     <header class="entry__header">
         <h1 class="entry__title" itemprop="name">{{ page.title }}</h1>
         <div class="entry__meta">
-            <time class="entry__published" itemprop="datePublished" datetime="{{ post.date | "%Y-%m-%d" }}">
+            <time class="entry__published" itemprop="datePublished" datetime="{{ post.date | date: "%Y-%m-%d" }}">
                 <span class="icon-calendar"></span>
                 {{ page.date | date: "%-d %b, %Y" }}
             </time>

@@ -50,7 +50,7 @@
                     {% endunless %}
                     <li class="entries__item">
                         <a class="entries__link" href="{{ post.url }}" rel="bookmark" title="{{ post.title }}">{{ post.title }}</a>
-                        <time class="entries__published" published itemprop="datePublished" datetime="{{ post.date | "%Y-%m-%d" }}">
+                        <time class="entries__published" published itemprop="datePublished" datetime="{{ post.date | date: "%Y-%m-%d" }}">
                             {{ post.date | date: "%-d %b, %Y" }}
                         </time>
                     </li>
