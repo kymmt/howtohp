@@ -118,7 +118,7 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 // If you're using global Sass gems, require them here.
-                require: ['singularity', 'jacket'],
+                //require: ['singularity', 'jacket'],
                 bundleExec: false,
                 sassDir: '<%= path.app %>/assets/_scss',
                 cssDir: '.tmp/assets/css',

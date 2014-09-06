@@ -41,6 +41,7 @@
         display:inline-block;
         margin-left:20px;
         @include e(list) {
+            padding-left:3px;
             display:inline-block;
         }
         @include e(item) {
